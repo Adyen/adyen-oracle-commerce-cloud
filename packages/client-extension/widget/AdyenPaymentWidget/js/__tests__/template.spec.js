@@ -1,21 +1,23 @@
 import Widget from "../../../../__mocks__/widget";
-import generateTemplate from "../utils/tests/koTemplate";
+import generateTemplate, {mockTemplate} from "../utils/tests/koTemplate";
 import * as constants from '../constants'
 import {eventEmitter} from "../utils";
-import viewModel from "../adyen-checkout";
 
 describe('Template', () => {
     let widget
-    beforeEach(() => {
-        delete global.window.location
-        global.window = Object.create(window)
-        global.window.location = {
-            hostname: 'localhost',
-            protocol: 'http',
-            port: '80',
-        }
+    let tmplWidget;
 
+    beforeEach(() => {
+        // delete global.window.location
+        // global.window = Object.create(window)
+        // global.window.location = {hostname: 'localhost', protocol: 'http', port: '80'}
+
+        tmplWidget = mockTemplate('Tmpl_Widget')
         widget = new Widget()
+    })
+
+    afterEach(() => {
+        tmplWidget.remove();
     })
 
     it('should render', function () {
