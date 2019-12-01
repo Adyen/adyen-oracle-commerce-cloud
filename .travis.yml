@@ -9,4 +9,4 @@ jobs:
   include:
     - stage: Produce Coverage
       node_js: stable
-      script: jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
+      script: jest --collectCoverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
