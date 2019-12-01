@@ -12,9 +12,9 @@ EXTENSION_NAME=ANY_NAME           # EXTENSION_NAME="Adyen Plugin"
 ## Installation
 > _You can find the scripts to zip and deploy the client/server inside the `scripts` folder_
 ### Server Extension
-Run `$ npm run deploy:server`  
+Run `$ npm run deploy:server`  or `$ yarn run deploy:server`
 ### Client Extension
-Run `$ npm run deploy:client`
+Run `$ npm run deploy:client` or `$ yarn run deploy:client`
 
 
 ## Client Extension
