@@ -6,12 +6,7 @@ import {eventEmitter} from "../utils";
 describe('Template', () => {
     let widget
     let tmplWidget;
-
     beforeEach(() => {
-        // delete global.window.location
-        // global.window = Object.create(window)
-        // global.window.location = {hostname: 'localhost', protocol: 'http', port: '80'}
-
         tmplWidget = mockTemplate('Tmpl_Widget')
         widget = new Widget()
     })
