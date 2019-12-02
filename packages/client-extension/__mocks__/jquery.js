@@ -40,6 +40,7 @@ const methods = {
     },
 }
 
+methods.Topic.removeAll = emitter.removeAllListeners
 Object.assign($, methods)
 
 emitter.setMaxListeners(0)
