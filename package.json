@@ -13,6 +13,7 @@
     "concurrently": "^4.1.1",
     "coveralls": "^3.0.9",
     "eslint": "^6.7.2",
+    "eslint-config-prettier": "^6.7.0",
     "eslint-plugin-prettier": "^3.1.1",
     "husky": ">=1",
     "jest": "^24.9.0",
@@ -35,7 +36,9 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --collectCoverage",
-    "postinstall": "lerna bootstrap"
+    "postinstall": "lerna bootstrap",
+    "lint": "eslint ./packages/**/*.js",
+    "lint:fix": "eslint --fix ./packages/**/*.js"
   },
   "husky": {
     "hooks": {
@@ -44,7 +47,7 @@
   },
   "lint-staged": {
     "*.{js,css,json,md}": [
-      "eslint --fix packages/client-extension/widget/**/*.js packages/server-extension/src/**/*.js",
+      "eslint --fix",
       "git add"
     ]
   }
