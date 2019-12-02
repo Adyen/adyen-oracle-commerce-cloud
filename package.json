@@ -12,20 +12,21 @@
     "chokidar": "^3.0.2",
     "concurrently": "^4.1.1",
     "coveralls": "^3.0.9",
+    "eslint": "^6.7.2",
+    "eslint-plugin-prettier": "^3.1.1",
     "husky": ">=1",
     "jest": "^24.9.0",
     "lerna": "^3.19.0",
     "lint-staged": ">=8",
     "nock": "^11.7.0",
     "node-fetch": "^2.6.0",
-    "prettier": "1.19.1",
+    "prettier": "^1.19.1",
     "rollup": "^1.19.4",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-cleanup": "^3.1.1"
   },
   "scripts": {
     "build": "lerna run build",
-    "lint": "lerna run lint",
     "bootstrap": "lerna bootstrap",
     "bootstrap:production": "lerna bootstrap -- --production",
     "watch": "lerna run --parallel watch",
@@ -43,7 +44,7 @@
   },
   "lint-staged": {
     "*.{js,css,json,md}": [
-      "yarn run lint",
+      "eslint --fix packages/client-extension/widget/**/*.js packages/server-extension/src/**/*.js",
       "git add"
     ]
   }

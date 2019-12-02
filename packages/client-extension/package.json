@@ -6,7 +6,6 @@
   "scripts": {
     "watch": "rollup --watch --config config/config.js",
     "build": "rollup --config config/config.js",
-    "lint": "prettier --write './**/*.js'",
     "test": "jest"
   },
   "devDependencies": {
