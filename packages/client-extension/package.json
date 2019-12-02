@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "watch": "rollup --watch --config config/config.js",
-    "build": "yarn run lint && rollup --config config/config.js",
+    "build": "rollup --config config/config.js",
     "lint": "prettier --write './**/*.js'",
     "test": "jest"
   },

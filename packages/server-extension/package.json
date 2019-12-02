@@ -8,7 +8,7 @@
     "server": "nodemon app/bundle.js",
     "lint": "prettier --write 'src/**/*.js'",
     "watch": "concurrently --kill-others \"yarn run dev -- --watch\" \"yarn run server\"",
-    "build": "yarn run lint && rollup --config config/config.prod.js",
+    "build": "rollup --config config/config.prod.js",
     "test": "jest"
   },
   "config": {

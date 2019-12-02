@@ -13,12 +13,22 @@ export const setBoletoConfig = ({
     boletoDeliveryDate,
     boletoShopperStatement,
 }) => {
-    const hasBoleto = paymentMethodTypes.includes(constants.paymentMethodTypes.invoice)
+    const hasBoleto = paymentMethodTypes.includes(
+        constants.paymentMethodTypes.invoice
+    )
     eventEmitter.store.emit(constants.boleto.enabled, hasBoleto)
 
     if (hasBoleto) {
-        boletoDeliveryDate && eventEmitter.store.emit(constants.boleto.deliveryDate, boletoDeliveryDate)
-        boletoShopperStatement && eventEmitter.store.emit(constants.boleto.shopperStatement, boletoShopperStatement)
+        boletoDeliveryDate &&
+            eventEmitter.store.emit(
+                constants.boleto.deliveryDate,
+                boletoDeliveryDate
+            )
+        boletoShopperStatement &&
+            eventEmitter.store.emit(
+                constants.boleto.shopperStatement,
+                boletoShopperStatement
+            )
     }
 }
 

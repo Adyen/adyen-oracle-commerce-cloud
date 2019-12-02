@@ -11,11 +11,17 @@ class Store {
     get installmentsEnabled() {
         const hasInstallments = !!this.installments().length
         const cardIsCredit = this.selectedComboCard() === comboCards.credit
-        return ko.observable(this.isAllowedCountryForInstallments && hasInstallments && cardIsCredit)
+        return ko.observable(
+            this.isAllowedCountryForInstallments &&
+                hasInstallments &&
+                cardIsCredit
+        )
     }
 
     get isAllowedCountryForInstallments() {
-        return this.installmentsAllowedCountries.includes(this.locale.toLowerCase())
+        return this.installmentsAllowedCountries.includes(
+            this.locale.toLowerCase()
+        )
     }
 
     startEventListeners = () => {

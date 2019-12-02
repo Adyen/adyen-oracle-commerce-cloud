@@ -1,7 +1,10 @@
 import getInstallmentOptions from '../utils/getInstallmentOptions'
 
 describe('Get installment options', function() {
-    const installmentOptions = [[100, 3, 24], [500, 5, 24]]
+    const installmentOptions = [
+        [100, 3, 24],
+        [500, 5, 24],
+    ]
     it('should return installment options', function() {
         const result = getInstallmentOptions(installmentOptions, '1000', 'visa')
         expect(result).toEqual([

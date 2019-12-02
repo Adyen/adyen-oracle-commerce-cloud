@@ -3,7 +3,7 @@ import notifier from '../../../../__mocks__/notifier'
 import viewModel from '../adyen-checkout'
 import * as constants from '../constants'
 import store from '../components/store'
-import {eventEmitter} from "../utils";
+import { eventEmitter } from '../utils'
 
 const installmentsOptionsId = 'installmentsOptionsId'
 const paymentMethodTypes = 'paymentMethodTypes'
@@ -27,8 +27,12 @@ describe('View Model', () => {
         locale => {
             widget.locale = jest.fn(() => locale)
             viewModel.onLoad(widget)
-            eventEmitter.store.emit(constants.installments, [{numberOfInstallments: 3}])
-            const installmentsIsEnabled = store.get(constants.installmentsEnabled)
+            eventEmitter.store.emit(constants.installments, [
+                { numberOfInstallments: 3 },
+            ])
+            const installmentsIsEnabled = store.get(
+                constants.installmentsEnabled
+            )
             expect(installmentsIsEnabled()).toBeTruthy()
         }
     )

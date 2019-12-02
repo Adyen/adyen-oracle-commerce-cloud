@@ -4,7 +4,7 @@ import * as constants from '../constants'
 import viewModel from '../adyen-checkout'
 import { store, Component } from '../components'
 import { eventEmitter } from '../utils'
-import mocks from "../utils/tests/mocks";
+import mocks from '../utils/tests/mocks'
 
 jest.mock('../components/boleto', () => {
     require.requireActual('../components/store').default

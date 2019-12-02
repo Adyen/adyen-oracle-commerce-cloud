@@ -23,7 +23,7 @@ const mocks = {
                 type: 'scheme',
             },
         ],
-    }
+    },
 }
 
 export default mocks

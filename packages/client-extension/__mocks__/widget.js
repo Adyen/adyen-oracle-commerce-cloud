@@ -4,7 +4,7 @@ import ko from 'knockout'
 const defaultCart = ko.observable({
     combineLineItems: 'true',
     currencyCode: ko.observable('USD'),
-    amount: ko.observable('1000')
+    amount: ko.observable('1000'),
 })
 
 const { generic } = constants.paymentMethodTypes
@@ -17,7 +17,7 @@ const defaultSiteSettings = {
         },
     },
 }
-const defaultSite = ko.observable({...defaultSiteSettings})
+const defaultSite = ko.observable({ ...defaultSiteSettings })
 
 const shippingAddress = { city: 'mocked_shipping_city' }
 const billingAddress = { city: 'mocked_billing_city' }
@@ -56,7 +56,7 @@ const defaultOrderOptions = {
     order: ko.observable(mockedOrder),
     checkoutLink: '/checkout',
 }
-const defaultOrder = ko.observable({...defaultOrderOptions})
+const defaultOrder = ko.observable({ ...defaultOrderOptions })
 
 class Widget {
     id = ko.observable('random_mocked_id')
@@ -66,7 +66,7 @@ class Widget {
     isPreview = ko.observable
     locale = ko.observable('en_US')
     translate = jest.fn(x => `translated_${x}`)
-    storedPaymentType = ko.observable("")
+    storedPaymentType = ko.observable('')
 
     setGatewaySettings(key, value) {
         this.site().extensionSiteSettings.AdyenGenericGateway[key] = value

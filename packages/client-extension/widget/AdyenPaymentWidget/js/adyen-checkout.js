@@ -38,7 +38,10 @@ export class ViewModel {
 
     setInstallments = installmentsOptions => {
         try {
-            eventEmitter.store.emit(constants.installmentsOptions, JSON.parse(installmentsOptions))
+            eventEmitter.store.emit(
+                constants.installmentsOptions,
+                JSON.parse(installmentsOptions)
+            )
         } catch (e) {
             const translate = store.get(constants.translate)
             const { installmentsConfiguration } = constants.errorMessages
@@ -96,7 +99,9 @@ export class ViewModel {
 
     orderSubmitted = () => {
         if (store.has(constants.orderPayload)) {
-            const { resultCode, customPaymentProperties } = store.get(constants.orderPayload)
+            const { resultCode, customPaymentProperties } = store.get(
+                constants.orderPayload
+            )
             const isPresentToShopper = resultCode === constants.presentToShopper
             isPresentToShopper && presentToShopper(customPaymentProperties)
         }

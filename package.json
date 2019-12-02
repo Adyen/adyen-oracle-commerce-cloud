@@ -12,7 +12,6 @@
     "chokidar": "^3.0.2",
     "concurrently": "^4.1.1",
     "coveralls": "^3.0.9",
-    "eslint": "^6.7.2",
     "husky": ">=1",
     "jest": "^24.9.0",
     "lerna": "^3.19.0",
@@ -44,8 +43,7 @@
   },
   "lint-staged": {
     "*.{js,css,json,md}": [
-      "eslint --fix",
-      "prettier --write",
+      "yarn run lint",
       "git add"
     ]
   }
