@@ -27,18 +27,4 @@ describe('Create Error', function() {
             true
         )
     })
-
-    it('should create error with custom message', function() {
-        const errorMessage = 'This is a custom mocked error message'
-        const error = createError({ redirectLink }, preserveUrl)
-        error({ errorMessage })
-
-        expect(navigation.goTo).toHaveBeenCalledWith(redirectLink, preserveUrl)
-        expect(spinner.destroy).toHaveBeenCalled()
-        expect(notifier.sendError).toHaveBeenCalledWith(
-            'adyen',
-            errorMessage,
-            true
-        )
-    })
 })

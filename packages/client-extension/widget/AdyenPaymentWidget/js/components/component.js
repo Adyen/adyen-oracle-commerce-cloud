@@ -16,7 +16,7 @@ class Component {
     getBrand = (brands, brand) =>
         brand in brands ? brands[store.get(constants.selectedBrand)] : store.get(constants.selectedBrand)
     getComboCardOptions = () => {
-        const brands = { visa: constants.bins.electron, mastercard: constants.bins.maestro }
+        const brands = { visa: constants.bins.electron, mastercard: constants.bins.maestro, mc: constants.bins.maestro }
         const selectedComboCard = store.get(constants.selectedComboCard)()
         const isDebitCard = selectedComboCard === constants.comboCards.debit
         const brand = store.get(constants.selectedBrand)
