@@ -39,7 +39,6 @@ export const originKey = 'originKey'
 export const installments = 'installments'
 export const cart = 'cart'
 export const setPayment = 'setPayment'
-export const setDone = 'setDone'
 export const initialOrderCreated = 'initialOrderCreated'
 export const pageChanged = 'pageChanged'
 export const installmentsEnabled = 'installmentsEnabled'
@@ -62,6 +61,7 @@ export const pageParams = 'pageParams'
 export const presentToShopper = 'PresentToShopper'
 export const orderPayload = 'orderPayload'
 export const boleto = {
+    paymentMethod: 'boleto',
     enabled: 'boletoEnabled',
     deliveryDate: 'boletoDeliveryDate',
     shopperStatement: 'boletoShopperStatement',

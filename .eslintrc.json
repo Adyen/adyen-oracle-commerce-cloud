@@ -10,7 +10,7 @@
   "rules": {
     "max-len": ["error", {"code": 120}],
     "indent": ["error", 4],
-    "complexity": ["error", 2],
+    "complexity": ["error", 3],
     "prettier/prettier": "error",
     "no-console": ["error", {
       "allow": ["warn", "error"]

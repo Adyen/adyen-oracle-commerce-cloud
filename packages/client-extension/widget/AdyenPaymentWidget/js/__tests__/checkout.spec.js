@@ -63,7 +63,7 @@ describe('Checkout', () => {
     })
 
     it('should handle on submit', function() {
-        eventEmitter.store.emit(constants.paymentDetails, {})
+        eventEmitter.store.emit(constants.paymentDetails, { generic: {} })
         const checkout = new Checkout(constants.paymentMethodTypes.generic)
         const createOnSubmit = checkout.onSubmit()
         createOnSubmit()

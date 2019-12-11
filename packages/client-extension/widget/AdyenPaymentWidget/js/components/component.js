@@ -13,10 +13,14 @@ class Component {
         eventEmitter.component.on(constants.comboCardOptions, this.getComboCardOptions)
     }
 
-    getBrand = (brands, brand) =>
-        brand in brands ? brands[store.get(constants.selectedBrand)] : store.get(constants.selectedBrand)
+    getBrand = (brands, brand) => {
+        const result = brand in brands ? brands[store.get(constants.selectedBrand)] : store.get(constants.selectedBrand)
+        eventEmitter.store.emit(constants.selectedBrand, result)
+        return result
+    }
+
     getComboCardOptions = () => {
-        const brands = { visa: constants.bins.electron, mastercard: constants.bins.maestro, mc: constants.bins.maestro }
+        const brands = { visa: constants.bins.electron, mc: constants.bins.maestro }
         const selectedComboCard = store.get(constants.selectedComboCard)()
         const isDebitCard = selectedComboCard === constants.comboCards.debit
         const brand = store.get(constants.selectedBrand)

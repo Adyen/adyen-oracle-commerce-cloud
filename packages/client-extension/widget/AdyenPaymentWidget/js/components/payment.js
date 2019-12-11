@@ -45,6 +45,19 @@ class Payment {
         order().payments(newPayments)
     }
 
+    updatePaymentMethodType = (type, paymentDetails) => {
+        const selectedComboCard = store.get(constants.selectedComboCard)()
+        const isDebitCard = selectedComboCard === constants.comboCards.debit
+        const brand = store.get(constants.selectedBrand)
+        const isGeneric = type === constants.paymentMethodTypes.generic
+        const isComboCard = isGeneric && isDebitCard
+
+        const brandType = isComboCard && { type: brand }
+        const paymentMethod = paymentDetails.paymentMethod && { ...paymentDetails.paymentMethod, ...brandType }
+        const payload = { ...paymentDetails, paymentMethod }
+        return payload
+    }
+
     createPayment = type => {
         const storedPaymentType = store.get(constants.storedPaymentType)
         const isPaymentStored = store.get(constants.isPaymentStored)
@@ -62,8 +75,10 @@ class Payment {
         const numberOfInstallments = this.getInstallments(isValid, selectedInstallment)
 
         const genericPayment = store.get(constants.genericPayment)
+        const updatedPaymentDetails = this.updatePaymentMethodType(type, paymentDetails[type])
+
         const customProperties = {
-            paymentDetails: paymentDetails[type],
+            paymentDetails: updatedPaymentDetails,
             storedPayment,
             ...(numberOfInstallments && { numberOfInstallments }),
             ...comboCardOptions,
