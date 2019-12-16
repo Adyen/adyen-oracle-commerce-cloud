@@ -29,12 +29,12 @@ const createBoletoCheckout = ({ paymentMethods }) => {
     const hasBoleto = paymentMethods.some(({ type }) => type.includes(boleto))
 
     if (hasBoleto) {
-        const type = constants.paymentMethodTypes.boleto
-        eventEmitter.store.emit(constants.paymentMethodTypes.boleto, true)
+        const type = boleto
+        eventEmitter.store.emit(boleto, true)
         const checkout = new Checkout(type)
         const onChange = checkout.onChange({
-            deliveryDate: addDays(store.get(constants.boletoOptions.deliveryDate)),
-            shopperStatement: store.get(constants.boletoOptions.shopperStatement),
+            deliveryDate: addDays(store.get(deliveryDate)),
+            shopperStatement: store.get(shopperStatement),
         })
 
         const onSubmit = checkout.onSubmit()
