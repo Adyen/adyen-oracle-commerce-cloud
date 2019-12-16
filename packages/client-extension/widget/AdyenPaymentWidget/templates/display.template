@@ -1,11 +1,12 @@
 <legend data-bind="widgetLocaleText: 'paymentDetails'"></legend>
 
 <div id="adyen-collapse-heading" class="oc-panel panel-1" data-oc-id="panel-1" data-bind="onRender: onRender">
+    <!-- ko if : store.scheme() -->
     <div class="collapse-heading">
-        <strong> <span class="collapse-toggle collapsed" data-toggle="collapse" data-target="#adyen-generic-wrapper"><button
+        <strong> <span class="collapse-toggle collapsed" data-toggle="collapse" data-target="#adyen-scheme-wrapper"><button
                 data-bind="widgetLocaleText:'payWithCard'"></button></span></strong>
     </div>
-    <div id="adyen-generic-wrapper" class="adyen-wrapper collapse">
+    <div id="adyen-scheme-wrapper" class="adyen-wrapper collapse">
         <div class="loader-wrapper hide">
             <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
             <div style="font-weight: bold; font-size: 16px;">Processing...</div>
@@ -74,16 +75,17 @@
          <!-- /ko -->
         </div>
     </div>
+    <!-- /ko -->
 
-    <!-- ko if : store.boletoEnabled() -->
+    <!-- ko if : store.boletobancario() -->
     <div class="collapse-heading">
         <strong>
-        <span class="collapse-toggle collapsed" data-toggle="collapse" data-target="#adyen-invoice-wrapper">
+        <span class="collapse-toggle collapsed" data-toggle="collapse" data-target="#adyen-boletobancario-wrapper">
           <button data-bind="widgetLocaleText:'payWithBoleto'"></button>
         </span>
         </strong>
     </div>
-    <div id="adyen-invoice-wrapper" class="adyen-wrapper collapse">
+    <div id="adyen-boletobancario-wrapper" class="adyen-wrapper collapse">
         <div class="loader-wrapper hide">
             <div class="lds-ring">
                 <div></div>

@@ -6,8 +6,6 @@ jest.mock('../utils/checkout')
 import { Checkout } from '../utils'
 import generateTemplate, { mockTemplate } from '../utils/tests/koTemplate'
 
-const defaultConfiguration = { configuration: { onChange: undefined, onSubmit: undefined, showPayButton: true}}
-
 describe('Local', () => {
     let widget
     let tmplWidget
@@ -18,7 +16,6 @@ describe('Local', () => {
         tmplWidget = mockTemplate('Tmpl_Widget')
         widget = new Widget()
         template = generateTemplate(widget)
-
 
         Checkout.prototype.createCheckout = jest.fn()
         Checkout.prototype.onChange = jest.fn()
@@ -37,13 +34,12 @@ describe('Local', () => {
 
     it('should have correct options', function() {
         createLocalPaymentCheckout(paymentMethodsResponseMock)
-        expect(Checkout.prototype.createCheckout.mock.calls[0][0]).toEqual({
-            ...defaultConfiguration,
-            selector: '#adyen-directEbanking-payment',
-            type: 'directEbanking',
-        })
+        const { type, selector } = Checkout.prototype.createCheckout.mock.calls[0][0]
+        const expectedType = 'directEbanking'
+        expect(type).toEqual(expectedType)
+        expect(selector).toEqual(`#adyen-${expectedType}-payment`)
 
-        const el = document.querySelector('#adyen-directEbanking-payment')
+        const el = document.querySelector(`#adyen-${expectedType}-payment`)
         expect(el).not.toBeUndefined()
     })
 

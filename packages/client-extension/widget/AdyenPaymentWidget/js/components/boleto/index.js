@@ -2,8 +2,9 @@ import * as constants from '../../constants'
 import { addDays, Checkout, createPresentToShopperModal, eventEmitter, createFromAction } from '../../utils'
 import { store } from '../index'
 
-const { boleto } = constants
-const { deliveryDate, shopperStatement } = boleto
+const { boletoOptions, paymentMethodTypes } = constants
+const { boleto } = paymentMethodTypes
+const { deliveryDate, shopperStatement } = boletoOptions
 
 const setField = (data, field) => data && eventEmitter.store.emit(field, data)
 const setDeliveryDate = boletoDeliveryDate => setField(boletoDeliveryDate, deliveryDate)
@@ -25,14 +26,15 @@ export const presentToShopper = customPaymentProperties => {
 const setComponent = checkout => eventEmitter.store.emit(constants.checkout.boleto, checkout)
 
 const createBoletoCheckout = ({ paymentMethods }) => {
-    const hasBoleto = paymentMethods.some(({ type }) => type.includes(boleto.paymentMethod))
-    eventEmitter.store.emit(constants.boleto.enabled, hasBoleto)
+    const hasBoleto = paymentMethods.some(({ type }) => type.includes(boleto))
 
     if (hasBoleto) {
-        const checkout = new Checkout(constants.paymentMethodTypes.invoice)
+        const type = constants.paymentMethodTypes.boleto
+        eventEmitter.store.emit(constants.paymentMethodTypes.boleto, true)
+        const checkout = new Checkout(type)
         const onChange = checkout.onChange({
-            deliveryDate: addDays(store.get(constants.boleto.deliveryDate)),
-            shopperStatement: store.get(constants.boleto.shopperStatement),
+            deliveryDate: addDays(store.get(constants.boletoOptions.deliveryDate)),
+            shopperStatement: store.get(constants.boletoOptions.shopperStatement),
         })
 
         const onSubmit = checkout.onSubmit()
@@ -54,7 +56,7 @@ const createBoletoCheckout = ({ paymentMethods }) => {
 
         const showEmailAddress = true
         const options = { showEmailAddress, data: { shopperName, billingAddress } }
-        const checkoutOptions = { configuration, selector: '#adyen-boleto-payment', type: 'boletobancario', options }
+        const checkoutOptions = { configuration, selector: `#adyen-${type}-payment`, type, options }
 
         checkout.createCheckout(checkoutOptions, setComponent)
     }

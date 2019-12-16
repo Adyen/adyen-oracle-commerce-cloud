@@ -49,7 +49,7 @@ class Payment {
         const selectedComboCard = store.get(constants.selectedComboCard)()
         const isDebitCard = selectedComboCard === constants.comboCards.debit
         const brand = store.get(constants.selectedBrand)
-        const isGeneric = type === constants.paymentMethodTypes.generic
+        const isGeneric = type === constants.paymentMethodTypes.scheme
         const isComboCard = isGeneric && isDebitCard
 
         const brandType = isComboCard && { type: brand }

@@ -1,14 +1,19 @@
 import * as constants from '../../constants'
 import { Checkout, eventEmitter } from '../../utils'
+import { store } from '../index'
 
 const unsupportedTypes = ['wechatpayWeb', 'scheme', 'boleto', 'boletobancario']
+const checkDetails = (isValidType, paymentMethod) => isValidType && 'details' in paymentMethod
+const checkIfIsValid = (hasType, paymentMethod) => hasType && !unsupportedTypes.includes(paymentMethod.type)
+const checkType = paymentMethod => 'type' in paymentMethod
+
 const createValidator = paymentMethod => {
     return {
         // eslint-disable-next-line complexity
         validate: (key, value) => {
-            const hasType = 'type' in paymentMethod
-            const isValidType = hasType && !unsupportedTypes.includes(paymentMethod.type)
-            const hasDetails = isValidType && 'details' in paymentMethod
+            const hasType = checkType(paymentMethod)
+            const isValidType = checkIfIsValid(hasType, paymentMethod)
+            const hasDetails = checkDetails(isValidType, paymentMethod)
             const hasOneItem = hasDetails && paymentMethod.details.length === 1
             const detail = hasOneItem && paymentMethod.details[0]
             const keyIsIssuerAndTypeIsSelect = detail && detail[key] === value
@@ -22,16 +27,35 @@ const isLocalPaymentMethod = paymentMethod => {
     const { validate } = createValidator(paymentMethod)
     const keyIsIssuer = validate('key', 'issuer')
     const typeIsSelect = validate('type', 'select')
-    const isLocal = keyIsIssuer && typeIsSelect
+    return keyIsIssuer && typeIsSelect
+}
 
-    return isLocal
+const submitPayByLink = paymentMethod => {
+    const hasDetails = checkDetails(true, paymentMethod)
+
+    const createDetails = () => {
+        const { type } = paymentMethod
+        const paymentDetails = store.get(constants.paymentDetails)
+        const order = store.get(constants.order)
+        const shippingAddress = order().shippingAddress()
+        const countryCode = shippingAddress.selectedCountry()
+        const payload = { paymentMethod: { ...paymentMethod, countryCode } }
+
+        eventEmitter.store.emit(constants.paymentDetails, { ...paymentDetails, [type]: payload })
+    }
+
+    !hasDetails && createDetails()
 }
 
 const createLocalCheckout = (acc, localPaymentMethod) => {
     const { type } = localPaymentMethod
     const checkout = new Checkout(type)
     const onChange = checkout.onChange()
-    const onSubmit = checkout.onSubmit()
+    const submit = checkout.onSubmit()
+    const onSubmit = () => {
+        submitPayByLink(localPaymentMethod)
+        submit()
+    }
 
     const configuration = { onSubmit, onChange, showPayButton: true }
 

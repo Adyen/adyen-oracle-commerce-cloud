@@ -1,6 +1,7 @@
 import * as constants from '../constants'
 import Widget from '../../../../__mocks__/widget'
 import viewModel from '../adyen-checkout'
+import paymentMethodsResponseMock from '../../../../__mocks__/paymentMethods'
 
 jest.mock('../utils/checkout')
 jest.mock('../utils/getInstallmentOptions')
@@ -22,7 +23,7 @@ describe('Card', () => {
         Checkout.prototype.onChange = jest.fn()
         Checkout.prototype.onSubmit = jest.fn()
 
-        createCardCheckout()
+        createCardCheckout(paymentMethodsResponseMock)
         expect(Checkout.prototype.createCheckout).toHaveBeenCalled()
     })
 
@@ -38,10 +39,7 @@ describe('Card', () => {
 
     it('should set brand with installments', function() {
         const brand = 'visa'
-        eventEmitter.store.emit(
-            constants.installmentsOptions,
-            'mocked_installments_options'
-        )
+        eventEmitter.store.emit(constants.installmentsOptions, 'mocked_installments_options')
         onBrand({ brand })
 
         const expected = ['mocked_installments_options', '1000', 'visa']
@@ -54,13 +52,10 @@ describe('Card', () => {
             paymentMethodTypes,
         } = constants
         widget.setLocale(mexico.locale)
-        widget.setGatewaySettings('paymentMethodTypes', [paymentMethodTypes.invoice])
+        widget.setGatewaySettings('paymentMethodTypes', [paymentMethodTypes.boleto])
 
-        const template = generateTemplate(widget, (viewModel) => {
-            eventEmitter.store.emit(constants.installments, [
-                { numberOfInstallments: 3 },
-                { numberOfInstallments: 5 },
-            ])
+        const template = generateTemplate(widget, viewModel => {
+            eventEmitter.store.emit(constants.installments, [{ numberOfInstallments: 3 }, { numberOfInstallments: 5 }])
             eventEmitter.store.emit(constants.isLoaded, true)
         })
 
@@ -72,7 +67,7 @@ describe('Card', () => {
         const { brazil } = countries
         widget.setCurrencyCode(brazil.currency)
         widget.setLocale(brazil.locale)
-        widget.setGatewaySettings('paymentMethodTypes', [paymentMethodTypes.generic])
+        widget.setGatewaySettings('paymentMethodTypes', [paymentMethodTypes.scheme])
 
         const template = generateTemplate(widget, () => {
             eventEmitter.store.emit(constants.installments, [])

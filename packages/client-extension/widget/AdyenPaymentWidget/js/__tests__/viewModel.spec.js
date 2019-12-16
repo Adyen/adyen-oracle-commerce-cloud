@@ -76,10 +76,10 @@ describe('View Model', () => {
     })
 
     it('should have boleto with delivery date and shopper statement', () => {
-        const { invoice } = constants.paymentMethodTypes
+        const { boleto } = constants.paymentMethodTypes
         const boletoDeliveryDate = '1574064504643'
         const boletoShopperStatement = 'Mocked shopper statement'
-        widget.setGatewaySettings(paymentMethodTypes, [invoice])
+        widget.setGatewaySettings(paymentMethodTypes, [boleto])
         widget.setGatewaySettings('boletoDeliveryDate', boletoDeliveryDate)
         widget.setGatewaySettings(
             'boletoShopperStatement',
@@ -87,10 +87,10 @@ describe('View Model', () => {
         )
         viewModel.onLoad(widget)
 
-        const deliveryDate = store.get(constants.boleto.deliveryDate)
+        const deliveryDate = store.get(constants.boletoOptions.deliveryDate)
         expect(deliveryDate).toEqual(Number(boletoDeliveryDate))
 
-        const shopperStatement = store.get(constants.boleto.shopperStatement)
+        const shopperStatement = store.get(constants.boletoOptions.shopperStatement)
         expect(shopperStatement).toEqual(boletoShopperStatement)
     })
 

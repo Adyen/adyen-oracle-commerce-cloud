@@ -13,10 +13,9 @@ Object {
         class="collapse-heading"
       >
         <strong>
-           
           <span
             class="collapse-toggle collapsed"
-            data-target="#adyen-generic-wrapper"
+            data-target="#adyen-boletobancario-wrapper"
             data-toggle="collapse"
           >
             <button />
@@ -25,46 +24,7 @@ Object {
       </div>
       <div
         class="adyen-wrapper collapse"
-        id="adyen-generic-wrapper"
-      >
-        <div
-          class="loader-wrapper hide"
-        >
-          <div
-            class="lds-ring"
-          >
-            <div />
-            <div />
-            <div />
-            <div />
-          </div>
-          <div
-            style="font-weight: bold; font-size: 16px;"
-          >
-            Processing...
-          </div>
-        </div>
-        <div
-          class="adyen-component"
-          id="adyen-card-payment"
-        />
-      </div>
-      <div
-        class="collapse-heading"
-      >
-        <strong>
-          <span
-            class="collapse-toggle collapsed"
-            data-target="#adyen-invoice-wrapper"
-            data-toggle="collapse"
-          >
-            <button />
-          </span>
-        </strong>
-      </div>
-      <div
-        class="adyen-wrapper collapse"
-        id="adyen-invoice-wrapper"
+        id="adyen-boletobancario-wrapper"
       >
         <div
           class="loader-wrapper hide"

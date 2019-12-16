@@ -6,6 +6,8 @@ import { Component, Order, Payment } from './index'
 class Store {
     constructor() {
         this.startEventListeners()
+
+        this.selectedComboCard.subscribe(() => this.selectedInstallment({}))
     }
 
     brazilEnabled = false
@@ -34,6 +36,9 @@ class Store {
     installmentsAllowedCountries = [countries.mexico.locale, countries.brazil.locale]
     installmentsOptions = []
 
+    // Card
+    scheme = ko.observable(false)
+
     // Payment
     paymentComponent = new Payment()
     genericPayment = { type: 'generic' }
@@ -43,7 +48,7 @@ class Store {
     isDone = ko.observable(false)
 
     // Boleto
-    boletoEnabled = ko.observable(false)
+    boletobancario = ko.observable(false)
     boletoDeliveryDate = ''
     boletoShopperStatement = ''
 

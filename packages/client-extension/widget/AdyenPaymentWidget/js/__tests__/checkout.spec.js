@@ -48,7 +48,7 @@ describe('Checkout', () => {
         const mount = jest.fn()
         const create = jest.fn(() => ({ mount }))
         global.AdyenCheckout = jest.fn(() => ({ create }))
-        const checkout = new Checkout(constants.paymentMethodTypes.generic)
+        const checkout = new Checkout(constants.paymentMethodTypes.scheme)
         const selector = '#id'
         const type = 'boleto'
         checkout.createCheckout({ configuration, type, selector }, cb)
@@ -63,8 +63,8 @@ describe('Checkout', () => {
     })
 
     it('should handle on submit', function() {
-        eventEmitter.store.emit(constants.paymentDetails, { generic: {} })
-        const checkout = new Checkout(constants.paymentMethodTypes.generic)
+        eventEmitter.store.emit(constants.paymentDetails, { scheme: {} })
+        const checkout = new Checkout(constants.paymentMethodTypes.scheme)
         const createOnSubmit = checkout.onSubmit()
         createOnSubmit()
 
@@ -76,14 +76,14 @@ describe('Checkout', () => {
 
     it('should handle on change', function() {
         eventEmitter.store.emit(constants.paymentDetails, {})
-        const checkout = new Checkout(constants.paymentMethodTypes.generic)
+        const checkout = new Checkout(constants.paymentMethodTypes.scheme)
         const createOnSubmit = checkout.onChange()
         const data = { foo: 'bar' }
         createOnSubmit({ data }, { isValid: true })
 
         const paymentDetails = store.get(constants.paymentDetails)
         const isValid = store.get(constants.isValid)
-        const expected = { [constants.paymentMethodTypes.generic]: data }
+        const expected = { [constants.paymentMethodTypes.scheme]: data }
 
         expect(isValid).toBeTruthy()
         expect(paymentDetails).toEqual(expected)

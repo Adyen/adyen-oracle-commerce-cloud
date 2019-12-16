@@ -58,7 +58,7 @@ class Component {
         const url = constants.adyenCheckoutComponentUrl(environment)
 
         const createComponents = () => {
-            createCardCheckout()
+            createCardCheckout(paymentMethodsResponse)
             createLocalPaymentCheckout(paymentMethodsResponse)
             createBoletoCheckout(paymentMethodsResponse)
         }

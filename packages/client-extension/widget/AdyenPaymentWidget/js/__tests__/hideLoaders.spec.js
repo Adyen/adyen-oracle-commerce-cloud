@@ -1,6 +1,7 @@
 import Widget from '../../../../__mocks__/widget'
 import generateTemplate from '../utils/tests/koTemplate'
-import { hideLoaders } from '../utils'
+import { eventEmitter, hideLoaders } from '../utils'
+import * as constants from '../constants'
 
 describe('Hide Loaders', () => {
     let widget
@@ -9,6 +10,7 @@ describe('Hide Loaders', () => {
     })
 
     it('should hide loaders', () => {
+        eventEmitter.store.emit(constants.paymentMethodTypes.scheme, true)
         generateTemplate(widget)
 
         const node = document.querySelectorAll('.loader-wrapper')[0]

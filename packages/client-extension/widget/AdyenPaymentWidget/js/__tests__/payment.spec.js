@@ -4,7 +4,7 @@ import { Payment, store } from '../components'
 import { eventEmitter } from '../utils'
 import * as constants from '../constants'
 
-const mockedPaymentDetails = { generic: { paymentMethod: { type: 'scheme' } } }
+const mockedPaymentDetails = { scheme: { paymentMethod: { type: 'scheme' } } }
 const getPaymentResponse = (type, id) => [
     {
         customProperties: {
@@ -27,15 +27,13 @@ describe('Payment', () => {
 
         const payment = new Payment()
         const id = store.get(constants.id)
-        const paymentMethodType = constants.paymentMethodTypes.generic
+        const paymentMethodType = constants.paymentMethodTypes.scheme
         const paymentResponse = getPaymentResponse(paymentMethodType, id())
 
-        eventEmitter.store.emit(constants.selectedInstallment, {
-            numberOfInstallments: 3,
-        })
+        eventEmitter.store.emit(constants.selectedInstallment, { numberOfInstallments: 3 })
         eventEmitter.store.emit(constants.genericPayment, paymentResponse[0])
         eventEmitter.store.emit(constants.paymentDetails, mockedPaymentDetails)
-        payment.setPayment(constants.paymentMethodTypes.generic)
+        payment.setPayment(constants.paymentMethodTypes.scheme)
 
         const order = store.get(constants.order)
         expect(order().payments()).toEqual(paymentResponse)
@@ -46,7 +44,7 @@ describe('Payment', () => {
 
         const payment = new Payment()
         const id = store.get(constants.id)
-        const paymentMethodType = constants.paymentMethodTypes.generic
+        const paymentMethodType = constants.paymentMethodTypes.scheme
         const paymentResponse = getPaymentResponse(paymentMethodType, id())
         const bin = constants.bins.electron
 
@@ -54,7 +52,7 @@ describe('Payment', () => {
         eventEmitter.store.emit(constants.selectedComboCard, constants.comboCards.debit)
         eventEmitter.store.emit(constants.selectedBrand, bin)
         eventEmitter.store.emit(constants.paymentDetails, mockedPaymentDetails)
-        payment.setPayment(constants.paymentMethodTypes.generic)
+        payment.setPayment(constants.paymentMethodTypes.scheme)
 
         const order = store.get(constants.order)
         const paymentDetails = { paymentMethod: { type: bin } }

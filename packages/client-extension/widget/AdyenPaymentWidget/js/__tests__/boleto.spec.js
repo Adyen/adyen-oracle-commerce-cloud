@@ -40,7 +40,7 @@ describe('Boleto', () => {
         widget.setCurrencyCode(brazil.currency)
         widget.setLocale(brazil.locale)
         widget.setGatewaySettings('paymentMethodTypes', [
-            paymentMethodTypes.invoice,
+            paymentMethodTypes.boleto,
         ])
 
         const template = generateTemplate(widget)

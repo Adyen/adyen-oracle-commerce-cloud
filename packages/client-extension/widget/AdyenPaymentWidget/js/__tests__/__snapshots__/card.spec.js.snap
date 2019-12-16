@@ -16,7 +16,7 @@ Object {
            
           <span
             class="collapse-toggle collapsed"
-            data-target="#adyen-generic-wrapper"
+            data-target="#adyen-scheme-wrapper"
             data-toggle="collapse"
           >
             <button />
@@ -25,7 +25,7 @@ Object {
       </div>
       <div
         class="adyen-wrapper collapse"
-        id="adyen-generic-wrapper"
+        id="adyen-scheme-wrapper"
       >
         <div
           class="loader-wrapper hide"
@@ -108,7 +108,7 @@ Object {
            
           <span
             class="collapse-toggle collapsed"
-            data-target="#adyen-generic-wrapper"
+            data-target="#adyen-scheme-wrapper"
             data-toggle="collapse"
           >
             <button />
@@ -117,7 +117,7 @@ Object {
       </div>
       <div
         class="adyen-wrapper collapse"
-        id="adyen-generic-wrapper"
+        id="adyen-scheme-wrapper"
       >
         <div
           class="loader-wrapper hide"

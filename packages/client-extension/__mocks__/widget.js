@@ -7,11 +7,11 @@ const defaultCart = ko.observable({
     amount: ko.observable('1000'),
 })
 
-const { generic } = constants.paymentMethodTypes
+const { scheme } = constants.paymentMethodTypes
 const defaultSiteSettings = {
     extensionSiteSettings: {
         AdyenGenericGateway: {
-            paymentMethodTypes: [generic],
+            paymentMethodTypes: [scheme],
             installmentsOptionsId: '',
             environment: 'TEST',
         },

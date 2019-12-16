@@ -48,16 +48,17 @@ export default async (req, res, next) => {
             }
 
             const paymentDetailsJson = JSON.parse(paymentDetails)
-            const { type } = paymentDetailsJson.paymentMethod
+            const { type, countryCode, ...paymentMethodRest } = paymentDetailsJson.paymentMethod
             const installments = numberOfInstallments && {
                 installments: { value: numberOfInstallments },
             }
 
+            const paymentMethod = { type, ...paymentMethodRest }
             const defaultDetails = {
                 redirectFromIssuerMethod: 'GET',
                 redirectToIssuerMethod: 'GET',
                 returnUrl,
-                ...paymentDetailsJson,
+                paymentMethod,
             }
 
             const scheme = {
@@ -76,6 +77,7 @@ export default async (req, res, next) => {
                     ...(additionalData && {
                         additionalData: JSON.parse(additionalData),
                     }),
+                    ...(countryCode && { countryCode }),
                     merchantAccount,
                     applicationInfo: {
                         externalPlatform: {

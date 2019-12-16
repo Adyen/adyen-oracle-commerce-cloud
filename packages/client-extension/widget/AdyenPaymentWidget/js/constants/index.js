@@ -6,8 +6,8 @@ export const errorMessages = {
     failed3dsValidation: 'failed3dsValidation',
 }
 export const paymentMethodTypes = {
-    generic: 'generic',
-    invoice: 'invoice',
+    scheme: 'scheme',
+    boleto: 'boletobancario',
     local: 'local',
 }
 export const adyenUrl = env => `https://checkoutshopper-${env.toLowerCase()}.adyen.com`
@@ -60,9 +60,7 @@ export const isValid = 'isValid'
 export const pageParams = 'pageParams'
 export const presentToShopper = 'PresentToShopper'
 export const orderPayload = 'orderPayload'
-export const boleto = {
-    paymentMethod: 'boleto',
-    enabled: 'boletoEnabled',
+export const boletoOptions = {
     deliveryDate: 'boletoDeliveryDate',
     shopperStatement: 'boletoShopperStatement',
 }
