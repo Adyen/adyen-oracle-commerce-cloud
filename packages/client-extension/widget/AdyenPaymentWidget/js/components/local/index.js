@@ -23,14 +23,14 @@ const createValidator = paymentMethod => {
     }
 }
 
-const isLocalPaymentMethod = paymentMethod => {
+export const isLocalPaymentMethod = paymentMethod => {
     const { validate } = createValidator(paymentMethod)
     const keyIsIssuer = validate('key', 'issuer')
     const typeIsSelect = validate('type', 'select')
     return keyIsIssuer && typeIsSelect
 }
 
-const submitPayByLink = paymentMethod => {
+export const submitPayByLink = paymentMethod => {
     const hasDetails = checkDetails(true, paymentMethod)
 
     const createDetails = () => {

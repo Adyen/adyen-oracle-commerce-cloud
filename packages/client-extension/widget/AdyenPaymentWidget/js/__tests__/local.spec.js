@@ -1,10 +1,13 @@
 import Widget from '../../../../__mocks__/widget'
 import paymentMethodsResponseMock from '../../../../__mocks__/paymentMethods'
 import { createLocalPaymentCheckout } from '../components'
+import store from '../components/store'
 
 jest.mock('../utils/checkout')
-import { Checkout } from '../utils'
+import { Checkout, eventEmitter } from '../utils'
 import generateTemplate, { mockTemplate } from '../utils/tests/koTemplate'
+import { isLocalPaymentMethod, submitPayByLink } from '../components/local'
+import * as constants from '../constants'
 
 describe('Local', () => {
     let widget
@@ -52,5 +55,17 @@ describe('Local', () => {
     it('should render', function() {
         createLocalPaymentCheckout(paymentMethodsResponseMock)
         expect(template).toMatchSnapshot()
+    })
+
+    it('should create details', function() {
+        const [localPaymentMethod] = paymentMethodsResponseMock.paymentMethods.filter(isLocalPaymentMethod)
+        submitPayByLink(localPaymentMethod)
+        const { type, name, supportsRecurring } = localPaymentMethod
+        const paymentDetails = store.get(constants.paymentDetails)
+        const { shippingAddress } = store.get(constants.order)()
+        const countryCode = shippingAddress().selectedCountry()
+        const paymentMethod = { countryCode, name, supportsRecurring, type }
+        const expected = { [type]: { paymentMethod } }
+        expect(paymentDetails).toEqual(expected)
     })
 })
