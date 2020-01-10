@@ -38,7 +38,8 @@ class Checkout {
     }
 
     createStoredCardCheckout = cb => {
-        const configuration = { onChange: this.onChange(), onSubmit: this.onSubmit() }
+        const onChange = this.onChange()
+        const configuration = { onChange, onSubmit: this.onSubmit(onChange) }
         const checkout = this.getCheckout(configuration)
         eventEmitter.store.emit(constants.storedPaymentMethods, checkout.paymentMethodsResponse.storedPaymentMethods)
         checkout.paymentMethodsResponse.storedPaymentMethods.forEach(storedPaymentMethod => {
@@ -49,14 +50,14 @@ class Checkout {
         cb && cb(checkout)
     }
 
-    onSubmit = () => () => {
+    onSubmit = onChange => (state, component) => {
+        onChange && onChange(state, component)
         const loader = document.querySelector(`.loader-wrapper`)
         loader && loader.classList.toggle('hide', false)
 
         const order = store.get(constants.order)
         eventEmitter.payment.emit(constants.setPayment, this.type)
 
-        // order().id(null)
         order().op(ccConstants.ORDER_OP_INITIATE)
         order().handlePlaceOrder()
     }

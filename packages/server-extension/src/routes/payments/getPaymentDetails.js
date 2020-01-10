@@ -9,16 +9,15 @@ export default async (req, res, next) => {
 
     try {
         const getPaymentResponse = async () => {
-            const key = `__express__d${customProperties.orderId || details.orderId}`
-            const cachedResponse = mcache.get(key)
+            const key = `__express__d${details.orderId}`
+            const cachedResponse = await mcache.get(key)
             if (cachedResponse) {
                 return cachedResponse
             }
-
             const body = { paymentData, details }
             const paymentResponse = await checkout.paymentsDetails(body)
 
-            const isSuccess = paymentResponse.resultCode === 'Authorised'
+            const isSuccess = !('refusalReason' in paymentResponse)
             if (isSuccess) {
                 await mcache.put(key, paymentResponse, 3600 * 1000)
             }
@@ -27,7 +26,7 @@ export default async (req, res, next) => {
         }
 
         const paymentResponse = await getPaymentResponse()
-        const isSuccess = paymentResponse.resultCode === 'Authorised'
+        const isSuccess = !('refusalReason' in paymentResponse)
 
         const response = {
             amount: req.body.amount,
