@@ -23,7 +23,7 @@
     "nock": "11.7.0",
     "node-fetch": "2.6.0",
     "prettier": "1.19.1",
-    "rollup": "1.27.6",
+    "rollup": "1.29.0",
     "rollup-plugin-babel": "4.3.3",
     "rollup-plugin-cleanup": "3.1.1"
   },
