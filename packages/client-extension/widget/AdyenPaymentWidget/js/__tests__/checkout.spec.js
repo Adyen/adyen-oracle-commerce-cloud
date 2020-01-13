@@ -65,10 +65,11 @@ describe('Checkout', () => {
     it('should create stored payments checkout', function() {
         eventEmitter.store.emit(constants.environment, 'TEST');
 
-        const mount = jest.fn()
+      const mount = jest.fn()
         const create = jest.fn(() => ({ mount }))
         const paymentMethod = { id: 1 }
         global.AdyenCheckout = jest.fn(() => ({ create, paymentMethodsResponse: { storedPaymentMethods: [ paymentMethod ] }}))
+
         createStoredCards()
 
         expect(create).toHaveBeenCalledWith(constants.card, paymentMethod)
