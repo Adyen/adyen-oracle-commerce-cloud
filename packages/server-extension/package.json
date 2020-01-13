@@ -44,7 +44,7 @@
     "husky": "3.1.0",
     "jest": "24.9.0",
     "nconf": "0.10.0",
-    "nodemon": "1.19.4",
+    "nodemon": "2.0.2",
     "winston": "latest"
   },
   "description": "",
