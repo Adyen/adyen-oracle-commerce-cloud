@@ -1,4 +1,4 @@
-import { store } from '../components'
+import { createStoredCards, store } from '../components'
 import * as constants from '../constants'
 import Widget from '../../../../__mocks__/widget'
 import ccConstants from '../../../../__mocks__/ccConstants'
@@ -65,19 +65,15 @@ describe('Checkout', () => {
     it('should create stored payments checkout', function() {
         eventEmitter.store.emit(constants.environment, 'TEST');
 
-        const cb = jest.fn()
         const mount = jest.fn()
         const create = jest.fn(() => ({ mount }))
         const paymentMethod = { id: 1 }
         global.AdyenCheckout = jest.fn(() => ({ create, paymentMethodsResponse: { storedPaymentMethods: [ paymentMethod ] }}))
-        const checkout = new Checkout(constants.paymentMethodTypes.scheme)
-        const type = 'card'
-        checkout.createStoredCardCheckout(cb)
+        createStoredCards()
 
-        expect(create).toHaveBeenCalledWith(type, paymentMethod)
+        expect(create).toHaveBeenCalledWith(constants.card, paymentMethod)
         expect(mount).toHaveBeenCalledWith(`#adyen-stored_${paymentMethod.id}-payment`)
         expect(global.AdyenCheckout).toHaveBeenCalled()
-        expect(cb).toHaveBeenCalled()
     })
 
     it('should handle on submit', function() {

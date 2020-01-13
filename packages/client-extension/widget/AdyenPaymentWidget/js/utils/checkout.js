@@ -28,24 +28,15 @@ class Checkout {
         this.checkout = undefined
     }
 
-    // eslint-disable-next-line no-undef
-    getCheckout = configuration => this.checkout || new AdyenCheckout({ ...getDefaultConfig(), ...configuration })
+    getCheckout = configuration => {
+        // eslint-disable-next-line no-undef
+        this.checkout = this.checkout || new AdyenCheckout({ ...getDefaultConfig(), ...configuration })
+        return this.checkout
+    }
+
     createCheckout = ({ configuration, selector, type, options = {} }, cb) => {
         const checkout = this.getCheckout(configuration)
         checkout.create(type, options).mount(selector)
-
-        cb && cb(checkout)
-    }
-
-    createStoredCardCheckout = cb => {
-        const onChange = this.onChange()
-        const configuration = { onChange, onSubmit: this.onSubmit(onChange) }
-        const checkout = this.getCheckout(configuration)
-        eventEmitter.store.emit(constants.storedPaymentMethods, checkout.paymentMethodsResponse.storedPaymentMethods)
-        checkout.paymentMethodsResponse.storedPaymentMethods.forEach(storedPaymentMethod => {
-            const selector = `#adyen-stored_${storedPaymentMethod.id}-payment`
-            checkout.create(constants.card, storedPaymentMethod).mount(selector)
-        })
 
         cb && cb(checkout)
     }

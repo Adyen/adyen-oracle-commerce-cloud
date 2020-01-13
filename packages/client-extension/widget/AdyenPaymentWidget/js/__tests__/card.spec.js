@@ -30,12 +30,12 @@ describe('Card', () => {
     it('should create stored cards checkout', function() {
         viewModel.onLoad(widget)
 
-        Checkout.prototype.createStoredCardCheckout = jest.fn()
+        Checkout.prototype.getCheckout = jest.fn(() => ({ paymentMethodsResponse: { storedPaymentMethods: [] }}))
         Checkout.prototype.onChange = jest.fn()
         Checkout.prototype.onSubmit = jest.fn()
 
         createStoredCards()
-        expect(Checkout.prototype.createStoredCardCheckout).toHaveBeenCalled()
+        expect(Checkout.prototype.getCheckout).toHaveBeenCalled()
     })
 
     it('should set brand', function() {
