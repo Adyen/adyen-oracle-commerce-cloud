@@ -1,3 +1,4 @@
+import $ from 'jquery'
 import { store } from '../index'
 import * as constants from '../../constants'
 import { Checkout, eventEmitter, getInstallmentOptions } from '../../utils'
@@ -14,26 +15,35 @@ export const onBrand = ({ brand }) => {
 
 export const onConfigSuccess = () => eventEmitter.store.emit(constants.isLoaded, true)
 
-const createCardCheckout = ({ paymentMethods }) => {
-    const [card] = paymentMethods.filter(paymentMethod => paymentMethod.type === constants.paymentMethodTypes.scheme)
+const createCardCheckout = () => {
+    // const [card] = paymentMethods.filter(paymentMethod => paymentMethod.type === constants.paymentMethodTypes.scheme)
 
-    if (card) {
-        eventEmitter.store.emit(constants.paymentMethodTypes.scheme, true)
-        const { brands } = card
-        const checkout = new Checkout(constants.paymentMethodTypes.scheme)
-        const onChange = checkout.onChange()
-        const onSubmit = checkout.onSubmit()
+    // if (card) {
+    //     eventEmitter.store.emit(constants.paymentMethodTypes.scheme, true)
+    //     const { brands } = card
+    const checkout = new Checkout(constants.paymentMethodTypes.scheme)
+    const onSubmit = checkout.createOnSubmit()
+    const onChange = checkout.createOnChange()
+    const cardComponent = document.querySelector('adyen-payment-method-card')
+    cardComponent.addEventListener('adyenChange', onChange)
+    cardComponent.addEventListener('adyenSubmit', onSubmit)
 
-        const storedPaymentType = store.get(constants.storedPaymentType)
-        const options = { hasHolderName: false, enableStoreDetails: !!storedPaymentType(), brands }
+    eventEmitter.store.emit(constants.checkout.card, checkout)
+    // const cardComponent = document.querySelector('adyen-payment-method-card')
 
-        const configuration = { onBrand, onConfigSuccess, onChange, onSubmit }
-        const checkoutOptions = { configuration, selector: '#adyen-card-payment', type: 'card', options }
+    //     const onChange = checkout.onChange()
+    //     const onSubmit = checkout.onSubmit()
 
-        checkout.createCheckout(checkoutOptions, checkout => {
-            eventEmitter.store.emit(constants.checkout.card, checkout)
-        })
-    }
+        // const storedPaymentType = store.get(constants.storedPaymentType)
+        // const options = { hasHolderName: false, enableStoreDetails: !!storedPaymentType(), brands }
+
+        // const configuration = { onBrand, onConfigSuccess, onChange, onSubmit }
+        // const checkoutOptions = { configuration, selector: '#adyen-card-payment', type: 'card', options }
+
+        // checkout.createCheckout(checkoutOptions, checkout => {
+        //     eventEmitter.store.emit(constants.checkout.card, checkout)
+        // })
+    // }
 }
 
 export default createCardCheckout

@@ -41,7 +41,7 @@ class Checkout {
         cb && cb(checkout)
     }
 
-    onSubmit = onChange => (state, component) => {
+    _onSubmit = onChange => ({ detail: { state, component } }) => {
         onChange && onChange(state, component)
         const loader = document.querySelector(`.loader-wrapper`)
         loader && loader.classList.toggle('hide', false)
@@ -53,7 +53,9 @@ class Checkout {
         order().handlePlaceOrder()
     }
 
-    onChange = options => (state, component) => {
+    createOnSubmit = onChange => this._onSubmit(onChange)
+
+    _onChange = options => ({ detail: { state, component } }) => {
         const paymentDetails = store.get(constants.paymentDetails)
         const isValid = component.isValid && typeof state.data === 'object'
         eventEmitter.store.emit(constants.isValid, isValid)
@@ -62,6 +64,8 @@ class Checkout {
 
         eventEmitter.store.emit(constants.paymentDetails, payload)
     }
+
+    createOnChange = options => this._onChange(options)
 }
 
 export default Checkout

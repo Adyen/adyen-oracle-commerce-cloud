@@ -1,7 +1,7 @@
 import $ from 'jquery'
 import * as constants from '../constants'
 import { eventEmitter } from '../utils'
-import { createBoletoCheckout, createCardCheckout, createStoredCards, createLocalPaymentCheckout, store } from './index'
+import { createCardCheckout, store } from './index'
 
 class Component {
     constructor() {
@@ -38,10 +38,10 @@ class Component {
         const user = store.get(constants.user)
         const { amount, currencyCode } = cart()
 
-        eventEmitter.store.emit(constants.originKey, originKeysRes.originKeys[origin])
+        eventEmitter.store.emit(constants.originKey, originKeysRes.originKeys[origin]) // TODO: re-fetch whenever billing country code changes
         store.get(constants.ajax)('paymentMethods', this.getPaymentMethods, {
             method: 'post',
-            body: { amount: { currency: currencyCode(), value: amount() }, shopperReference: user().id() },
+            body: { amount: { currency: currencyCode(), value: amount() }, shopperReference: user().id() }, // TODO: Add Country Code to Payload
         })
     }
 
@@ -49,6 +49,7 @@ class Component {
         const environment = store.get(constants.environment)
         const href = constants.adyenCssUrl(environment)
         const cssLink = `<link rel="stylesheet" href="${href}" />`
+
         $('head').append(cssLink)
 
         store.get(constants.ajax)('originKeys', this.getOriginKeysSuccessResponse)
@@ -60,11 +61,49 @@ class Component {
 
         import(url).then(module => {
             window.AdyenCheckout = module.default
-            createCardCheckout(paymentMethodsResponse)
-            createStoredCards()
-            createLocalPaymentCheckout(paymentMethodsResponse)
-            createBoletoCheckout(paymentMethodsResponse)
+            const scripts = `
+              <script type="module" src="https://unpkg.com/generic-component@latest/dist/adyen-checkout/adyen-checkout.esm.js"></script>
+              <script nomodule src="https://unpkg.com/generic-component@latest/dist/adyen-checkout/adyen-checkout.js"></script>
+           `
+
+            const getScheme = paymentMethod => paymentMethod.type === constants.paymentMethodTypes.scheme
+            const storedPaymentType = store.get(constants.storedPaymentType)
+            const [card] = paymentMethodsResponse.paymentMethods.filter(getScheme)
+            const cardConfiguration = card && {
+                card: {
+                    enableStoreDetails: !!storedPaymentType(),
+                    hasHolderName: false,
+                    brands: card.brands,
+                    showPayButton: true,
+                },
+            }
+
+            const paymentMethodsConfiguration = JSON.stringify({
+                ...cardConfiguration,
+            })
+
+            $('head').append(scripts)
+            const node = `
+                <adyen-checkout
+                    origin-key="${store.get(constants.originKey)}"
+                    locale="${store.get(constants.locale)}"
+                    environment="${environment}"
+                    payment-methods='${JSON.stringify(paymentMethodsResponse)}'
+                    payment-methods-configuration='${paymentMethodsConfiguration}'
+                >
+                    <adyen-payment-method-card></adyen-payment-method-card>
+                </adyen-checkout>
+            `
+
+            $('#adyen-wc').append(node)
+            createCardCheckout()
         })
+        // import(url).then(module => {
+        //     window.AdyenCheckout = module.default
+        //     createStoredCards()
+        //     createLocalPaymentCheckout(paymentMethodsResponse)
+        //     createBoletoCheckout(paymentMethodsResponse)
+        // })
     }
 
     getPaymentMethods = paymentMethodsResponse => {
