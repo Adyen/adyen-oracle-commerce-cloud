@@ -1,6 +1,7 @@
 import getCheckout from '../../utils/checkout'
 import nconf from 'nconf/lib/nconf'
 import mcache from 'memory-cache'
+import pkgJson from '../../../package';
 
 export default async (req, res, next) => {
     const { customProperties } = req.body
@@ -82,13 +83,13 @@ export default async (req, res, next) => {
                     merchantAccount,
                     applicationInfo: {
                         externalPlatform: {
-                            integrator: '',
+                            integrator: merchantAccount,
                             name: 'Oracle Commerce Cloud',
-                            version: '', // TODO: get version from OCC
+                            version: pkgJson.version,
                         },
-                        adyenPaymentSource: {
-                            version: '', // TODO: create static file with version num
+                        merchantApplication: {
                             name: 'adyen-oracle-commerce-cloud',
+                            version: pkgJson.occVersion,
                         },
                     },
                     reference: transactionId,
