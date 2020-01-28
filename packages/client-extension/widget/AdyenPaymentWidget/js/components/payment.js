@@ -54,8 +54,7 @@ class Payment {
 
         const brandType = isComboCard && { type: brand }
         const paymentMethod = paymentDetails.paymentMethod && { ...paymentDetails.paymentMethod, ...brandType }
-        const payload = { ...paymentDetails, paymentMethod }
-        return payload
+        return { ...paymentDetails, paymentMethod }
     }
 
     createPayment = type => {

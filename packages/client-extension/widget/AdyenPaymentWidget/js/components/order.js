@@ -17,6 +17,7 @@ class Order {
     startEventListeners = () => {
         eventEmitter.order.on(constants.pageChanged, this.getUrlParametersAndCreateOrder)
         eventEmitter.order.on(constants.initialOrderCreated, this.initialOrderCreated)
+        eventEmitter.order.on('createOrder', this.createOrder)
     }
 
     initialOrderCreated = orderEvent => {

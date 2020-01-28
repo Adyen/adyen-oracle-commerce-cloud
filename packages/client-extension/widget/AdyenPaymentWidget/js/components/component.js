@@ -78,9 +78,7 @@ class Component {
                 },
             }
 
-            const paymentMethodsConfiguration = JSON.stringify({
-                ...cardConfiguration,
-            })
+            const paymentMethodsConfiguration = JSON.stringify({ ...cardConfiguration })
 
             $('head').append(scripts)
             const node = `

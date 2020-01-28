@@ -16,9 +16,7 @@ function validateWebHookPayloadSignature(req) {
             .update(req.rawBody)
             .digest('base64')
 
-        if (
-            calculated_signature != req.headers['x-oracle-cc-webhook-signature']
-        ) {
+        if (calculated_signature != req.headers['x-oracle-cc-webhook-signature']) {
             logger.error('Invalid signature. Access denied')
             logger.error(
                 'current: ',
@@ -29,8 +27,7 @@ function validateWebHookPayloadSignature(req) {
             throw new Error('Invalid signature. Access denied')
         }
     } else {
-        req.headers['x-oracle-cc-webhook-signature'] =
-            'x-oracle-cc-webhook-signature'
+        req.headers['x-oracle-cc-webhook-signature'] = 'x-oracle-cc-webhook-signature'
     }
 }
 

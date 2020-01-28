@@ -10,7 +10,7 @@ export default async (req, res, next) => {
         return next()
     }
 
-    const { userAgent, gatewaySettings } = req.app.locals
+    const { gatewaySettings } = req.app.locals
     const checkout = getCheckout(req)
 
     const {
@@ -60,6 +60,9 @@ export default async (req, res, next) => {
                 redirectToIssuerMethod: 'GET',
                 returnUrl,
                 paymentMethod,
+                additionalData: { allow3DS2: true },
+                origin: host[channel],
+                channel: 'web',
             }
 
             const scheme = {

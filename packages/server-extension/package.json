@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "main": "./app/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "rollup --config config/config.dev.js",
     "server": "nodemon app/bundle.js",
     "watch": "concurrently --kill-others \"yarn run dev -- --watch\" \"yarn run server\"",
@@ -11,7 +10,7 @@
     "test": "jest"
   },
   "config": {
-    "port": "1337"
+    "port": "3000"
   },
   "repository": {
     "type": "git",

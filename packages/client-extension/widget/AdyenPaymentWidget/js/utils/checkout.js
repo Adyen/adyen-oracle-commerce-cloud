@@ -1,7 +1,7 @@
 import ccConstants from 'ccConstants'
 import { store } from '../components'
 import * as constants from '../constants'
-import { eventEmitter } from './index'
+import { eventEmitter, getOrderPayload } from './index'
 
 export const getDefaultConfig = () => {
     const environment = store.get(constants.environment)
@@ -18,8 +18,20 @@ export const getDefaultConfig = () => {
     }
 }
 
-export const createFromAction = ({ action, selector, checkoutComponent }) => {
-    checkoutComponent.createFromAction(action).mount(selector)
+export const createFromAction = ({ action }) => {
+    // export const createFromAction = ({ action, selector, checkoutComponent }) => {
+    // checkoutComponent.createFromAction(action).mount(selector)
+    const cardComponent = document.querySelector('adyen-payment-method-card')
+    const checkout = document.querySelector('adyen-checkout')
+    checkout.addEventListener('adyenAdditionalDetails', ({ detail }) => {
+        const { details, paymentData } = detail.state.data
+        const order = store.get(constants.order)
+        const payment = { type: 'generic', customProperties: { paymentData, orderId: order().id(), ...details } }
+        order().payments([payment])
+        const payload = getOrderPayload(order)
+        eventEmitter.order.emit('createOrder', payload)
+    })
+    cardComponent.createFromAction(action)
 }
 
 class Checkout {
