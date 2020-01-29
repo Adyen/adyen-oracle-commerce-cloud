@@ -3,36 +3,43 @@ import Widget from '../../../../__mocks__/widget'
 import viewModel from '../adyen-checkout'
 import paymentMethodsResponseMock from '../../../../__mocks__/paymentMethods'
 
-jest.mock('../utils/checkout')
 jest.mock('../utils/getInstallmentOptions')
-import { Checkout, eventEmitter, getInstallmentOptions } from '../utils'
+import { eventEmitter, getInstallmentOptions } from '../utils'
 import { createCardCheckout, createStoredCards, store } from '../components'
 import { onBrand } from '../components/card'
 import generateTemplate from '../utils/tests/koTemplate'
 
 describe('Card', () => {
     let widget
+    let Checkout
     beforeEach(() => {
+        jest.resetModules()
         widget = new Widget()
+        Checkout = require('../utils/checkout').default;
     })
 
     it('should create card checkout', function() {
+        const addEventListener = jest.fn()
+        const querySelector = jest.fn(() => ({ addEventListener }))
         viewModel.onLoad(widget)
 
-        Checkout.prototype.createCheckout = jest.fn()
-        Checkout.prototype.onChange = jest.fn()
-        Checkout.prototype.onSubmit = jest.fn()
+        Checkout.prototype._onChange = jest.fn()
+        Checkout.prototype._onSubmit = jest.fn()
+        document.querySelector = querySelector;
 
         createCardCheckout(paymentMethodsResponseMock)
-        expect(Checkout.prototype.createCheckout).toHaveBeenCalled()
+
+        expect(querySelector).toHaveBeenNthCalledWith(1, 'adyen-payment-method-card')
+        expect(addEventListener.mock.calls[0][0]).toBe('adyenChange')
+        expect(addEventListener.mock.calls[1][0]).toBe('adyenSubmit')
     })
 
-    it('should create stored cards checkout', function() {
+    it.skip('should create stored cards checkout', function() {
         viewModel.onLoad(widget)
 
         Checkout.prototype.getCheckout = jest.fn(() => ({ paymentMethodsResponse: { storedPaymentMethods: [] }}))
-        Checkout.prototype.onChange = jest.fn()
-        Checkout.prototype.onSubmit = jest.fn()
+        Checkout.prototype._onChange = jest.fn()
+        Checkout.prototype._onSubmit = jest.fn()
 
         createStoredCards()
         expect(Checkout.prototype.getCheckout).toHaveBeenCalled()

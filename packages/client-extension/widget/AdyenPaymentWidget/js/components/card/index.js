@@ -1,4 +1,3 @@
-import $ from 'jquery'
 import { store } from '../index'
 import * as constants from '../../constants'
 import { Checkout, eventEmitter, getInstallmentOptions } from '../../utils'

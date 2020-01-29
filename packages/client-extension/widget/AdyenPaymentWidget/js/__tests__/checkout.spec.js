@@ -29,16 +29,12 @@ describe('Checkout', () => {
     it('should create from action', function() {
         viewModel.onLoad(widget)
         const mount = jest.fn()
-        const createFromActionMock = jest.fn(() => ({ mount }))
-        const checkoutComponent = { createFromAction: createFromActionMock }
-        const args = {
-            action: 'mocked_action',
-            selector: '#id',
-            checkoutComponent,
-        }
-        createFromAction(args)
-        expect(createFromActionMock).toHaveBeenCalledWith(args.action)
-        expect(mount).toHaveBeenCalledWith(args.selector)
+        const addEventListener = jest.fn()
+        const createFromAction = jest.fn()
+        const action = { action: 'mocked_action' }
+        document.querySelector = jest.fn(() => ({ addEventListener, createFromAction }))
+        createFromAction(action)
+        expect(createFromAction).toHaveBeenCalledWith(action)
     })
 
     it('should create checkout', function() {
@@ -79,8 +75,10 @@ describe('Checkout', () => {
     it('should handle on submit', function() {
         eventEmitter.store.emit(constants.paymentDetails, { scheme: {} })
         const checkout = new Checkout(constants.paymentMethodTypes.scheme)
-        const createOnSubmit = checkout.onSubmit()
-        createOnSubmit()
+        const onSubmit = checkout.createOnSubmit()
+        const toggle = jest.fn()
+        document.querySelector = jest.fn(() => ({ classList: { toggle }}))
+        onSubmit()
 
         const order = store.get(constants.order)
         expect(order().op()).toEqual(ccConstants.ORDER_OP_INITIATE)
@@ -90,9 +88,9 @@ describe('Checkout', () => {
     it('should handle on change', function() {
         eventEmitter.store.emit(constants.paymentDetails, {})
         const checkout = new Checkout(constants.paymentMethodTypes.scheme)
-        const createOnSubmit = checkout.onChange()
+        const createOnSubmit = checkout._onChange()
         const data = { foo: 'bar' }
-        createOnSubmit({ data }, { isValid: true })
+        createOnSubmit({ detail: { state: { data }, component: { isValid: true }} })
 
         const paymentDetails = store.get(constants.paymentDetails)
         const isValid = store.get(constants.isValid)

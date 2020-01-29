@@ -3,8 +3,9 @@ import * as constants from '../../constants'
 
 const createStoredCards = () => {
     const checkout = new Checkout(constants.paymentMethodTypes.scheme)
-    const onChange = checkout.onChange()
-    const configuration = { onChange, onSubmit: checkout.onSubmit(onChange) }
+    const onChange = checkout.createOnChange()
+    const onSubmit = checkout.createOnSubmit(onChange)
+    const configuration = { onChange, onSubmit }
     const checkoutComponent = checkout.getCheckout(configuration)
 
     eventEmitter.store.emit(
