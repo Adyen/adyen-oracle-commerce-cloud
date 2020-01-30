@@ -1,6 +1,7 @@
 import getCheckout from '../../utils/checkout'
 import nconf from 'nconf/lib/nconf'
 import mcache from 'memory-cache'
+import pkgJson from '../../../package'
 
 export default async (req, res, next) => {
     const pkgJson = require('../../../package')
@@ -73,6 +74,9 @@ export default async (req, res, next) => {
 
             const details = type === 'scheme' ? scheme : defaultDetails
 
+            const appName = 'adyen-oracle-commerce-cloud'
+            const applicationInfo = { name: appName, version: pkgJson.occVersion }
+
             const paymentResponse = await checkout.payments(
                 {
                     amount: { value: amount, currency: currencyCode },
@@ -87,10 +91,8 @@ export default async (req, res, next) => {
                             name: 'Oracle Commerce Cloud',
                             version: pkgJson.version,
                         },
-                        merchantApplication: {
-                            name: 'adyen-oracle-commerce-cloud',
-                            version: pkgJson.occVersion,
-                        },
+                        adyenPaymentSource: applicationInfo,
+                        merchantApplication: applicationInfo,
                     },
                     reference: transactionId,
                     selectedBrand,
