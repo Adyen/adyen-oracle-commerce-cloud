@@ -87,7 +87,6 @@ export default async (req, res, next) => {
                     merchantAccount,
                     applicationInfo: {
                         externalPlatform: {
-                            integrator: merchantAccount,
                             name: 'Oracle Commerce Cloud',
                             version: pkgJson.version,
                         },
