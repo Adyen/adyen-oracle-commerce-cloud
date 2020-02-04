@@ -3,10 +3,12 @@
 
 
 "@adyen/api-library@^2.2.0":
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/@adyen/api-library/-/api-library-2.2.0.tgz#bbb7c275296762390d7262495eefaae996b12bc1"
-  integrity sha512-UO1YLDDqT2nNd1PIz10eaWh8enGUx3PXx8JX7KnsndHng0328fAx9vRYMl34sKjrHFJvv8rJx+rSObYP4LWGUg==
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/@adyen/api-library/-/api-library-2.2.1.tgz#359755b245439f900235790ebbc7133d4c22b8c2"
+  integrity sha512-OlvuK333FlAOfXAn7ubLEqtJzCKfg++UvzU3+MmnMzC/heImzoAEl/uBYcIwouBc0u25qY+16JKlLkBhMh6fhw==
   dependencies:
+    "@types/jest" "24.0.25"
+    "@types/node" "13.1.7"
     https-proxy-agent "4.0.0"
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.5.5":
@@ -345,6 +347,18 @@
   dependencies:
     "@types/istanbul-lib-coverage" "*"
     "@types/istanbul-lib-report" "*"
+
+"@types/jest@24.0.25":
+  version "24.0.25"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-24.0.25.tgz#2aba377824ce040114aa906ad2cac2c85351360f"
+  integrity sha512-hnP1WpjN4KbGEK4dLayul6lgtys6FPz0UfxMeMQCv0M+sTnzN3ConfiO72jHgLxl119guHgI8gLqDOrRLsyp2g==
+  dependencies:
+    jest-diff "^24.3.0"
+
+"@types/node@13.1.7":
+  version "13.1.7"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-13.1.7.tgz#db51d28b8dfacfe4fb2d0da88f5eb0a2eca00675"
+  integrity sha512-HU0q9GXazqiKwviVxg9SI/+t/nAsGkvLDkIdxz+ObejG2nX6Si00TeLqHMoS+a/1tjH7a8YpKVQwtgHuMQsldg==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -2332,7 +2346,7 @@ jest-config@^24.9.0:
     pretty-format "^24.9.0"
     realpath-native "^1.1.0"
 
-jest-diff@^24.9.0:
+jest-diff@^24.3.0, jest-diff@^24.9.0:
   version "24.9.0"
   resolved "https://registry.yarnpkg.com/jest-diff/-/jest-diff-24.9.0.tgz#931b7d0d5778a1baf7452cb816e325e3724055da"
   integrity sha512-qMfrTs8AdJE2iqrTp0hzh7kTd2PQWrsFyj9tORoKmu32xjPjeE4NyjVRDz8ybYwqS2ik8N4hsIpiVTyFeo2lBQ==
