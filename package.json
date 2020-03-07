@@ -24,7 +24,7 @@
     "node-fetch": "2.6.0",
     "prettier": "1.19.1",
     "rollup": "2.0.0",
-    "rollup-plugin-babel": "4.3.3",
+    "rollup-plugin-babel": "4.4.0",
     "rollup-plugin-cleanup": "3.1.1"
   },
   "scripts": {
