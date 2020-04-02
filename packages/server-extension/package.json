@@ -42,7 +42,7 @@
     "body-parser": "latest",
     "express": "latest",
     "husky": "4.2.3",
-    "jest": "25.2.4",
+    "jest": "25.2.6",
     "nconf": "0.10.0",
     "nodemon": "2.0.2",
     "winston": "latest"
