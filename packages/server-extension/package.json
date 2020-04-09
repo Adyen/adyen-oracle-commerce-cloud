@@ -41,7 +41,7 @@
   "devDependencies": {
     "body-parser": "latest",
     "express": "latest",
-    "husky": "4.2.3",
+    "husky": "4.2.5",
     "jest": "25.3.0",
     "nconf": "0.10.0",
     "nodemon": "2.0.3",
