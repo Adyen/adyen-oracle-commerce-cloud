@@ -9,7 +9,7 @@
     "test": "jest"
   },
   "devDependencies": {
-    "jest": "25.3.0",
+    "jest": "25.4.0",
     "rollup-plugin-commonjs": "10.1.0",
     "rollup-plugin-node-resolve": "5.2.0"
   }
