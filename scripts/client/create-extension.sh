@@ -19,7 +19,7 @@ node -p "JSON.stringify({
   extensionID: '${EXTENSION_ID}',
   createdBy: 'Adyen NV',
   version: 1,
-  timeCreated: '2019-09-06',
+  timeCreated: '2020-07-07',
   name: '${EXTENSION_NAME}',
-  description: '1.0.0'
+  description: 'Adyen OCX Payment Plugin (v1.0.3)'
 })" > "${ext}"

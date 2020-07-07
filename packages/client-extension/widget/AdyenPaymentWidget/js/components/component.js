@@ -34,12 +34,13 @@ class Component {
     }
 
     getOriginKeysSuccessResponse = originKeysRes => {
+        const originDomain = store.get(constants.originDomain)
         const { origin } = window.location
         const cart = store.get(constants.cart)
         const user = store.get(constants.user)
         const { amount, currencyCode } = cart()
 
-        eventEmitter.store.emit(constants.originKey, originKeysRes.originKeys[origin])
+        eventEmitter.store.emit(constants.originKey, originKeysRes.originKeys[originDomain || origin])
         store.get(constants.ajax)('paymentMethods', this.getPaymentMethods, {
             method: 'post',
             body: { amount: { currency: currencyCode(), value: amount() }, shopperReference: user().id() },
