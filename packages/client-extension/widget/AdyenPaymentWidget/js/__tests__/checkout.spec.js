@@ -1,4 +1,4 @@
-import { store } from '../components'
+import { createStoredCards, store } from '../components'
 import * as constants from '../constants'
 import Widget from '../../../../__mocks__/widget'
 import ccConstants from '../../../../__mocks__/ccConstants'
@@ -48,7 +48,7 @@ describe('Checkout', () => {
         const mount = jest.fn()
         const create = jest.fn(() => ({ mount }))
         global.AdyenCheckout = jest.fn(() => ({ create }))
-        const checkout = new Checkout(constants.paymentMethodTypes.generic)
+        const checkout = new Checkout(constants.paymentMethodTypes.scheme)
         const selector = '#id'
         const type = 'boleto'
         checkout.createCheckout({ configuration, type, selector }, cb)
@@ -62,28 +62,42 @@ describe('Checkout', () => {
         expect(cb).toHaveBeenCalled()
     })
 
+    it('should create stored payments checkout', function() {
+        eventEmitter.store.emit(constants.environment, 'TEST');
+
+      const mount = jest.fn()
+        const create = jest.fn(() => ({ mount }))
+        const paymentMethod = { id: 1 }
+        global.AdyenCheckout = jest.fn(() => ({ create, paymentMethodsResponse: { storedPaymentMethods: [ paymentMethod ] }}))
+
+        createStoredCards()
+
+        expect(create).toHaveBeenCalledWith(constants.card, paymentMethod)
+        expect(mount).toHaveBeenCalledWith(`#adyen-stored_${paymentMethod.id}-payment`)
+        expect(global.AdyenCheckout).toHaveBeenCalled()
+    })
+
     it('should handle on submit', function() {
-        eventEmitter.store.emit(constants.paymentDetails, {})
-        const checkout = new Checkout(constants.paymentMethodTypes.generic)
+        eventEmitter.store.emit(constants.paymentDetails, { scheme: {} })
+        const checkout = new Checkout(constants.paymentMethodTypes.scheme)
         const createOnSubmit = checkout.onSubmit()
         createOnSubmit()
 
         const order = store.get(constants.order)
-        expect(order().id()).toEqual(null)
         expect(order().op()).toEqual(ccConstants.ORDER_OP_INITIATE)
         expect(order().handlePlaceOrder).toHaveBeenCalled()
     })
 
     it('should handle on change', function() {
         eventEmitter.store.emit(constants.paymentDetails, {})
-        const checkout = new Checkout(constants.paymentMethodTypes.generic)
+        const checkout = new Checkout(constants.paymentMethodTypes.scheme)
         const createOnSubmit = checkout.onChange()
         const data = { foo: 'bar' }
         createOnSubmit({ data }, { isValid: true })
 
         const paymentDetails = store.get(constants.paymentDetails)
         const isValid = store.get(constants.isValid)
-        const expected = { [constants.paymentMethodTypes.generic]: data }
+        const expected = { [constants.paymentMethodTypes.scheme]: data }
 
         expect(isValid).toBeTruthy()
         expect(paymentDetails).toEqual(expected)

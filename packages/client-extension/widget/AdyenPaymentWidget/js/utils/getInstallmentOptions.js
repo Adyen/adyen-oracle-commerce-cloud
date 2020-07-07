@@ -34,20 +34,23 @@ const creditCards = [
     // {id: "warehouse", name: "Warehouse GiftCard"},
 ]
 
+const isAllowedCreditCard = (creditCard, creditCardSum) => (parseInt(creditCardSum) & creditCard.id) !== 0
+const checkSum = (creditCard, creditCardSum) => creditCard && isAllowedCreditCard(creditCard, creditCardSum)
+const checkAmount = (amount, amountRange) => amount >= amountRange
+const validate = (hasValidSum, isValidAmount) => hasValidSum && isValidAmount
+
 function getInstallmentOptions(installmentsOptions, amount, brand) {
     const creditCard = creditCards.find(({ code }) => brand === code)
-    const isAllowedCreditCard = creditCardSum =>
-        (parseInt(creditCardSum) & creditCard.id) !== 0
     const createInstallmentsObj = item => {
         const [amountRange, numberOfInstallments, creditCardSum] = item
-        const isValid = creditCard && isAllowedCreditCard(creditCardSum)
+        const hasValidSum = checkSum(creditCard, creditCardSum)
+        const isValidAmount = checkAmount(amount, amountRange)
+        const isValid = validate(hasValidSum, isValidAmount)
 
-        return isValid && amount >= amountRange && { numberOfInstallments }
+        return isValid && { numberOfInstallments }
     }
 
-    return installmentsOptions
-        .map(createInstallmentsObj, [])
-        .filter(valid => valid)
+    return installmentsOptions.map(createInstallmentsObj, []).filter(valid => valid)
 }
 
 export default getInstallmentOptions

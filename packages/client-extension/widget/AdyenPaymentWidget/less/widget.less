@@ -2,21 +2,21 @@
   position: relative;
   margin-bottom: 40px;
 }
-#adyen-collapse-heading .collapse-toggle button {
+.adyen-collapse-heading .collapse-toggle button {
   border: none;
   background-color: transparent;
   padding: 0;
 }
 
-#adyen-collapse-heading .collapse-heading {
+.adyen-collapse-heading .collapse-heading {
   margin-bottom: 10px;
 }
 
-#adyen-collapse-heading .collapse-heading .collapse-toggle.collapsed:after {
+.adyen-collapse-heading .collapse-heading .collapse-toggle.collapsed:after {
   content: "\f0da";
 }
 
-#adyen-collapse-heading .collapse-heading .collapse-toggle:after {
+.adyen-collapse-heading .collapse-heading .collapse-toggle:after {
   font-family: "FontAwesome";
   content: "\f0d7";
   float: left;
@@ -65,7 +65,7 @@ select.adyen-checkout__input.adyen-checkout__input--small {
 }
 
 .loader-wrapper {
-  position: absolute;
+  position: fixed;
   z-index: 99;
   display: flex;
   justify-content: center;
@@ -75,6 +75,8 @@ select.adyen-checkout__input.adyen-checkout__input--small {
   background: rgba(255, 255, 255, 0.88);
   align-items: center;
   flex-direction: column;
+  top: 0;
+  right: 0;
 }
 
 .lds-ring {

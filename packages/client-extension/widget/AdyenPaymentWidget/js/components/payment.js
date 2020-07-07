@@ -12,7 +12,6 @@ class Payment {
     }
 
     setPayment = type => {
-        eventEmitter.store.emit(constants.isSubmitting, true)
         const order = store.get(constants.order)
         const id = store.get(constants.id)
 
@@ -34,15 +33,29 @@ class Payment {
         const id = store.get(constants.id)
 
         const payments = order().payments()
+        const checkId = (curId, id) => curId && curId === id()
         const setPayments = (payment, index) => {
             const curPayment = payments[index]
             const { id: curId } = curPayment
-            const isSameId = curId && curId === id()
+            const isSameId = checkId(curId, id)
             return isSameId ? pPayment : curPayment
         }
 
         const newPayments = payments.map(setPayments)
         order().payments(newPayments)
+    }
+
+    updatePaymentMethodType = (type, paymentDetails) => {
+        const selectedComboCard = store.get(constants.selectedComboCard)()
+        const isDebitCard = selectedComboCard === constants.comboCards.debit
+        const brand = store.get(constants.selectedBrand)
+        const isGeneric = type === constants.paymentMethodTypes.scheme
+        const isComboCard = isGeneric && isDebitCard
+
+        const brandType = isComboCard && { type: brand }
+        const paymentMethod = paymentDetails.paymentMethod && { ...paymentDetails.paymentMethod, ...brandType }
+        const payload = { ...paymentDetails, paymentMethod }
+        return payload
     }
 
     createPayment = type => {
@@ -53,32 +66,33 @@ class Payment {
         const selectedComboCard = store.get(constants.selectedComboCard)
         const comboCardOptions = store.get(constants.comboCardOptions)
 
-        const hasInstallments =
-            selectedInstallment() &&
-            'numberOfInstallments' in selectedInstallment()
+        const hasInstallments = this.checkSelectedInstallment(selectedInstallment)
 
         const isCreditCard = selectedComboCard() === constants.comboCards.credit
-        const isValidInstallment = hasInstallments && isCreditCard
-        const getInstallments = () =>
-            isValidInstallment &&
-            parseInt(selectedInstallment().numberOfInstallments)
+        const isValid = this.validateInstallment(hasInstallments, isCreditCard)
 
-        const storedPayment = isPaymentStored ? storedPaymentType() : ''
-        const numberOfInstallments = getInstallments()
+        const storedPayment = this.getStoredPayment(isPaymentStored, storedPaymentType)
+        const numberOfInstallments = this.getInstallments(isValid, selectedInstallment)
 
         const genericPayment = store.get(constants.genericPayment)
-        const updatedGenericPayment = {
-            ...genericPayment,
-            customProperties: {
-                paymentDetails: paymentDetails[type],
-                storedPayment,
-                ...(numberOfInstallments && { numberOfInstallments }),
-                ...comboCardOptions,
-            },
+        const updatedPaymentDetails = this.updatePaymentMethodType(type, paymentDetails[type])
+
+        const customProperties = {
+            paymentDetails: updatedPaymentDetails,
+            storedPayment,
+            ...(numberOfInstallments && { numberOfInstallments }),
+            ...comboCardOptions,
         }
+        const updatedGenericPayment = { ...genericPayment, customProperties }
 
         return updatedGenericPayment
     }
+
+    checkSelectedInstallment = selectedInstallment =>
+        selectedInstallment() && 'numberOfInstallments' in selectedInstallment()
+    getInstallments = (isValid, selectedInstallment) => isValid && parseInt(selectedInstallment().numberOfInstallments)
+    validateInstallment = (hasInstallments, isCreditCard) => hasInstallments && isCreditCard
+    getStoredPayment = (isPaymentStored, storedPaymentType) => (isPaymentStored ? storedPaymentType() : '')
 }
 
 export default Payment

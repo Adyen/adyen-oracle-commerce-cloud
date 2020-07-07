@@ -23,22 +23,18 @@
     {
       "id": "paymentMethodTypes",
       "type": "multiSelectOptionType",
+      "name": "paymentMethodTypes",
       "required": false,
       "helpTextResourceId": "paymentMethodsHelpText",
       "labelResourceId": "paymentMethodsLabel",
-      "displayAsCheckboxes": true,
       "defaultValue": "generic",
+      "displayAsCheckboxes": true,
       "public": true,
       "options": [
         {
-          "id": "invoice",
-          "value": "invoice",
-          "labelResourceId": "invoiceLabel"
-        },
-        {
           "id": "generic",
           "value": "generic",
-          "labelResourceId": "cardLabel"
+          "labelResourceId": "genericLabel"
         }
       ]
     },

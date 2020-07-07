@@ -6,11 +6,14 @@ export const errorMessages = {
     failed3dsValidation: 'failed3dsValidation',
 }
 export const paymentMethodTypes = {
-    generic: 'generic',
-    invoice: 'invoice',
+    scheme: 'scheme',
+    boleto: 'boletobancario',
+    local: 'local',
 }
-export const adyenCheckoutComponentUrl =
-    'https://checkoutshopper-live.adyen.com/checkoutshopper/sdk/3.3.0/adyen.js'
+export const adyenUrl = env => `https://checkoutshopper-${env.toLowerCase()}.adyen.com`
+export const adyenCssUrl = env => `${adyenUrl(env)}/checkoutshopper/sdk/3.4.0/adyen.css`
+export const adyenCheckoutComponentUrl = env => `${adyenUrl(env)}/checkoutshopper/sdk/3.4.0/adyen.js`
+
 export const locale = 'locale'
 export const countries = {
     brazil: { locale: 'pt_br', currency: 'brl' },
@@ -18,7 +21,7 @@ export const countries = {
 }
 export const brazilEnabled = 'brazilEnabled'
 export const comboCards = { debit: 'debitCard', credit: 'creditCard' }
-export const bins = { electron: 'electron' }
+export const bins = { electron: 'electron', maestro: 'maestro', elodebit: 'elodebit' }
 export const storage = { paymentData: 'AdyenPaymentData', order: 'AdyenOrder' }
 export const noInstallmentsMsg = 'noInstallmentsMsg'
 
@@ -28,14 +31,15 @@ export const order = 'order'
 export const checkout = {
     card: 'checkoutCard',
     boleto: 'checkoutBoleto',
+    local: 'checkoutLocal',
 }
 export const isLoaded = 'isLoaded'
 export const ajax = 'ajax'
 export const originKey = 'originKey'
 export const installments = 'installments'
 export const cart = 'cart'
+export const user = 'user'
 export const setPayment = 'setPayment'
-export const setDone = 'setDone'
 export const initialOrderCreated = 'initialOrderCreated'
 export const pageChanged = 'pageChanged'
 export const installmentsEnabled = 'installmentsEnabled'
@@ -45,6 +49,7 @@ export const selectedBrand = 'selectedBrand'
 export const selectedComboCard = 'selectedComboCard'
 export const installmentsOptions = 'installmentOptions'
 export const storedPaymentType = 'storedPaymentType'
+export const storedPaymentMethods = 'storedPaymentMethods'
 export const paymentMethodsResponse = 'paymentMethodsResponse'
 export const translate = 'translate'
 export const isPaymentStored = 'isPaymentStored'
@@ -54,12 +59,12 @@ export const comboCardOptions = 'comboCardOptions'
 export const genericPayment = 'genericPayment'
 export const isDone = 'isDone'
 export const isValid = 'isValid'
-export const isSubmitting = 'isSubmitting'
 export const pageParams = 'pageParams'
 export const presentToShopper = 'PresentToShopper'
 export const orderPayload = 'orderPayload'
-export const boleto = {
-    enabled: 'boletoEnabled',
+export const boletoOptions = {
     deliveryDate: 'boletoDeliveryDate',
     shopperStatement: 'boletoShopperStatement',
 }
+export const localPaymentMethods = 'localPaymentMethods'
+export const card = 'card'

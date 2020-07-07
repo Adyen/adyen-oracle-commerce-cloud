@@ -6,6 +6,7 @@ const $ = jest.fn(() => ({
     removeClass: jest.fn(arg => null),
     show: jest.fn(),
     hide: jest.fn(),
+    append: jest.fn()
 }))
 
 const methods = {
@@ -22,6 +23,7 @@ const methods = {
             const body = await res.json()
             process.nextTick(() => success(body))
         } catch (e) {
+            console.log(e)
             throw new Error(e)
         }
     },
@@ -35,6 +37,7 @@ const methods = {
             cb()
             await fetch(url)
         } catch (e) {
+            console.log(e)
             throw new Error(e)
         }
     },

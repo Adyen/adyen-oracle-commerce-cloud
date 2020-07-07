@@ -7,38 +7,33 @@ export const onBrand = ({ brand }) => {
     const installmentsOptions = store.get(constants.installmentsOptions)
     const cart = store.get(constants.cart)
     const amount = cart().amount()
-    const installments = installmentsOptions
-        ? getInstallmentOptions(installmentsOptions, amount, brand)
-        : []
+    const installments = installmentsOptions ? getInstallmentOptions(installmentsOptions, amount, brand) : []
 
     eventEmitter.store.emit(constants.installments, installments)
 }
 
-export const onConfigSuccess = () =>
-    eventEmitter.store.emit(constants.isLoaded, true)
+export const onConfigSuccess = () => eventEmitter.store.emit(constants.isLoaded, true)
 
-const createCardCheckout = () => {
-    const checkout = new Checkout(constants.paymentMethodTypes.generic)
-    const onChange = checkout.onChange()
-    const onSubmit = checkout.onSubmit()
+const createCardCheckout = ({ paymentMethods }) => {
+    const [card] = paymentMethods.filter(paymentMethod => paymentMethod.type === constants.paymentMethodTypes.scheme)
 
-    const storedPaymentType = store.get(constants.storedPaymentType)
-    const options = {
-        hasHolderName: false,
-        enableStoreDetails: !!storedPaymentType(),
+    if (card) {
+        eventEmitter.store.emit(constants.paymentMethodTypes.scheme, true)
+        const { brands } = card
+        const checkout = new Checkout(constants.paymentMethodTypes.scheme)
+        const onChange = checkout.onChange()
+        const onSubmit = checkout.onSubmit()
+
+        const storedPaymentType = store.get(constants.storedPaymentType)
+        const options = { hasHolderName: false, enableStoreDetails: !!storedPaymentType(), brands }
+
+        const configuration = { onBrand, onConfigSuccess, onChange, onSubmit }
+        const checkoutOptions = { configuration, selector: '#adyen-card-payment', type: 'card', options }
+
+        checkout.createCheckout(checkoutOptions, checkout => {
+            eventEmitter.store.emit(constants.checkout.card, checkout)
+        })
     }
-
-    const configuration = { onBrand, onConfigSuccess, onChange, onSubmit }
-    const checkoutOptions = {
-        configuration,
-        selector: '#adyen-card-payment',
-        type: 'card',
-        options,
-    }
-
-    checkout.createCheckout(checkoutOptions, checkout => {
-        eventEmitter.store.emit(constants.checkout.card, checkout)
-    })
 }
 
 export default createCardCheckout

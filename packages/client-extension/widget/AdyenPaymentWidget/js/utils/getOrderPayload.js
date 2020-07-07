@@ -1,19 +1,7 @@
 export default function getOrderPayload(order) {
-    const {
-        shippingAddress: shippingAddressFn,
-        billingAddress: billingAddressFn,
-        cart,
-        payments,
-    } = order()
+    const { shippingAddress: shippingAddressFn, billingAddress: billingAddressFn, cart, payments } = order()
 
-    const {
-        billingAddress,
-        shippingAddress,
-        id,
-        orderProfileId,
-        shippingMethod,
-        shoppingCart,
-    } = order().order()
+    const { billingAddress, shippingAddress, id, orderProfileId, shippingMethod, shoppingCart } = order().order()
 
     return {
         billingAddress: {
@@ -21,7 +9,7 @@ export default function getOrderPayload(order) {
             ...billingAddress,
         },
         combineLineItems: cart().combineLineItems,
-        op: 'complete',
+        op: 'initiate',
         id,
         payments: payments(),
         profileId: orderProfileId,

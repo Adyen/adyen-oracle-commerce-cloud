@@ -9,6 +9,7 @@ describe('Create Error', function() {
     const preserveUrl = false
     const redirectLink = 'mocked_link'
     let widget
+
     beforeEach(() => {
         widget = new Widget()
         viewModel.onLoad(widget)
@@ -23,20 +24,6 @@ describe('Create Error', function() {
         expect(notifier.sendError).toHaveBeenCalledWith(
             'adyen',
             'The payment is REFUSED.',
-            true
-        )
-    })
-
-    it('should create error with custom message', function() {
-        const errorMessage = 'This is a custom mocked error message'
-        const error = createError({ redirectLink }, preserveUrl)
-        error({ errorMessage })
-
-        expect(navigation.goTo).toHaveBeenCalledWith(redirectLink, preserveUrl)
-        expect(spinner.destroy).toHaveBeenCalled()
-        expect(notifier.sendError).toHaveBeenCalledWith(
-            'adyen',
-            errorMessage,
             true
         )
     })

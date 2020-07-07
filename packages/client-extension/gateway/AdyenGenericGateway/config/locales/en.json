@@ -32,6 +32,7 @@
     "boletoDeliveryDateLabel": "Boleto Validity",
     "boletoDeliveryDateHelpText": "Specify how many days the Boleto will be valid for payment",
     "boletoShopperStatementLabel": "Boleto payment instructions",
-    "boletoShopperStatementHelpText": "Specify the text that will be show in the Boleto payment instructions. Use '\\n\\' to create a new line."
+    "boletoShopperStatementHelpText": "Specify the text that will be show in the Boleto payment instructions. Use '\\n\\' to create a new line.",
+    "genericLabel": "Credit/Debit Card"
   }
 }

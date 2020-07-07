@@ -3,7 +3,8 @@ import getCheckout from '../../utils/checkout'
 
 const router = express.Router()
 
-router.get('/', async function(req, res, next) {
+router.post('/', async function(req, res, next) {
+    const payload = JSON.parse(req.body.json)
     try {
         const { merchantAccount } = req.app.locals
         const checkout = getCheckout(req)
@@ -11,7 +12,9 @@ router.get('/', async function(req, res, next) {
         const paymentMethodsResponse = await checkout.paymentMethods({
             merchantAccount,
             channel: 'Web',
+            ...payload,
         })
+
         res.json(paymentMethodsResponse)
     } catch (e) {
         next(e)
@@ -19,3 +22,4 @@ router.get('/', async function(req, res, next) {
 })
 
 export default router
+

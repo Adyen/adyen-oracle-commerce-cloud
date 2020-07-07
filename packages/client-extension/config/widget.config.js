@@ -20,11 +20,7 @@ export default {
                     {
                         modules: false,
                         targets: {
-                            browsers: [
-                                '> 1%',
-                                'last 2 versions',
-                                'not ie <= 8',
-                            ],
+                            browsers: ['> 1%', 'last 2 versions', 'not ie <= 8'],
                         },
                         useBuiltIns: 'entry',
                         corejs: '3.0.0',
@@ -38,13 +34,16 @@ export default {
             preferBuiltins: false,
         }),
         commonjs(),
-        cleanup(),
+        cleanup({ sourceMap: true, comments: 'none' }),
     ],
     output: {
         file: path.join(inputPath, `${widgetFilename}.min.js`),
         format: 'amd',
         name: 'AdyenWidget',
+        sourcemap: true,
+        globals: { jquery: '$', knockout: 'ko' },
     },
+    external: ['jquery', 'knockout'],
     watch: {
         chokidar: { usePolling: true },
     },

@@ -11,6 +11,7 @@
     "installmentsConfiguration": "Check installment options hash in Adyen Payment Gateway configuration",
     "failed3dsValidation": "3D-secure validation was unsuccessful",
     "debitCard": "Debit Card",
-    "creditCard": "Credit Card"
+    "creditCard": "Credit Card",
+    "storedPaymentMethods": "Stored Payment Details"
   }
 }

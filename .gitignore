@@ -12,5 +12,6 @@ packages/server-extension/index.js
 packages/server-extension/app/bundle.js
 packages/client-extension/ext.json
 packages/client-extension/widget/AdyenPaymentWidget/js/adyen-checkout.min.js
+packages/client-extension/widget/AdyenPaymentWidget/js/adyen-checkout.min.js.map
 report*
 coverage/
