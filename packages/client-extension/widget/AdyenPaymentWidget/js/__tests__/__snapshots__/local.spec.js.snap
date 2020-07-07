@@ -1,0 +1,421 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Local should render 1`] = `
+Object {
+  Symbol(dom): <body>
+    <div
+      class="loader-wrapper hide"
+    >
+      <div
+        class="lds-ring"
+      >
+        <div />
+        <div />
+        <div />
+        <div />
+      </div>
+      <div
+        style="font-weight: bold; font-size: 16px;"
+      >
+        Processing...
+      </div>
+    </div>
+    <legend />
+    <div
+      class="adyen-collapse-heading oc-panel panel-2"
+      data-oc-id="panel-2"
+    />
+    <br />
+    <legend />
+    <div
+      class="adyen-collapse-heading oc-panel panel-1"
+      data-oc-id="panel-1"
+    >
+      <div
+        class="collapse-heading"
+      >
+        <strong>
+          <span
+            class="collapse-toggle collapsed"
+            data-target="#adyen-directEbanking-wrapper"
+            data-toggle="collapse"
+          >
+            <button>
+              Online bank transfer.
+            </button>
+          </span>
+        </strong>
+        <div
+          class="adyen-wrapper collapse"
+          id="adyen-directEbanking-wrapper"
+        >
+          <div
+            class="adyen-component"
+            id="adyen-directEbanking-payment"
+          />
+        </div>
+      </div>
+      <div
+        class="collapse-heading"
+      >
+        <strong>
+          <span
+            class="collapse-toggle collapsed"
+            data-target="#adyen-dotpay-wrapper"
+            data-toggle="collapse"
+          >
+            <button>
+              Local Polish Payment Methods
+            </button>
+          </span>
+        </strong>
+        <div
+          class="adyen-wrapper collapse"
+          id="adyen-dotpay-wrapper"
+        >
+          <div
+            class="adyen-component"
+            id="adyen-dotpay-payment"
+          />
+        </div>
+      </div>
+      <div
+        class="collapse-heading"
+      >
+        <strong>
+          <span
+            class="collapse-toggle collapsed"
+            data-target="#adyen-entercash-wrapper"
+            data-toggle="collapse"
+          >
+            <button>
+              Bank Payment
+            </button>
+          </span>
+        </strong>
+        <div
+          class="adyen-wrapper collapse"
+          id="adyen-entercash-wrapper"
+        >
+          <div
+            class="adyen-component"
+            id="adyen-entercash-payment"
+          />
+        </div>
+      </div>
+      <div
+        class="collapse-heading"
+      >
+        <strong>
+          <span
+            class="collapse-toggle collapsed"
+            data-target="#adyen-eps-wrapper"
+            data-toggle="collapse"
+          >
+            <button>
+              EPS
+            </button>
+          </span>
+        </strong>
+        <div
+          class="adyen-wrapper collapse"
+          id="adyen-eps-wrapper"
+        >
+          <div
+            class="adyen-component"
+            id="adyen-eps-payment"
+          />
+        </div>
+      </div>
+      <div
+        class="collapse-heading"
+      >
+        <strong>
+          <span
+            class="collapse-toggle collapsed"
+            data-target="#adyen-ideal-wrapper"
+            data-toggle="collapse"
+          >
+            <button>
+              iDEAL
+            </button>
+          </span>
+        </strong>
+        <div
+          class="adyen-wrapper collapse"
+          id="adyen-ideal-wrapper"
+        >
+          <div
+            class="adyen-component"
+            id="adyen-ideal-payment"
+          />
+        </div>
+      </div>
+      <div
+        class="collapse-heading"
+      >
+        <strong>
+          <span
+            class="collapse-toggle collapsed"
+            data-target="#adyen-interac-wrapper"
+            data-toggle="collapse"
+          >
+            <button>
+              Interac® Online
+            </button>
+          </span>
+        </strong>
+        <div
+          class="adyen-wrapper collapse"
+          id="adyen-interac-wrapper"
+        >
+          <div
+            class="adyen-component"
+            id="adyen-interac-payment"
+          />
+        </div>
+      </div>
+      <div
+        class="collapse-heading"
+      >
+        <strong>
+          <span
+            class="collapse-toggle collapsed"
+            data-target="#adyen-klarna-wrapper"
+            data-toggle="collapse"
+          >
+            <button>
+              Pay later with Klarna.
+            </button>
+          </span>
+        </strong>
+        <div
+          class="adyen-wrapper collapse"
+          id="adyen-klarna-wrapper"
+        >
+          <div
+            class="adyen-component"
+            id="adyen-klarna-payment"
+          />
+        </div>
+      </div>
+      <div
+        class="collapse-heading"
+      >
+        <strong>
+          <span
+            class="collapse-toggle collapsed"
+            data-target="#adyen-klarna_account-wrapper"
+            data-toggle="collapse"
+          >
+            <button>
+              Slice it with Klarna.
+            </button>
+          </span>
+        </strong>
+        <div
+          class="adyen-wrapper collapse"
+          id="adyen-klarna_account-wrapper"
+        >
+          <div
+            class="adyen-component"
+            id="adyen-klarna_account-payment"
+          />
+        </div>
+      </div>
+      <div
+        class="collapse-heading"
+      >
+        <strong>
+          <span
+            class="collapse-toggle collapsed"
+            data-target="#adyen-klarna_paynow-wrapper"
+            data-toggle="collapse"
+          >
+            <button>
+              Pay now with Klarna.
+            </button>
+          </span>
+        </strong>
+        <div
+          class="adyen-wrapper collapse"
+          id="adyen-klarna_paynow-wrapper"
+        >
+          <div
+            class="adyen-component"
+            id="adyen-klarna_paynow-payment"
+          />
+        </div>
+      </div>
+      <div
+        class="collapse-heading"
+      >
+        <strong>
+          <span
+            class="collapse-toggle collapsed"
+            data-target="#adyen-molpay_cash-wrapper"
+            data-toggle="collapse"
+          >
+            <button>
+              7-Eleven
+            </button>
+          </span>
+        </strong>
+        <div
+          class="adyen-wrapper collapse"
+          id="adyen-molpay_cash-wrapper"
+        >
+          <div
+            class="adyen-component"
+            id="adyen-molpay_cash-payment"
+          />
+        </div>
+      </div>
+      <div
+        class="collapse-heading"
+      >
+        <strong>
+          <span
+            class="collapse-toggle collapsed"
+            data-target="#adyen-molpay_epay-wrapper"
+            data-toggle="collapse"
+          >
+            <button>
+              epay
+            </button>
+          </span>
+        </strong>
+        <div
+          class="adyen-wrapper collapse"
+          id="adyen-molpay_epay-wrapper"
+        >
+          <div
+            class="adyen-component"
+            id="adyen-molpay_epay-payment"
+          />
+        </div>
+      </div>
+      <div
+        class="collapse-heading"
+      >
+        <strong>
+          <span
+            class="collapse-toggle collapsed"
+            data-target="#adyen-multibanco-wrapper"
+            data-toggle="collapse"
+          >
+            <button>
+              Multibanco
+            </button>
+          </span>
+        </strong>
+        <div
+          class="adyen-wrapper collapse"
+          id="adyen-multibanco-wrapper"
+        >
+          <div
+            class="adyen-component"
+            id="adyen-multibanco-payment"
+          />
+        </div>
+      </div>
+      <div
+        class="collapse-heading"
+      >
+        <strong>
+          <span
+            class="collapse-toggle collapsed"
+            data-target="#adyen-openbanking_UK-wrapper"
+            data-toggle="collapse"
+          >
+            <button>
+              Online banking
+            </button>
+          </span>
+        </strong>
+        <div
+          class="adyen-wrapper collapse"
+          id="adyen-openbanking_UK-wrapper"
+        >
+          <div
+            class="adyen-component"
+            id="adyen-openbanking_UK-payment"
+          />
+        </div>
+      </div>
+      <div
+        class="collapse-heading"
+      >
+        <strong>
+          <span
+            class="collapse-toggle collapsed"
+            data-target="#adyen-paysafecard-wrapper"
+            data-toggle="collapse"
+          >
+            <button>
+              Paysafecard
+            </button>
+          </span>
+        </strong>
+        <div
+          class="adyen-wrapper collapse"
+          id="adyen-paysafecard-wrapper"
+        >
+          <div
+            class="adyen-component"
+            id="adyen-paysafecard-payment"
+          />
+        </div>
+      </div>
+      <div
+        class="collapse-heading"
+      >
+        <strong>
+          <span
+            class="collapse-toggle collapsed"
+            data-target="#adyen-unionpay-wrapper"
+            data-toggle="collapse"
+          >
+            <button>
+              UnionPay
+            </button>
+          </span>
+        </strong>
+        <div
+          class="adyen-wrapper collapse"
+          id="adyen-unionpay-wrapper"
+        >
+          <div
+            class="adyen-component"
+            id="adyen-unionpay-payment"
+          />
+        </div>
+      </div>
+      <div
+        class="collapse-heading"
+      >
+        <strong>
+          <span
+            class="collapse-toggle collapsed"
+            data-target="#adyen-wechatpayQR-wrapper"
+            data-toggle="collapse"
+          >
+            <button>
+              WeChat Pay
+            </button>
+          </span>
+        </strong>
+        <div
+          class="adyen-wrapper collapse"
+          id="adyen-wechatpayQR-wrapper"
+        >
+          <div
+            class="adyen-component"
+            id="adyen-wechatpayQR-payment"
+          />
+        </div>
+      </div>
+    </div>
+  </body>,
+}
+`;

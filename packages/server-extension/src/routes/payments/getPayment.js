@@ -1,8 +1,10 @@
 import getCheckout from '../../utils/checkout'
 import nconf from 'nconf/lib/nconf'
 import mcache from 'memory-cache'
+import pkgJson from '../../../package.json'
 
 export default async (req, res, next) => {
+    const pkgJson = require('../../../package')
     const { customProperties } = req.body
     const hasPaymentData = 'paymentData' in customProperties
 
@@ -10,7 +12,7 @@ export default async (req, res, next) => {
         return next()
     }
 
-    const { userAgent, gatewaySettings } = req.app.locals
+    const { gatewaySettings } = req.app.locals
     const checkout = getCheckout(req)
 
     const {
@@ -48,23 +50,32 @@ export default async (req, res, next) => {
             }
 
             const paymentDetailsJson = JSON.parse(paymentDetails)
-            const { type } = paymentDetailsJson.paymentMethod
+            const { type, countryCode, ...paymentMethodRest } = paymentDetailsJson.paymentMethod
             const installments = numberOfInstallments && {
                 installments: { value: numberOfInstallments },
             }
-            const details = {
-                scheme: {
-                    enableRecurring: storedPayment.includes('recurring'),
-                    enableOneClick: storedPayment.includes('oneClick'),
-                    redirectToIssuerMethod: 'GET',
-                    redirectFromIssuerMethod: 'GET',
-                    shopperName: nameOnCard,
-                    returnUrl,
-                    ...installments,
-                    ...paymentDetailsJson,
-                },
-                boletobancario: paymentDetailsJson,
+
+            const paymentMethod = { type, ...paymentMethodRest }
+            const defaultDetails = {
+                ...paymentDetailsJson,
+                redirectFromIssuerMethod: 'GET',
+                redirectToIssuerMethod: 'GET',
+                returnUrl,
+                paymentMethod,
             }
+
+            const scheme = {
+                enableRecurring: storedPayment.includes('recurring'),
+                enableOneClick: storedPayment.includes('oneClick'),
+                shopperName: nameOnCard,
+                ...installments,
+                ...defaultDetails,
+            }
+
+            const details = type === 'scheme' ? scheme : defaultDetails
+
+            const appName = 'adyen-oracle-commerce-cloud'
+            const applicationInfo = { name: appName, version: pkgJson.occVersion }
 
             const paymentResponse = await checkout.payments(
                 {
@@ -72,26 +83,21 @@ export default async (req, res, next) => {
                     ...(additionalData && {
                         additionalData: JSON.parse(additionalData),
                     }),
+                    ...(countryCode && { countryCode }),
                     merchantAccount,
                     applicationInfo: {
                         externalPlatform: {
-                            integrator: '',
                             name: 'Oracle Commerce Cloud',
-                            version: '', // TODO: get version from OCC
+                            version: pkgJson.version,
                         },
-                        adyenPaymentSource: {
-                            version: '', // TODO: create static file with version num
-                            name: 'adyen-oracle-commerce-cloud',
-                        },
-                    },
-                    browserInfo: {
-                        userAgent: userAgent.ua,
+                        adyenPaymentSource: applicationInfo,
+                        merchantApplication: applicationInfo,
                     },
                     reference: transactionId,
                     selectedBrand,
                     shopperEmail: profile.email,
                     shopperReference: profile.id,
-                    ...details[type],
+                    ...details,
                 },
                 { idempotencyKey: `${orderId}-${transactionId}` }
             )
@@ -106,12 +112,9 @@ export default async (req, res, next) => {
         const paymentResponse = await getPaymentResponse()
         const isSuccess = !('refusalReason' in paymentResponse)
 
-        const additionalProperties =
-            paymentResponse.action || paymentResponse.additionalData
+        const additionalProperties = paymentResponse.action || paymentResponse.additionalData
 
-        const merchantTransactionId =
-            paymentResponse.pspReference ||
-            `${merchantAccount}:${transactionId}`
+        const merchantTransactionId = paymentResponse.pspReference || `${merchantAccount}:${transactionId}`
 
         const response = {
             transactionType: req.body.transactionType,

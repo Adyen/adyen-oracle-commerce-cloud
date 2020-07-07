@@ -12,7 +12,6 @@ import cache from '../helpers/serverCache'
 import clearCache from './clearCache/index'
 
 const router = express.Router()
-const oneWeek = 604800
 const oneDay = 86400
 
 router.use(loggerMiddleware)

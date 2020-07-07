@@ -9,9 +9,8 @@
     "test": "jest"
   },
   "devDependencies": {
-    "jest": "^24.9.0",
-    "knockout": "^3.5.1",
-    "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-node-resolve": "^5.2.0"
+    "jest": "25.5.4",
+    "rollup-plugin-commonjs": "10.1.0",
+    "rollup-plugin-node-resolve": "5.2.0"
   }
 }

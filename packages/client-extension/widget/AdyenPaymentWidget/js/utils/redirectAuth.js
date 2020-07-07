@@ -3,7 +3,7 @@ import * as constants from '../constants'
 import { store } from '../components'
 import { createFromAction } from './index'
 
-export default ({ order, customPaymentProperties, resultCode }, cb) => {
+export default ({ order, customPaymentProperties }, cb) => {
     const checkoutCard = store.get(constants.checkout.card)
     const isAuthRedirect = 'paymentData' in customPaymentProperties
     const redirect = () => {
@@ -14,10 +14,7 @@ export default ({ order, customPaymentProperties, resultCode }, cb) => {
         }
 
         const instance = storageApi.getInstance()
-        instance.setItem(
-            constants.storage.paymentData,
-            customPaymentProperties.paymentData
-        )
+        instance.setItem(constants.storage.paymentData, customPaymentProperties.paymentData)
         instance.setItem(constants.storage.order, JSON.stringify(order))
 
         createFromAction(action)

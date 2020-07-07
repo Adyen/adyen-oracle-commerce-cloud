@@ -7,8 +7,7 @@ class Emitter {
     }
 
     _ev = suffix => ({
-        emit: (event, ...args) =>
-            $.Topic(`${suffix}-${event}`).publish(...args),
+        emit: (event, ...args) => $.Topic(`${suffix}-${event}`).publish(...args),
         on: (event, cb) => $.Topic(`${suffix}-${event}`).subscribe(cb),
     })
 

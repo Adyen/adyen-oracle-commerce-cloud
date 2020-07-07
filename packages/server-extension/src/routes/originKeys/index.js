@@ -9,10 +9,7 @@ router.get('/', async function(req, res, next) {
         const checkoutUtility = getCheckoutUtility(req)
 
         const originKeys = await checkoutUtility.originKeys({
-            originDomains: [
-                nconf.get('atg.server.url'),
-                nconf.get('atg.server.admin.url'),
-            ],
+            originDomains: [nconf.get('atg.server.url'), nconf.get('atg.server.admin.url')],
         })
         res.json(originKeys)
     } catch (e) {

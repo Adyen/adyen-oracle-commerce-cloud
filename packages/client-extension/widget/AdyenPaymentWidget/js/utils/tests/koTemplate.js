@@ -20,9 +20,7 @@ export const mockTemplate = templateId => {
     const script = document.createElement('script')
     script.type = 'text/html'
     script.setAttribute('id', templateId)
-    script.innerHTML = `<template name="${encodeURI(
-        templateId
-    )}" data-bind="debugPrint: $data" />`
+    script.innerHTML = `<template name="${encodeURI(templateId)}" data-bind="debugPrint: $data" />`
     document.head.appendChild(script)
     return {
         remove() {
@@ -31,11 +29,7 @@ export const mockTemplate = templateId => {
     }
 }
 
-const template = fs
-    .readFileSync(
-        path.resolve(__dirname, '../../../templates/display.template')
-    )
-    .toString()
+const template = fs.readFileSync(path.resolve(__dirname, '../../../templates/display.template')).toString()
 
 const generateTemplate = (widget, cb) => {
     document.body.innerHTML = template.toString()
@@ -49,9 +43,7 @@ const generateTemplate = (widget, cb) => {
     cb && cb(viewModel)
     ko.applyBindings(viewModel, document.body)
     cleanKoComments(document.body)
-    const formattedStr = document.body.innerHTML
-        .replace(/<!-- \/ko -->/g, '')
-        .replace(/[\r\n]\s*/g, '')
+    const formattedStr = document.body.innerHTML.replace(/<!-- \/ko -->/g, '').replace(/[\r\n]\s*/g, '')
 
     document.body.innerHTML = formattedStr
     return {

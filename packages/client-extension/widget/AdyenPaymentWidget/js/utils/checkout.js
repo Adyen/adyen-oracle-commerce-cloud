@@ -25,23 +25,30 @@ export const createFromAction = ({ action, selector, checkoutComponent }) => {
 class Checkout {
     constructor(type) {
         this.type = type
+        this.checkout = undefined
+    }
+
+    getCheckout = configuration => {
+        // eslint-disable-next-line no-undef
+        this.checkout = this.checkout || new AdyenCheckout({ ...getDefaultConfig(), ...configuration })
+        return this.checkout
     }
 
     createCheckout = ({ configuration, selector, type, options = {} }, cb) => {
-        const defaultConfiguration = getDefaultConfig()
-        const checkout = new AdyenCheckout({
-            ...defaultConfiguration,
-            ...configuration,
-        })
+        const checkout = this.getCheckout(configuration)
         checkout.create(type, options).mount(selector)
-        cb(checkout)
+
+        cb && cb(checkout)
     }
 
-    onSubmit = options => (state, component) => {
+    onSubmit = onChange => (state, component) => {
+        onChange && onChange(state, component)
+        const loader = document.querySelector(`.loader-wrapper`)
+        loader && loader.classList.toggle('hide', false)
+
         const order = store.get(constants.order)
         eventEmitter.payment.emit(constants.setPayment, this.type)
 
-        order().id(null)
         order().op(ccConstants.ORDER_OP_INITIATE)
         order().handlePlaceOrder()
     }
@@ -51,10 +58,7 @@ class Checkout {
         const isValid = component.isValid && typeof state.data === 'object'
         eventEmitter.store.emit(constants.isValid, isValid)
 
-        const payload = {
-            ...paymentDetails,
-            [this.type]: { ...state.data, ...options },
-        }
+        const payload = { ...paymentDetails, [this.type]: { ...state.data, ...options } }
 
         eventEmitter.store.emit(constants.paymentDetails, payload)
     }

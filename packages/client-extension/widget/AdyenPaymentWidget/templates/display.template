@@ -1,40 +1,40 @@
-<link rel="stylesheet" href="https://checkoutshopper-live.adyen.com/checkoutshopper/sdk/3.2.0/adyen.css" />
+<div class="loader-wrapper hide">
+    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+    <div style="font-weight: bold; font-size: 16px;">Processing...</div>
+</div>
 
-<legend data-bind="widgetLocaleText: 'paymentDetails'"></legend>
-
-<div id="adyen-collapse-heading" class="oc-panel panel-1" data-oc-id="panel-1" data-bind="onRender: onRender">
-    <!-- ko if : getStore('boletoEnabled') && getStore('brazilEnabled') -->
+<legend data-bind="widgetLocaleText: 'storedPaymentMethods'"></legend>
+<div class="adyen-collapse-heading oc-panel panel-2" data-oc-id="panel-2">
+    <!-- ko foreach: store.storedPaymentMethods() -->
     <div class="collapse-heading">
-      <strong>
-        <span class="collapse-toggle collapsed" data-toggle="collapse" data-target="#adyen-boleto-wrapper">
-          <button data-bind="widgetLocaleText:'payWithBoleto'"></button>
+        <strong>
+        <span
+                class="collapse-toggle collapsed"
+                data-toggle="collapse"
+                data-bind="attr: { 'data-target': '#adyen-stored_' + $data.id + '-wrapper' }"
+        >
+            <button data-bind="text: 'Card ending with ' + $data.lastFour"></button>
         </span>
-      </strong>
+        </strong>
     </div>
-    <div id="adyen-boleto-wrapper" class="adyen-wrapper collapse">
-      <!-- ko if : getStore('isSubmitting')() -->
-      <div class="loader-wrapper">
-          <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
-          <div style="font-weight: bold; font-size: 16px;">Processing...</div>
-      </div>
-      <!-- /ko -->
-      <div id="adyen-boleto-payment" class="adyen-component"></div>
+    <div class="adyen-wrapper collapse" data-bind="attr: { id: 'adyen-stored_' + $data.id + '-wrapper' }">
+        <div class="adyen-component" data-bind="attr: { id: 'adyen-stored_' + $data.id + '-payment' }"></div>
     </div>
     <!-- /ko -->
+</div>
+<br />
+<legend data-bind="widgetLocaleText: 'paymentDetails'"></legend>
+
+<div class="adyen-collapse-heading oc-panel panel-1" data-oc-id="panel-1" data-bind="onRender: onRender">
+    <!-- ko if : store.scheme() -->
     <div class="collapse-heading">
-        <strong> <span class="collapse-toggle collapsed" data-toggle="collapse" data-target="#adyen-card-wrapper"><button
+        <strong> <span class="collapse-toggle collapsed" data-toggle="collapse" data-target="#adyen-scheme-wrapper"><button
                 data-bind="widgetLocaleText:'payWithCard'"></button></span></strong>
     </div>
-    <div id="adyen-card-wrapper" class="adyen-wrapper collapse">
-        <!-- ko if : getStore('isSubmitting')() -->
-        <div class="loader-wrapper">
-            <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
-            <div style="font-weight: bold; font-size: 16px;">Processing...</div>
-        </div>
-        <!-- /ko -->
+    <div id="adyen-scheme-wrapper" class="adyen-wrapper collapse">
         <div id="adyen-card-payment" class="adyen-component">
-        <!-- ko if : getStore('isLoaded')() -->
-            <!-- ko if : getStore('brazilEnabled') -->
+        <!-- ko if : store.isLoaded() -->
+            <!-- ko if : store.brazilEnabled -->
             <div class="adyen-checkout__field-wrapper">
                 <div class="adyen-checkout__field">
                     <label class="adyen-checkout__label">
@@ -51,11 +51,11 @@
                         background: url('http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png') white no-repeat calc(100% - 10px) !important;
                     "
                         id="comboCard"
-                        data-bind="options: getStore('comboCards'),
+                        data-bind="options: store.comboCards,
                         optionsText: function(item) {
-                            return getStore('translate')(item);
+                            return store.translate(item);
                         },
-                        value: getStore('selectedComboCard')
+                        value: store.selectedComboCard
                     ">
                 </select>
             </span>
@@ -63,7 +63,7 @@
                 </div>
             </div>
             <!-- /ko -->
-            <!-- ko if : getStore("installmentsEnabled")() -->
+            <!-- ko if : store.installmentsEnabled() -->
             <div class="adyen-checkout__field-wrapper">
                 <div class="adyen-checkout__field">
                     <label class="adyen-checkout__label">
@@ -80,12 +80,12 @@
                         background: url('http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png') white no-repeat 98.5% !important;
                         background: url('http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png') white no-repeat calc(100% - 10px) !important;
                     "
-                        data-bind="options: getStore('installments'),
+                        data-bind="options: store.installments,
                         optionsText: function(item) {
                             return item.numberOfInstallments + 'x';
                         },
-                        value: getStore('selectedInstallment'),
-                        optionsCaption: getStore('noInstallmentsMsg')
+                        value: store.selectedInstallment,
+                        optionsCaption: store.noInstallmentsMsg
                     ">
                 </select>
             </span>
@@ -96,4 +96,34 @@
          <!-- /ko -->
         </div>
     </div>
+    <!-- /ko -->
+
+    <!-- ko if : store.boletobancario() -->
+    <div class="collapse-heading">
+        <strong>
+        <span class="collapse-toggle collapsed" data-toggle="collapse" data-target="#adyen-boletobancario-wrapper">
+          <button data-bind="widgetLocaleText:'payWithBoleto'"></button>
+        </span>
+        </strong>
+    </div>
+    <div id="adyen-boletobancario-wrapper" class="adyen-wrapper collapse">
+        <div id="adyen-boleto-payment" class="adyen-component"></div>
+    </div>
+    <!-- /ko -->
+    <!-- ko foreach: store.localPaymentMethods() -->
+    <div class="collapse-heading">
+        <strong>
+            <span
+                    class="collapse-toggle collapsed"
+                    data-toggle="collapse"
+                    data-bind="attr: { 'data-target': '#adyen-' + $data.type + '-wrapper' }"
+            >
+                <button data-bind="text: $data.name"></button>
+            </span>
+        </strong>
+        <div class="adyen-wrapper collapse" data-bind="attr: { id: 'adyen-' + $data.type + '-wrapper' }">
+            <div class="adyen-component" data-bind="attr: { id: 'adyen-' + $data.type + '-payment' }"></div>
+        </div>
+    </div>
+    <!-- /ko -->
 </div>

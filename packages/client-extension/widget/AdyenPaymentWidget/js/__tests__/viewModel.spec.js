@@ -2,8 +2,8 @@ import Widget from '../../../../__mocks__/widget'
 import notifier from '../../../../__mocks__/notifier'
 import viewModel from '../adyen-checkout'
 import * as constants from '../constants'
-import store from '../components/store'
 import { eventEmitter } from '../utils'
+import { store } from '../components'
 
 const installmentsOptionsId = 'installmentsOptionsId'
 const paymentMethodTypes = 'paymentMethodTypes'
@@ -12,6 +12,7 @@ const storedPaymentType = 'storedPayment'
 describe('View Model', () => {
     let widget
     beforeEach(() => {
+        jest.clearAllMocks()
         widget = new Widget()
     })
 
@@ -25,7 +26,7 @@ describe('View Model', () => {
     test.each(['pt_BR', 'es_MX'])(
         'should have enabled installments for %s',
         locale => {
-            widget.locale = jest.fn(() => locale)
+            widget.setLocale(locale)
             viewModel.onLoad(widget)
             eventEmitter.store.emit(constants.installments, [
                 { numberOfInstallments: 3 },
@@ -38,16 +39,14 @@ describe('View Model', () => {
     )
 
     it('should have Brazil enabled', () => {
-        widget.locale = jest.fn(() => 'pt_BR')
-        widget.cart = jest.fn(() => ({
-            currencyCode: jest.fn(() => 'BRL'),
-        }))
+        widget.setLocale('pt_BR')
+        widget.setCurrencyCode('BRL')
         viewModel.onLoad(widget)
         expect(store.get(constants.brazilEnabled)).toBeTruthy()
     })
 
     it('should have JSON installment options', () => {
-        widget.locale = jest.fn(() => 'pt_BR')
+        widget.setLocale('pt_BR')
         const installmentOptionsString = '[[1,3,31],[5,5,24]]'
         widget.setGatewaySettings(
             installmentsOptionsId,
@@ -61,7 +60,7 @@ describe('View Model', () => {
     })
 
     it('should send error notification if installments code is wrong', () => {
-        widget.locale = jest.fn(() => 'pt_BR')
+        widget.setLocale('pt_BR')
         const installmentOptionsString = 'invalid_json'
         widget.setGatewaySettings(
             installmentsOptionsId,
@@ -76,19 +75,11 @@ describe('View Model', () => {
         )
     })
 
-    it('should have boleto enabled', () => {
-        const { invoice } = constants.paymentMethodTypes
-        widget.setGatewaySettings(paymentMethodTypes, [invoice])
-        viewModel.onLoad(widget)
-
-        expect(store.get(constants.boleto.enabled)).toEqual(true)
-    })
-
     it('should have boleto with delivery date and shopper statement', () => {
-        const { invoice } = constants.paymentMethodTypes
+        const { boleto } = constants.paymentMethodTypes
         const boletoDeliveryDate = '1574064504643'
         const boletoShopperStatement = 'Mocked shopper statement'
-        widget.setGatewaySettings(paymentMethodTypes, [invoice])
+        widget.setGatewaySettings(paymentMethodTypes, [boleto])
         widget.setGatewaySettings('boletoDeliveryDate', boletoDeliveryDate)
         widget.setGatewaySettings(
             'boletoShopperStatement',
@@ -96,10 +87,10 @@ describe('View Model', () => {
         )
         viewModel.onLoad(widget)
 
-        const deliveryDate = store.get(constants.boleto.deliveryDate)
+        const deliveryDate = store.get(constants.boletoOptions.deliveryDate)
         expect(deliveryDate).toEqual(Number(boletoDeliveryDate))
 
-        const shopperStatement = store.get(constants.boleto.shopperStatement)
+        const shopperStatement = store.get(constants.boletoOptions.shopperStatement)
         expect(shopperStatement).toEqual(boletoShopperStatement)
     })
 
