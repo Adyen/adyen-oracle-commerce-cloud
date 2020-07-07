@@ -7,4 +7,18 @@ function getCheckout(req) {
     return checkout
 }
 
+export function getExternalProperties({ additionalData, resultCode }) {
+    return {
+        additionalProperties: {
+            ...(additionalData && {
+                data: JSON.stringify(additionalData),
+            }),
+            resultCode,
+        },
+        externalProperties: additionalData
+            ? ['data', 'resultCode']
+            : ['resultCode'],
+    }
+}
+
 export default getCheckout

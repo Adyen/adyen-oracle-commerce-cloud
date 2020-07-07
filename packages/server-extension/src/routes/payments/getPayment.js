@@ -1,6 +1,7 @@
 import getCheckout from '../../utils/checkout'
 import nconf from 'nconf/lib/nconf'
 import mcache from 'memory-cache'
+import { getExternalProperties } from '../../utils/checkout'
 
 export default async (req, res, next) => {
     const pkgJson = require('../../../package')
@@ -148,11 +149,10 @@ export default async (req, res, next) => {
             hostTimestamp: new Date().toISOString(),
             response: { success: isSuccess },
             merchantTransactionId,
-            additionalProperties: {
-                data: JSON.stringify(additionalProperties),
+            ...getExternalProperties({
+                additionalData: additionalProperties,
                 resultCode: paymentResponse.resultCode,
-            },
-            externalProperties: ['data', 'resultCode'],
+            }),
         }
 
         res.json(response)
