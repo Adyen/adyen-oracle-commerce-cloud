@@ -1,4 +1,5 @@
 import getCheckout from '../../utils/checkout'
+import { getExternalProperties } from '../../utils/checkout'
 
 export default async (req, res, next) => {
     const { customProperties } = req.body
@@ -20,11 +21,7 @@ export default async (req, res, next) => {
             amount: req.body.amount,
             hostTimestamp: new Date().toISOString(),
             paymentId: req.body.paymentId,
-            additionalProperties: {
-                data: JSON.stringify(paymentResponse.additionalData),
-                resultCode: paymentResponse.resultCode,
-            },
-            externalProperties: ['data', 'resultCode'],
+            ...getExternalProperties(paymentResponse),
             merchantTransactionId: paymentResponse.pspReference,
             response: { success: isSuccess },
             orderId: customProperties.orderId,

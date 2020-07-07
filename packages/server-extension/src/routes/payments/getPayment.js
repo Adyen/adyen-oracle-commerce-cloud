@@ -1,6 +1,7 @@
 import getCheckout from '../../utils/checkout'
 import nconf from 'nconf/lib/nconf'
 import mcache from 'memory-cache'
+import { getExternalProperties } from '../../utils/checkout'
 
 export default async (req, res, next) => {
     const { customProperties } = req.body
@@ -125,11 +126,10 @@ export default async (req, res, next) => {
             paymentId: req.body.paymentId,
             response: { success: isSuccess },
             merchantTransactionId,
-            additionalProperties: {
-                data: JSON.stringify(additionalProperties),
+            ...getExternalProperties({
+                additionalData: additionalProperties,
                 resultCode: paymentResponse.resultCode,
-            },
-            externalProperties: ['data', 'resultCode'],
+            }),
         }
 
         res.json(response)
