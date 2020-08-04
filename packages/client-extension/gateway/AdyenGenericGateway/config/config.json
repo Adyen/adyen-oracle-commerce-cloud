@@ -1,145 +1,153 @@
 {
-  "configType": "payment",
-  "titleResourceId": "title",
-  "descriptionResourceId": "description",
-  "instances": [
-    {
-      "id": "agent",
-      "instanceName": "agent",
-      "labelResourceId": "agentInstanceLabel"
-    },
-    {
-      "id": "preview",
-      "instanceName": "preview",
-      "labelResourceId": "previewInstanceLabel"
-    },
-    {
-      "id": "storefront",
-      "instanceName": "storefront",
-      "labelResourceId": "storefrontInstanceLabel"
-    }
-  ],
-  "properties": [
-    {
-      "id": "paymentMethodTypes",
-      "type": "multiSelectOptionType",
-      "required": false,
-      "helpTextResourceId": "paymentMethodsHelpText",
-      "labelResourceId": "paymentMethodsLabel",
-      "displayAsCheckboxes": true,
-      "defaultValue": "generic",
-      "public": true,
-      "options": [
+    "configType": "payment",
+    "titleResourceId": "title",
+    "descriptionResourceId": "description",
+    "instances": [
         {
-          "id": "invoice",
-          "value": "invoice",
-          "labelResourceId": "invoiceLabel"
+            "id": "agent",
+            "instanceName": "agent",
+            "labelResourceId": "agentInstanceLabel"
         },
         {
-          "id": "generic",
-          "value": "generic",
-          "labelResourceId": "cardLabel"
-        }
-      ]
-    },
-    {
-      "id": "merchantId",
-      "type": "stringType",
-      "labelResourceId": "merchantIdLabel",
-      "helpTextResourceId": "merchantIdHelpText",
-      "defaultValue": "merchantId",
-      "required": true,
-      "public": true
-    },
-    {
-      "id": "merchantPasscode",
-      "type": "passwordType",
-      "labelResourceId": "merchantPasscodeLabel",
-      "helpTextResourceId": "merchantPasscodeHelpText",
-      "defaultValue": "merchantPasscode",
-      "required": true,
-      "public": false
-    },
-    {
-      "id": "originDomain",
-      "type": "stringType",
-      "labelResourceId": "originDomainLabel",
-      "helpTextResourceId": "originDomainHelpText",
-      "defaultValue": "",
-      "required": false,
-      "public": true
-    },
-    {
-      "id": "storedPayment",
-      "type": "multiSelectOptionType",
-      "required": false,
-      "helpTextResourceId": "storedPaymentHelpText",
-      "labelResourceId": "storedPaymentLabel",
-      "public": true,
-      "displayAsCheckboxes": true,
-      "options": [
-        {
-          "id": "oneClick",
-          "value": "oneClick",
-          "labelResourceId": "oneClickLabel"
+            "id": "preview",
+            "instanceName": "preview",
+            "labelResourceId": "previewInstanceLabel"
         },
         {
-          "id": "recurring",
-          "value": "recurring",
-          "labelResourceId": "recurringLabel"
+            "id": "storefront",
+            "instanceName": "storefront",
+            "labelResourceId": "storefrontInstanceLabel"
         }
-      ]
-    },
-    {
-      "id": "environment",
-      "type": "optionType",
-      "labelResourceId": "environmentLabel",
-      "helpTextResourceId": "environmentHelpText",
-      "defaultValue": "test",
-      "public": true,
-      "required": true,
-      "options": [
+    ],
+    "properties": [
         {
-          "id": "test",
-          "value": "test",
-          "labelResourceId": "testLabel"
+            "id": "paymentMethodTypes",
+            "type": "multiSelectOptionType",
+            "required": false,
+            "helpTextResourceId": "paymentMethodsHelpText",
+            "labelResourceId": "paymentMethodsLabel",
+            "displayAsCheckboxes": true,
+            "defaultValue": "generic",
+            "public": true,
+            "options": [
+                {
+                    "id": "invoice",
+                    "value": "invoice",
+                    "labelResourceId": "invoiceLabel"
+                },
+                {
+                    "id": "generic",
+                    "value": "generic",
+                    "labelResourceId": "cardLabel"
+                }
+            ]
         },
         {
-          "id": "live",
-          "value": "live",
-          "labelResourceId": "liveLabel"
+            "id": "merchantId",
+            "type": "stringType",
+            "labelResourceId": "merchantIdLabel",
+            "helpTextResourceId": "merchantIdHelpText",
+            "defaultValue": "merchantId",
+            "required": true,
+            "public": true
+        },
+        {
+            "id": "merchantPasscode",
+            "type": "passwordType",
+            "labelResourceId": "merchantPasscodeLabel",
+            "helpTextResourceId": "merchantPasscodeHelpText",
+            "defaultValue": "merchantPasscode",
+            "required": true,
+            "public": false
+        },
+        {
+            "id": "originDomain",
+            "type": "stringType",
+            "labelResourceId": "originDomainLabel",
+            "helpTextResourceId": "originDomainHelpText",
+            "defaultValue": "",
+            "required": false,
+            "public": true
+        },
+        {
+            "id": "storedPayment",
+            "type": "multiSelectOptionType",
+            "required": false,
+            "helpTextResourceId": "storedPaymentHelpText",
+            "labelResourceId": "storedPaymentLabel",
+            "public": true,
+            "displayAsCheckboxes": true,
+            "options": [
+                {
+                    "id": "oneClick",
+                    "value": "oneClick",
+                    "labelResourceId": "oneClickLabel"
+                },
+                {
+                    "id": "recurring",
+                    "value": "recurring",
+                    "labelResourceId": "recurringLabel"
+                }
+            ]
+        },
+        {
+            "id": "environment",
+            "type": "optionType",
+            "labelResourceId": "environmentLabel",
+            "helpTextResourceId": "environmentHelpText",
+            "defaultValue": "test",
+            "public": true,
+            "required": true,
+            "options": [
+                {
+                    "id": "test",
+                    "value": "test",
+                    "labelResourceId": "testLabel"
+                },
+                {
+                    "id": "live",
+                    "value": "live",
+                    "labelResourceId": "liveLabel"
+                }
+            ]
+        },
+        {
+            "id": "holderNameEnabled",
+            "type": "booleanType",
+            "labelResourceId": "holderNameEnabledLabel",
+            "helpTextResourceId": "holderNameEnabledHelpText",
+            "defaultValue": false,
+            "public": true
+        },
+        {
+            "id": "installmentsEnabled",
+            "type": "booleanType",
+            "labelResourceId": "installmentsEnabledLabel",
+            "helpTextResourceId": "installmentsEnabledHelpText",
+            "defaultValue": false,
+            "public": true
+        },
+        {
+            "id": "installmentsOptionsId",
+            "type": "stringType",
+            "labelResourceId": "installmentsOptionsLabel",
+            "helpTextResourceId": "installmentsOptionsHelpText",
+            "public": true
+        },
+        {
+            "id": "boletoDeliveryDate",
+            "type": "stringType",
+            "labelResourceId": "boletoDeliveryDateLabel",
+            "helpTextResourceId": "boletoDeliveryDateHelpText",
+            "public": true,
+            "defaultValue": "15"
+        },
+        {
+            "id": "boletoShopperStatement",
+            "type": "stringType",
+            "labelResourceId": "boletoShopperStatementLabel",
+            "helpTextResourceId": "boletoShopperStatementHelpText",
+            "public": true
         }
-      ]
-    },
-    {
-      "id": "installmentsEnabled",
-      "type": "booleanType",
-      "labelResourceId": "installmentsEnabledLabel",
-      "helpTextResourceId": "installmentsEnabledHelpText",
-      "defaultValue": false,
-      "public": true
-    },
-    {
-      "id": "installmentsOptionsId",
-      "type": "stringType",
-      "labelResourceId": "installmentsOptionsLabel",
-      "helpTextResourceId": "installmentsOptionsHelpText",
-      "public": true
-    },
-    {
-      "id": "boletoDeliveryDate",
-      "type": "stringType",
-      "labelResourceId": "boletoDeliveryDateLabel",
-      "helpTextResourceId": "boletoDeliveryDateHelpText",
-      "public": true,
-      "defaultValue": "15"
-    },
-    {
-      "id": "boletoShopperStatement",
-      "type": "stringType",
-      "labelResourceId": "boletoShopperStatementLabel",
-      "helpTextResourceId": "boletoShopperStatementHelpText",
-      "public": true
-    }
-  ]
+    ]
 }

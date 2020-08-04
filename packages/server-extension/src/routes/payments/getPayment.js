@@ -11,7 +11,7 @@ export default async (req, res, next) => {
         return next()
     }
 
-    const { userAgent, gatewaySettings } = req.app.locals
+    const { gatewaySettings } = req.app.locals
     const checkout = getCheckout(req)
 
     const {
@@ -19,6 +19,7 @@ export default async (req, res, next) => {
         transactionId,
         orderId,
         customProperties: {
+            browserInfo,
             paymentDetails,
             nameOnCard,
             storedPayment,
@@ -29,6 +30,9 @@ export default async (req, res, next) => {
         currencyCode,
         profile,
         channel,
+        shippingAddress,
+        billingAddress,
+        siteURL,
     } = req.body
 
     const { merchantId: merchantAccount } = gatewaySettings[channel]
@@ -67,6 +71,16 @@ export default async (req, res, next) => {
                 boletobancario: paymentDetailsJson,
             }
 
+            const getField = (arg0, fieldKey) =>
+                Array.isArray(arg0) ? arg0[0][fieldKey] : arg0[fieldKey]
+            const getAddress = address => ({
+                city: getField(address, 'city'),
+                country: getField(address, 'country'),
+                postalCode: getField(address, 'postalCode'),
+                stateOrProvince: getField(address, 'state'),
+                street: getField(address, 'address1'),
+                houseNumberOrName: getField(address, 'address2') || 'N/A',
+            })
             const paymentResponse = await checkout.payments(
                 {
                     amount: { value: amount, currency: currencyCode },
@@ -85,13 +99,18 @@ export default async (req, res, next) => {
                             name: 'adyen-oracle-commerce-cloud',
                         },
                     },
-                    browserInfo: {
-                        userAgent: userAgent.ua,
-                    },
+                    browserInfo,
                     reference: transactionId,
                     selectedBrand,
                     shopperEmail: profile.email,
                     shopperReference: profile.id,
+                    deliveryAddress: getAddress(shippingAddress),
+                    billingAddress: getAddress(billingAddress),
+                    threeDS2RequestData: {
+                        deviceChannel: 'browser',
+                    },
+                    channel: 'Web',
+                    origin: siteURL,
                     ...details[type],
                 },
                 { idempotencyKey: `${orderId}-${transactionId}` }
@@ -122,8 +141,8 @@ export default async (req, res, next) => {
             siteId: req.body.siteId,
             orderId: req.body.orderId,
             amount: req.body.amount,
-            hostTimestamp: new Date().toISOString(),
             paymentId: req.body.paymentId,
+            hostTimestamp: new Date().toISOString(),
             response: { success: isSuccess },
             merchantTransactionId,
             ...getExternalProperties({

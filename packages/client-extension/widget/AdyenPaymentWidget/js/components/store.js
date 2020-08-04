@@ -34,11 +34,11 @@ class Store {
         })
     }
 
-    get = (key) => (this.has(key) ? this[key] : undefined)
+    get = key => (this.has(key) ? this[key] : undefined)
 
-    has = (key) => key in this
+    has = key => key in this
 
-    init = (viewModel) => {
+    init = viewModel => {
         this.id = viewModel.id
         this.order = viewModel.order
         this.cart = viewModel.cart
@@ -55,6 +55,7 @@ class Store {
         // Component
         this.component = new Component()
         this.checkout = undefined
+        this.holderNameEnabled = false
         this.originDomain = ''
         this.originKey = ''
         this.isValid = false

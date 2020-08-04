@@ -24,7 +24,7 @@ const createCardCheckout = () => {
 
     const storedPaymentType = store.get(constants.storedPaymentType)
     const options = {
-        hasHolderName: false,
+        hasHolderName: store.get(constants.holderNameEnabled),
         enableStoreDetails: !!storedPaymentType(),
     }
 

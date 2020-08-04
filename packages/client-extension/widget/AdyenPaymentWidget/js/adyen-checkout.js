@@ -16,6 +16,7 @@ class ViewModel {
         boletoShopperStatement,
         paymentMethodTypes,
         originDomain,
+        holderNameEnabled,
     }) => {
         eventEmitter.store.emit(constants.environment, environment)
 
@@ -23,6 +24,7 @@ class ViewModel {
             this.setInstallments(installmentsOptionsId)
         eventEmitter.store.emit(constants.storedPaymentType, storedPayment)
         eventEmitter.store.emit(constants.originDomain, originDomain)
+        eventEmitter.store.emit(constants.holderNameEnabled, holderNameEnabled)
 
         setBoletoConfig({
             boletoDeliveryDate: Number(boletoDeliveryDate),
@@ -38,7 +40,7 @@ class ViewModel {
         this.setGatewaySettings(AdyenGenericGateway)
     }
 
-    setInstallments = (installmentsOptions) => {
+    setInstallments = installmentsOptions => {
         try {
             eventEmitter.store.emit(
                 constants.installmentsOptions,
@@ -58,14 +60,16 @@ class ViewModel {
         } = constants.countries
 
         const siteLocale = store.get(constants.locale).toLowerCase()
-        const currencyCode = this.cart().currencyCode().toLowerCase()
+        const currencyCode = this.cart()
+            .currencyCode()
+            .toLowerCase()
         const localeIsBr = locale === siteLocale
         const curIsBr = currencyCode === currency
 
         eventEmitter.store.emit(constants.brazilEnabled, localeIsBr && curIsBr)
     }
 
-    handlePageChanged = (pageData) => {
+    handlePageChanged = pageData => {
         const isCheckout = pageData.pageId === 'checkout'
         isCheckout && eventEmitter.order.emit(constants.pageChanged, pageData)
     }
@@ -74,7 +78,7 @@ class ViewModel {
         this.reset()
     }
 
-    onLoad = (widget) => {
+    onLoad = widget => {
         Object.assign(this, widget)
         store.init(widget)
 
@@ -87,7 +91,7 @@ class ViewModel {
         eventEmitter.component.emit(constants.render)
     }
 
-    getStore = (key) => {
+    getStore = key => {
         const hasKey = store.has(key)
         return hasKey ? store.get(key) : undefined
     }
@@ -118,7 +122,7 @@ class ViewModel {
             ORDER_SUBMISSION_SUCCESS,
         } = pubsub.topicNames
 
-        const emitInitialOrder = (ev) => {
+        const emitInitialOrder = ev => {
             eventEmitter.order.emit(constants.initialOrderCreated, ev)
         }
         $.Topic(ORDER_CREATED_INITIAL).subscribe(emitInitialOrder)

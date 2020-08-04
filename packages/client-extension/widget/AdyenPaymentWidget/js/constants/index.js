@@ -64,3 +64,4 @@ export const boleto = {
     shopperStatement: 'boletoShopperStatement',
 }
 export const originDomain = 'originDomain'
+export const holderNameEnabled = 'holderNameEnabled'
