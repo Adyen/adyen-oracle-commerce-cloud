@@ -1,3 +1,5 @@
+jest.mock('../components/static/bundle')
+
 import Widget from '../../../../__mocks__/widget'
 import generateTemplate from '../utils/tests/koTemplate'
 import { eventEmitter, hideLoaders } from '../utils'

@@ -68,3 +68,5 @@ export const boletoOptions = {
 }
 export const localPaymentMethods = 'localPaymentMethods'
 export const card = 'card'
+export const originDomain = 'originDomain'
+export const holderNameEnabled = 'holderNameEnabled'

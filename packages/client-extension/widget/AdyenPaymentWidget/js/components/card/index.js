@@ -23,9 +23,12 @@ const createCardCheckout = ({ paymentMethods }) => {
         const checkout = new Checkout(constants.paymentMethodTypes.scheme)
         const onChange = checkout.onChange()
         const onSubmit = checkout.onSubmit()
-
         const storedPaymentType = store.get(constants.storedPaymentType)
-        const options = { hasHolderName: false, enableStoreDetails: !!storedPaymentType(), brands }
+        const options = {
+            hasHolderName: store.get(constants.holderNameEnabled),
+            enableStoreDetails: !!storedPaymentType(),
+            brands,
+        }
 
         const configuration = { onBrand, onConfigSuccess, onChange, onSubmit }
         const checkoutOptions = { configuration, selector: '#adyen-card-payment', type: 'card', options }

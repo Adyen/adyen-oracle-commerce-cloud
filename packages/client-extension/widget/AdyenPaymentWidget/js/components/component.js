@@ -2,7 +2,7 @@ import $ from 'jquery'
 import * as constants from '../constants'
 import { eventEmitter } from '../utils'
 import { createBoletoCheckout, createCardCheckout, createStoredCards, createLocalPaymentCheckout, store } from './index'
-import "./static/bundle"
+import './static/bundle'
 
 class Component {
     constructor() {

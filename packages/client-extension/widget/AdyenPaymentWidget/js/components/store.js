@@ -35,6 +35,8 @@ class Store {
     selectedInstallment = ko.observable({})
     installmentsAllowedCountries = [countries.mexico.locale, countries.brazil.locale]
     installmentsOptions = []
+    holderNameEnabled = false
+    originDomain = ''
 
     // Card
     scheme = ko.observable(false)

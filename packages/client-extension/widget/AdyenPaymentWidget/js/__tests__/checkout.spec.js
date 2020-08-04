@@ -1,3 +1,5 @@
+jest.mock('../components/static/bundle')
+
 import { createStoredCards, store } from '../components'
 import * as constants from '../constants'
 import Widget from '../../../../__mocks__/widget'

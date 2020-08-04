@@ -1,3 +1,5 @@
+jest.mock('../components/static/bundle')
+
 import Widget from '../../../../__mocks__/widget'
 import notifier from '../../../../__mocks__/notifier'
 import viewModel from '../adyen-checkout'

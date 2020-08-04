@@ -1,3 +1,5 @@
+jest.mock('../components/static/bundle')
+
 import spinner from '../../../../__mocks__/spinner'
 import navigation from '../../../../__mocks__/navigation'
 import notifier from '../../../../__mocks__/notifier'

@@ -40,7 +40,7 @@ class Checkout {
             checkout.create(type, options).mount(selector)
             cb && cb(checkout)
         } catch (e) {
-            console.error(e);
+            console.error(e)
             // console.warn(`Payment method not supported: ${type}`)
         }
     }

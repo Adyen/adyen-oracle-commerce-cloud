@@ -1,3 +1,5 @@
+jest.mock('../components/static/bundle')
+
 import nock from 'nock'
 import Widget from '../../../../__mocks__/widget'
 import pubsub from '../../../../__mocks__/pubsub'

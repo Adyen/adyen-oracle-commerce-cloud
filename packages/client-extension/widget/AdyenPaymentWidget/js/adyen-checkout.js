@@ -16,11 +16,15 @@ class ViewModel {
         storedPayment,
         boletoDeliveryDate,
         boletoShopperStatement,
+        originDomain,
+        holderNameEnabled,
     }) => {
         eventEmitter.store.emit(constants.environment, environment)
 
         store.get(constants.isAllowedCountryForInstallments) && this.setInstallments(installmentsOptionsId)
         eventEmitter.store.emit(constants.storedPaymentType, storedPayment)
+        eventEmitter.store.emit(constants.originDomain, originDomain)
+        eventEmitter.store.emit(constants.holderNameEnabled, holderNameEnabled)
 
         setBoletoConfig({ boletoDeliveryDate: Number(boletoDeliveryDate), boletoShopperStatement })
     }
@@ -32,7 +36,7 @@ class ViewModel {
         this.setGatewaySettings(AdyenGenericGateway)
     }
 
-    setInstallments = (installmentsOptions) => {
+    setInstallments = installmentsOptions => {
         try {
             eventEmitter.store.emit(constants.installmentsOptions, JSON.parse(installmentsOptions))
         } catch (e) {
@@ -48,14 +52,16 @@ class ViewModel {
         const { currency, locale } = brazil
 
         const siteLocale = store.get(constants.locale).toLowerCase()
-        const currencyCode = this.cart().currencyCode()
+        const currencyCode = this.cart()
+            .currencyCode()
+            .toLowerCase()
         const localeIsBr = locale === siteLocale
         const curIsBr = currencyCode.toLowerCase() === currency
 
         eventEmitter.store.emit(constants.brazilEnabled, localeIsBr && curIsBr)
     }
 
-    handlePageChanged = (pageData) => {
+    handlePageChanged = pageData => {
         const isCheckout = pageData.pageId === 'checkout'
         isCheckout && eventEmitter.order.emit(constants.pageChanged, pageData)
     }
@@ -64,7 +70,8 @@ class ViewModel {
         this.reset()
     }
 
-    onLoad = (widget) => {
+    onLoad = widget => {
+        Object.assign(this, widget)
         store.init(widget)
         Object.assign(this, widget, { store })
 
@@ -99,7 +106,7 @@ class ViewModel {
             NOTIFICATION_ADD,
         } = pubsub.topicNames
 
-        const emitInitialOrder = (ev) => {
+        const emitInitialOrder = ev => {
             eventEmitter.order.emit(constants.initialOrderCreated, ev)
         }
         $.Topic(ORDER_CREATED_INITIAL).subscribe(emitInitialOrder)

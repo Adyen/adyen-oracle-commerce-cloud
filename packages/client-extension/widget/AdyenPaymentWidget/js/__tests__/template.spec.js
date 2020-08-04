@@ -1,3 +1,5 @@
+jest.mock('../components/static/bundle')
+
 import Widget from '../../../../__mocks__/widget'
 import generateTemplate, { mockTemplate } from '../utils/tests/koTemplate'
 

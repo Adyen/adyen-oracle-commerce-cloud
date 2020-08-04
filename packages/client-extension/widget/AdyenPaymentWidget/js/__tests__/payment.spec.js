@@ -1,3 +1,5 @@
+jest.mock('../components/static/bundle')
+
 import Widget from '../../../../__mocks__/widget'
 import viewModel from '../adyen-checkout'
 import { Payment, store } from '../components'

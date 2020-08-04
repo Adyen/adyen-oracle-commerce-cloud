@@ -1,3 +1,5 @@
+jest.mock('../components/static/bundle')
+
 import { createPresentToShopperModal } from '../utils/modal'
 import { eventEmitter } from '../utils'
 import * as constants from '../constants'
