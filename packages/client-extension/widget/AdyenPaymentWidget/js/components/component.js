@@ -2,6 +2,7 @@ import $ from 'jquery'
 import * as constants from '../constants'
 import { eventEmitter } from '../utils'
 import { createBoletoCheckout, createCardCheckout, createStoredCards, createLocalPaymentCheckout, store } from './index'
+import "./static/bundle"
 
 class Component {
     constructor() {
@@ -55,16 +56,10 @@ class Component {
     }
 
     importAdyenCheckout = paymentMethodsResponse => {
-        const environment = store.get(constants.environment)
-        const url = constants.adyenCheckoutComponentUrl(environment)
-
-        import(url).then(module => {
-            window.AdyenCheckout = module.default
-            createCardCheckout(paymentMethodsResponse)
-            createStoredCards()
-            createLocalPaymentCheckout(paymentMethodsResponse)
-            createBoletoCheckout(paymentMethodsResponse)
-        })
+        createCardCheckout(paymentMethodsResponse)
+        createStoredCards()
+        createLocalPaymentCheckout(paymentMethodsResponse)
+        createBoletoCheckout(paymentMethodsResponse)
     }
 
     getPaymentMethods = paymentMethodsResponse => {

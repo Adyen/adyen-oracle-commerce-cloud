@@ -36,9 +36,13 @@ class Checkout {
 
     createCheckout = ({ configuration, selector, type, options = {} }, cb) => {
         const checkout = this.getCheckout(configuration)
-        checkout.create(type, options).mount(selector)
-
-        cb && cb(checkout)
+        try {
+            checkout.create(type, options).mount(selector)
+            cb && cb(checkout)
+        } catch (e) {
+            console.error(e);
+            // console.warn(`Payment method not supported: ${type}`)
+        }
     }
 
     onSubmit = onChange => (state, component) => {
