@@ -6,13 +6,9 @@ function errorHandler(err, req, res, next) {
 
         return res.end()
     }
-
     const statusCode = err.statusCode || 500
     const logger = req.app.locals.logger
-    logger.error(
-        '[Request Error]: ' +
-            JSON.stringify(err, Object.getOwnPropertyNames(err))
-    )
+    logger.error('[Request Error]: ' + JSON.stringify(err, Object.getOwnPropertyNames(err)))
 
     res.status(statusCode)
     res.json({

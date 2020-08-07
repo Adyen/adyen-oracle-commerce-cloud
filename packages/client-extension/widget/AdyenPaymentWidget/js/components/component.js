@@ -33,7 +33,7 @@ class Component {
         eventEmitter.store.emit(constants.comboCardOptions, isDebitCard ? options : {})
     }
 
-    getOriginKeysSuccessResponse = originKeysRes => {
+    getOriginKeysSuccessResponse = (originKeysRes) => {
         const originDomain = store.get(constants.originDomain)
         const { origin } = window.location
         const cart = store.get(constants.cart)
@@ -43,7 +43,7 @@ class Component {
         eventEmitter.store.emit(constants.originKey, originKeysRes.originKeys[originDomain || origin])
         store.get(constants.ajax)('paymentMethods', this.getPaymentMethods, {
             method: 'post',
-            body: { amount: { currency: currencyCode(), value: amount() }, shopperReference: user().id() },
+            body: { amount: { currency: currencyCode(), value: amount() * 100 }, shopperReference: user().id() },
         })
     }
 
@@ -56,14 +56,14 @@ class Component {
         store.get(constants.ajax)('originKeys', this.getOriginKeysSuccessResponse)
     }
 
-    importAdyenCheckout = paymentMethodsResponse => {
+    importAdyenCheckout = (paymentMethodsResponse) => {
         createCardCheckout(paymentMethodsResponse)
         createStoredCards()
         createLocalPaymentCheckout(paymentMethodsResponse)
         createBoletoCheckout(paymentMethodsResponse)
     }
 
-    getPaymentMethods = paymentMethodsResponse => {
+    getPaymentMethods = (paymentMethodsResponse) => {
         eventEmitter.store.emit(constants.paymentMethodsResponse, paymentMethodsResponse)
         this.importAdyenCheckout(paymentMethodsResponse)
     }

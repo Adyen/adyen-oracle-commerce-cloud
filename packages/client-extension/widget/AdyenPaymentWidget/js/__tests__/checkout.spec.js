@@ -1,31 +1,49 @@
 jest.mock('../components/static/bundle')
 
-import { createStoredCards, store } from '../components'
+import { createStoredCards } from '../components'
 import * as constants from '../constants'
-import Widget from '../../../../__mocks__/widget'
 import ccConstants from '../../../../__mocks__/ccConstants'
-import viewModel from '../adyen-checkout'
-import Checkout, { createFromAction, getDefaultConfig } from '../utils/checkout'
+import { createFromAction} from '../utils/checkout'
 import { eventEmitter } from '../utils'
 
-const defaultConfig = {
-    environment: 'test',
-    locale: 'en_US',
-    originKey: '',
-    paymentMethodsResponse: undefined,
-    showPayButton: true,
-}
-
 describe('Checkout', () => {
+    
     let widget
+    let Checkout;
+    let viewModel;
+    let store;
     beforeEach(() => {
+        jest.clearAllMocks();
+
+        Checkout = require("../utils/checkout").default
+        const Widget = require('../../../../__mocks__/widget').default
         widget = new Widget()
+        viewModel = require('../adyen-checkout').default
+        store = require('../components').store
+    })
+
+    afterEach(() => {
+        jest.resetModules()
+    })
+    
+    it('should handle on submit', function() {
+        viewModel.onLoad(widget)
+
+        eventEmitter.store.emit(constants.paymentDetails, { scheme: {} })
+        const checkout = new Checkout(constants.paymentMethodTypes.scheme)
+        const createOnSubmit = checkout.onSubmit()
+        createOnSubmit()
+
+        const order = store.get(constants.order)
+        expect(order().op()).toEqual(ccConstants.ORDER_OP_INITIATE)
+        expect(order().handlePlaceOrder).toHaveBeenCalled()
     })
 
     it('should return default config', function() {
+        const { getDefaultConfig } = require('../utils/checkout')
         viewModel.onLoad(widget)
         const result = getDefaultConfig()
-        expect(result).toEqual(defaultConfig)
+        expect(result).toMatchSnapshot()
     })
 
     it('should create from action', function() {
@@ -44,7 +62,8 @@ describe('Checkout', () => {
     })
 
     it('should create checkout', function() {
-        const defaultConfig = getDefaultConfig()
+        viewModel.onLoad(widget)
+
         const configuration = { data: 'mocked_extra_config' }
         const cb = jest.fn()
         const mount = jest.fn()
@@ -55,19 +74,18 @@ describe('Checkout', () => {
         const type = 'boleto'
         checkout.createCheckout({ configuration, type, selector }, cb)
 
-        expect(create).toHaveBeenCalledWith(type, {})
+        expect(create).toHaveBeenCalledWith(type, configuration)
         expect(mount).toHaveBeenCalledWith(selector)
-        expect(global.AdyenCheckout).toHaveBeenCalledWith({
-            ...defaultConfig,
-            ...configuration,
-        })
+        expect(global.AdyenCheckout.mock.calls).toMatchSnapshot()
         expect(cb).toHaveBeenCalled()
     })
 
     it('should create stored payments checkout', function() {
+        viewModel.onLoad(widget)
+        
         eventEmitter.store.emit(constants.environment, 'TEST');
 
-      const mount = jest.fn()
+        const mount = jest.fn()
         const create = jest.fn(() => ({ mount }))
         const paymentMethod = { id: 1 }
         global.AdyenCheckout = jest.fn(() => ({ create, paymentMethodsResponse: { storedPaymentMethods: [ paymentMethod ] }}))
@@ -76,21 +94,12 @@ describe('Checkout', () => {
 
         expect(create).toHaveBeenCalledWith(constants.card, paymentMethod)
         expect(mount).toHaveBeenCalledWith(`#adyen-stored_${paymentMethod.id}-payment`)
-        expect(global.AdyenCheckout).toHaveBeenCalled()
-    })
-
-    it('should handle on submit', function() {
-        eventEmitter.store.emit(constants.paymentDetails, { scheme: {} })
-        const checkout = new Checkout(constants.paymentMethodTypes.scheme)
-        const createOnSubmit = checkout.onSubmit()
-        createOnSubmit()
-
-        const order = store.get(constants.order)
-        expect(order().op()).toEqual(ccConstants.ORDER_OP_INITIATE)
-        expect(order().handlePlaceOrder).toHaveBeenCalled()
+        expect(global.AdyenCheckout.mock.calls).toMatchSnapshot()
     })
 
     it('should handle on change', function() {
+        viewModel.onLoad(widget)
+
         eventEmitter.store.emit(constants.paymentDetails, {})
         const checkout = new Checkout(constants.paymentMethodTypes.scheme)
         const createOnSubmit = checkout.onChange()

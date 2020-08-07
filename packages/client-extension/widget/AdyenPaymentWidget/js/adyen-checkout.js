@@ -11,28 +11,23 @@ class ViewModel {
     store = store
 
     setGatewaySettings = ({
+        installmentsEnabled,
         installmentsOptionsId,
+        countryCode,
         environment,
         storedPayment,
         boletoDeliveryDate,
         boletoShopperStatement,
-<<<<<<< HEAD
         originDomain,
         holderNameEnabled,
-=======
-        paymentMethodTypes,
-        originDomain,
->>>>>>> 25cb02b... add origin domain to gateway settings
     }) => {
         eventEmitter.store.emit(constants.environment, environment)
 
-        store.get(constants.isAllowedCountryForInstallments) && this.setInstallments(installmentsOptionsId)
+        installmentsEnabled && this.setInstallments(installmentsOptionsId)
         eventEmitter.store.emit(constants.storedPaymentType, storedPayment)
         eventEmitter.store.emit(constants.originDomain, originDomain)
-<<<<<<< HEAD
         eventEmitter.store.emit(constants.holderNameEnabled, holderNameEnabled)
-=======
->>>>>>> 25cb02b... add origin domain to gateway settings
+        eventEmitter.store.emit(constants.countryCode, countryCode)
 
         setBoletoConfig({ boletoDeliveryDate: Number(boletoDeliveryDate), boletoShopperStatement })
     }
@@ -57,14 +52,12 @@ class ViewModel {
 
     setSiteCountryAndCurrency = () => {
         const { brazil } = constants.countries
-        const { currency, locale } = brazil
+        const { currency } = brazil
 
-        const siteLocale = store.get(constants.locale).toLowerCase()
         const currencyCode = this.cart().currencyCode().toLowerCase()
-        const localeIsBr = locale === siteLocale
         const curIsBr = currencyCode.toLowerCase() === currency
 
-        eventEmitter.store.emit(constants.brazilEnabled, localeIsBr && curIsBr)
+        eventEmitter.store.emit(constants.brazilEnabled, curIsBr)
     }
 
     handlePageChanged = (pageData) => {

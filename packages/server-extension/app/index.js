@@ -1,6 +1,9 @@
 const express = require('express')
 const configureApp = require('./bundle')
-const logger = require('../../../../lib/logging')()
+const winston = require('winston')
+
+const levels = { error: 0, warn: 1, info: 2 }
+const logger = winston.createLogger({ levels })
 
 const app = express()
 

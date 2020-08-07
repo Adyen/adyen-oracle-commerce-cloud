@@ -33,67 +33,6 @@
     </div>
     <div id="adyen-scheme-wrapper" class="adyen-wrapper collapse">
         <div id="adyen-card-payment" class="adyen-component">
-        <!-- ko if : store.isLoaded() -->
-            <!-- ko if : store.brazilEnabled -->
-            <div class="adyen-checkout__field-wrapper">
-                <div class="adyen-checkout__field">
-                    <label class="adyen-checkout__label">
-                        <span class="adyen-checkout__label__text" data-bind="widgetLocaleText:'cardType'"></span>
-                        <span class="adyen-checkout__input-wrapper">
-                <select
-                        aria-required="true"
-                        type="text"
-                        class="adyen-checkout__input adyen-checkout__input--small adyen-checkout__select"
-                        style="-webkit-appearance: none;
-                        -moz-appearance: none;
-                        appearance: none;
-                        background: url('http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png') white no-repeat 98.5% !important;
-                        background: url('http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png') white no-repeat calc(100% - 10px) !important;
-                    "
-                        id="comboCard"
-                        data-bind="options: store.comboCards,
-                        optionsText: function(item) {
-                            return store.translate(item);
-                        },
-                        value: store.selectedComboCard
-                    ">
-                </select>
-            </span>
-                    </label>
-                </div>
-            </div>
-            <!-- /ko -->
-            <!-- ko if : store.installmentsEnabled() -->
-            <div class="adyen-checkout__field-wrapper">
-                <div class="adyen-checkout__field">
-                    <label class="adyen-checkout__label">
-                        <span class="adyen-checkout__label__text" data-bind="widgetLocaleText:'installments'"></span>
-                        <span class="adyen-checkout__input-wrapper">
-                <select
-                        aria-required="true"
-                        type="text"
-                        id="installments"
-                        class="adyen-checkout__input adyen-checkout__input--small adyen-checkout__select"
-                        style="-webkit-appearance: none;
-                        -moz-appearance: none;
-                        appearance: none;
-                        background: url('http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png') white no-repeat 98.5% !important;
-                        background: url('http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png') white no-repeat calc(100% - 10px) !important;
-                    "
-                        data-bind="options: store.installments,
-                        optionsText: function(item) {
-                            return item.numberOfInstallments + 'x';
-                        },
-                        value: store.selectedInstallment,
-                        optionsCaption: store.noInstallmentsMsg
-                    ">
-                </select>
-            </span>
-                    </label>
-                </div>
-            </div>
-            <!-- /ko -->
-         <!-- /ko -->
         </div>
     </div>
     <!-- /ko -->

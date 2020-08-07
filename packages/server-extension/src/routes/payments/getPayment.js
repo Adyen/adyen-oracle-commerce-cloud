@@ -2,9 +2,9 @@ import getCheckout from '../../utils/checkout'
 import nconf from 'nconf/lib/nconf'
 import mcache from 'memory-cache'
 import { getExternalProperties } from '../../utils/checkout'
+import pkgJson from '../../../package.json'
 
 export default async (req, res, next) => {
-    const pkgJson = require('../../../package')
     const { customProperties } = req.body
     const hasPaymentData = 'paymentData' in customProperties
 

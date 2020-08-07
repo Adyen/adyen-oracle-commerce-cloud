@@ -36,6 +36,8 @@
         "originDomainLabel": "Origin Domain",
         "originDomainHelpText": "URL to use based on the /originKeys response. Defaults to current URL of the browser. Exact match.",
         "holderNameEnabledLabel": "Enable card holder name",
-        "holderNameEnabledHelpText": "When enabled, the shopper has to provide the card holder name"
+        "holderNameEnabledHelpText": "When enabled, the shopper has to provide the card holder name",
+        "countryCodeLabel": "Country Code",
+        "countryCodeHelpText": "Two letters country code where this shop is located. Required for some payment methods (i.e. installments)"
     }
 }

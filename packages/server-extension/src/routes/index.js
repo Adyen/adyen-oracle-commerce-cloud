@@ -18,10 +18,10 @@ router.use(loggerMiddleware)
 router.use(uaParser)
 router.use(occClient, createClient)
 
-router.use('/v1/payments', validateWebhookMiddleware, payments)
-router.use('/v1/paymentMethods', cache(oneWeek), paymentMethods)
+router.use('/v1/paymentMethods', cache(oneDay), paymentMethods)
 router.use('/v1/originKeys', cache(oneDay), originKeys)
 router.use('/v1/clearCache', clearCache)
+router.use('/v1/payments', validateWebhookMiddleware, payments)
 
 router.use(errorMiddleware)
 

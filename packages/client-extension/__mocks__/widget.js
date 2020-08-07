@@ -4,7 +4,7 @@ import ko from 'knockout'
 const defaultCart = ko.observable({
     combineLineItems: 'true',
     currencyCode: ko.observable('USD'),
-    amount: ko.observable('1000'),
+    amount: ko.observable('10'),
 })
 
 const { scheme } = constants.paymentMethodTypes
@@ -14,6 +14,7 @@ const defaultSiteSettings = {
             paymentMethodTypes: [scheme],
             installmentsOptionsId: '',
             environment: 'TEST',
+            countryCode: 'US'
         },
     },
 }

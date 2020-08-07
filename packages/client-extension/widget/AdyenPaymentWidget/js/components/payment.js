@@ -11,7 +11,7 @@ class Payment {
         eventEmitter.payment.on(constants.setPayment, this.setPayment)
     }
 
-    setPayment = type => {
+    setPayment = (type) => {
         const order = store.get(constants.order)
         const id = store.get(constants.id)
 
@@ -28,7 +28,7 @@ class Payment {
         this.updatePayment(this.createPayment(type))
     }
 
-    updatePayment = pPayment => {
+    updatePayment = (pPayment) => {
         const order = store.get(constants.order)
         const id = store.get(constants.id)
 
@@ -58,7 +58,7 @@ class Payment {
         return payload
     }
 
-    createPayment = type => {
+    createPayment = (type) => {
         const storedPaymentType = store.get(constants.storedPaymentType)
         const isPaymentStored = store.get(constants.isPaymentStored)
         const paymentDetails = store.get(constants.paymentDetails)
@@ -88,7 +88,7 @@ class Payment {
         return updatedGenericPayment
     }
 
-    checkSelectedInstallment = selectedInstallment =>
+    checkSelectedInstallment = (selectedInstallment) =>
         selectedInstallment() && 'numberOfInstallments' in selectedInstallment()
     getInstallments = (isValid, selectedInstallment) => isValid && parseInt(selectedInstallment().numberOfInstallments)
     validateInstallment = (hasInstallments, isCreditCard) => hasInstallments && isCreditCard

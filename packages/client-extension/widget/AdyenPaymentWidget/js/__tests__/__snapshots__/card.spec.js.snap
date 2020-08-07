@@ -52,45 +52,7 @@ Object {
         <div
           class="adyen-component"
           id="adyen-card-payment"
-        >
-          <div
-            class="adyen-checkout__field-wrapper"
-          >
-            <div
-              class="adyen-checkout__field"
-            >
-              <label
-                class="adyen-checkout__label"
-              >
-                <span
-                  class="adyen-checkout__label__text"
-                />
-                <span
-                  class="adyen-checkout__input-wrapper"
-                >
-                  <select
-                    aria-required="true"
-                    class="adyen-checkout__input adyen-checkout__input--small adyen-checkout__select"
-                    id="comboCard"
-                    style="-webkit-appearance: none;-moz-appearance: none;appearance: none;background: url('http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png') white no-repeat 98.5% !important;background: url('http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png') white no-repeat calc(100% - 10px) !important;"
-                    type="text"
-                  >
-                    <option
-                      value="creditCard"
-                    >
-                      translated_creditCard
-                    </option>
-                    <option
-                      value="debitCard"
-                    >
-                      translated_debitCard
-                    </option>
-                  </select>
-                </span>
-              </label>
-            </div>
-          </div>
-        </div>
+        />
       </div>
     </div>
   </body>,
@@ -149,50 +111,7 @@ Object {
         <div
           class="adyen-component"
           id="adyen-card-payment"
-        >
-          <div
-            class="adyen-checkout__field-wrapper"
-          >
-            <div
-              class="adyen-checkout__field"
-            >
-              <label
-                class="adyen-checkout__label"
-              >
-                <span
-                  class="adyen-checkout__label__text"
-                />
-                <span
-                  class="adyen-checkout__input-wrapper"
-                >
-                  <select
-                    aria-required="true"
-                    class="adyen-checkout__input adyen-checkout__input--small adyen-checkout__select"
-                    id="installments"
-                    style="-webkit-appearance: none;-moz-appearance: none;appearance: none;background: url('http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png') white no-repeat 98.5% !important;background: url('http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png') white no-repeat calc(100% - 10px) !important;"
-                    type="text"
-                  >
-                    <option
-                      value=""
-                    >
-                      translated_noInstallmentsMsg
-                    </option>
-                    <option
-                      value=""
-                    >
-                      3x
-                    </option>
-                    <option
-                      value=""
-                    >
-                      5x
-                    </option>
-                  </select>
-                </span>
-              </label>
-            </div>
-          </div>
-        </div>
+        />
       </div>
     </div>
   </body>,

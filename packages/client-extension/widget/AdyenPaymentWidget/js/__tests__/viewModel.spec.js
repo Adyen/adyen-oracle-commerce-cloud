@@ -8,6 +8,7 @@ import { eventEmitter } from '../utils'
 import { store } from '../components'
 
 const installmentsOptionsId = 'installmentsOptionsId'
+const installmentsEnabled = 'installmentsEnabled'
 const paymentMethodTypes = 'paymentMethodTypes'
 const storedPaymentType = 'storedPayment'
 
@@ -25,20 +26,6 @@ describe('View Model', () => {
         )
         expect(isCountryAllowedForInstallments).toBeFalsy()
     })
-    test.each(['pt_BR', 'es_MX'])(
-        'should have enabled installments for %s',
-        locale => {
-            widget.setLocale(locale)
-            viewModel.onLoad(widget)
-            eventEmitter.store.emit(constants.installments, [
-                { numberOfInstallments: 3 },
-            ])
-            const installmentsIsEnabled = store.get(
-                constants.installmentsEnabled
-            )
-            expect(installmentsIsEnabled()).toBeTruthy()
-        }
-    )
 
     it('should have Brazil enabled', () => {
         widget.setLocale('pt_BR')
@@ -48,8 +35,12 @@ describe('View Model', () => {
     })
 
     it('should have JSON installment options', () => {
-        widget.setLocale('pt_BR')
+        eventEmitter.store.emit(constants.countryCode, 'BR')
         const installmentOptionsString = '[[1,3,31],[5,5,24]]'
+        widget.setGatewaySettings(
+            installmentsEnabled,
+            true
+        )
         widget.setGatewaySettings(
             installmentsOptionsId,
             installmentOptionsString
@@ -59,22 +50,6 @@ describe('View Model', () => {
         const parsedInstallmentOptions = JSON.parse(installmentOptionsString)
         const installmentsOptions = store.get(constants.installmentsOptions)
         expect(installmentsOptions).toEqual(parsedInstallmentOptions)
-    })
-
-    it('should send error notification if installments code is wrong', () => {
-        widget.setLocale('pt_BR')
-        const installmentOptionsString = 'invalid_json'
-        widget.setGatewaySettings(
-            installmentsOptionsId,
-            installmentOptionsString
-        )
-        viewModel.onLoad(widget)
-
-        expect(notifier.sendError).toHaveBeenCalledWith(
-            'installments',
-            'translated_installmentsConfiguration',
-            true
-        )
     })
 
     it('should have boleto with delivery date and shopper statement', () => {

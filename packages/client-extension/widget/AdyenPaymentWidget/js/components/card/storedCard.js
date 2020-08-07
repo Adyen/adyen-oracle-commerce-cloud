@@ -12,7 +12,7 @@ const createStoredCards = () => {
         checkoutComponent.paymentMethodsResponse.storedPaymentMethods
     )
 
-    checkoutComponent.paymentMethodsResponse.storedPaymentMethods.forEach(storedPaymentMethod => {
+    checkoutComponent.paymentMethodsResponse.storedPaymentMethods.forEach((storedPaymentMethod) => {
         const selector = `#adyen-stored_${storedPaymentMethod.id}-payment`
         checkoutComponent.create(constants.card, storedPaymentMethod).mount(selector)
     })

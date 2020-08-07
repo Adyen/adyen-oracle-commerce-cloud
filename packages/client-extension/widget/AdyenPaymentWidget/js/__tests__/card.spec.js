@@ -6,7 +6,6 @@ import viewModel from '../adyen-checkout'
 import paymentMethodsResponseMock from '../../../../__mocks__/paymentMethods'
 
 jest.mock('../utils/checkout')
-jest.mock('../utils/getInstallmentOptions')
 import { Checkout, eventEmitter, getInstallmentOptions } from '../utils'
 import { createCardCheckout, createStoredCards, store } from '../components'
 import { onBrand } from '../components/card'
@@ -50,15 +49,6 @@ describe('Card', () => {
         expect(installments()).toEqual([])
     })
 
-    it('should set brand with installments', function() {
-        const brand = 'visa'
-        eventEmitter.store.emit(constants.installmentsOptions, 'mocked_installments_options')
-        onBrand({ brand })
-
-        const expected = ['mocked_installments_options', '1000', 'visa']
-        expect(getInstallmentOptions).toHaveBeenCalledWith(...expected)
-    })
-
     it('should display installments', function() {
         const {
             countries: { mexico },
@@ -68,7 +58,7 @@ describe('Card', () => {
         widget.setGatewaySettings('paymentMethodTypes', [paymentMethodTypes.boleto])
 
         const template = generateTemplate(widget, viewModel => {
-            eventEmitter.store.emit(constants.installments, [{ numberOfInstallments: 3 }, { numberOfInstallments: 5 }])
+            eventEmitter.store.emit(constants.installmentsOptions, [[100,2,17],[300,5,28],[1,12,31]])
             eventEmitter.store.emit(constants.isLoaded, true)
         })
 
@@ -83,7 +73,7 @@ describe('Card', () => {
         widget.setGatewaySettings('paymentMethodTypes', [paymentMethodTypes.scheme])
 
         const template = generateTemplate(widget, () => {
-            eventEmitter.store.emit(constants.installments, [])
+            eventEmitter.store.emit(constants.installmentsOptions, [[100,2,17],[300,5,28],[1,12,31]])
             eventEmitter.store.emit(constants.isLoaded, true)
         })
         expect(template).toMatchSnapshot()

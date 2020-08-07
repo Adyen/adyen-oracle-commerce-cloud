@@ -2,13 +2,14 @@
 # yarn lockfile v1
 
 
-"@adyen/api-library@^5.0.0":
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/@adyen/api-library/-/api-library-5.0.1.tgz#f1da3983640bb33df8fea533e451fac65f50c773"
-  integrity sha512-1KxlO8yhSW5FIzUV4J3OgPt2mWOUGFIcz6x8UhNzJiesBOkeiON4eKdVXOfiPUSz93WB2ZnYQImNAW7HgT+T8g==
+"@adyen/api-library@^5.0.2-beta.0":
+  version "5.0.2-beta.0"
+  resolved "https://registry.yarnpkg.com/@adyen/api-library/-/api-library-5.0.2-beta.0.tgz#d7eb1c1e2ac6b6c76527251eecd263e2cfa800d5"
+  integrity sha512-Pd5gKMBqfzD+Tm9jKJGqoLCGexpcn0K05WVmcNc1E0V5UOC/PvYctprvTFCAvlmB8e2It+NQXzGC5ys7rxoZHA==
   dependencies:
-    "@types/node" "14.0.9"
     https-proxy-agent "5.0.0"
+  optionalDependencies:
+    "@types/node" "14.0.9"
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.8.3":
   version "7.8.3"

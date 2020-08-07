@@ -1,42 +1,8 @@
 {
-<<<<<<< HEAD
     "configType": "payment",
     "titleResourceId": "title",
     "descriptionResourceId": "description",
     "instances": [
-=======
-  "configType": "payment",
-  "titleResourceId": "title",
-  "descriptionResourceId": "description",
-  "instances": [
-    {
-      "id": "agent",
-      "instanceName": "agent",
-      "labelResourceId": "agentInstanceLabel"
-    },
-    {
-      "id": "preview",
-      "instanceName": "preview",
-      "labelResourceId": "previewInstanceLabel"
-    },
-    {
-      "id": "storefront",
-      "instanceName": "storefront",
-      "labelResourceId": "storefrontInstanceLabel"
-    }
-  ],
-  "properties": [
-    {
-      "id": "paymentMethodTypes",
-      "type": "multiSelectOptionType",
-      "required": false,
-      "helpTextResourceId": "paymentMethodsHelpText",
-      "labelResourceId": "paymentMethodsLabel",
-      "displayAsCheckboxes": true,
-      "defaultValue": "generic",
-      "public": true,
-      "options": [
->>>>>>> 25cb02b... add origin domain to gateway settings
         {
             "id": "agent",
             "instanceName": "agent",
@@ -178,6 +144,16 @@
             "defaultValue": "",
             "required": false,
             "public": true
+        },
+        {
+            "id": "countryCode",
+            "type": "stringType",
+            "labelResourceId": "countryCodeLabel",
+            "helpTextResourceId": "countryCodeHelpText",
+            "required": false,
+            "public": true,
+            "maxLength": 2,
+            "minLength": 2
         }
     ]
 }

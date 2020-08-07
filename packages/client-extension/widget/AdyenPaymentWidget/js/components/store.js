@@ -1,5 +1,5 @@
 import ko from 'knockout'
-import { comboCards, noInstallmentsMsg, countries } from '../constants'
+import { comboCards, noInstallmentsMsg } from '../constants'
 import { ajax, eventEmitter } from '../utils'
 import { Component, Order, Payment } from './index'
 
@@ -19,6 +19,7 @@ class Store {
     // Component
     component = new Component()
     checkout = undefined
+    checkoutComponent = undefined
     originKey = ''
     isValid = false
     selectedBrand = undefined
@@ -31,12 +32,11 @@ class Store {
     paymentMethodsResponse = undefined
     paymentDetails = undefined
     isLoaded = ko.observable(false)
-    installments = ko.observable([])
     selectedInstallment = ko.observable({})
-    installmentsAllowedCountries = [countries.mexico.locale, countries.brazil.locale]
     installmentsOptions = []
     holderNameEnabled = false
     originDomain = ''
+    countryCode = undefined
 
     // Card
     scheme = ko.observable(false)
@@ -59,14 +59,8 @@ class Store {
     checkoutLocal = ko.observable([])
     localPaymentMethods = ko.observableArray()
 
-    get installmentsEnabled() {
-        const hasInstallments = !!this.installments().length
-        const cardIsCredit = this.selectedComboCard() === comboCards.credit
-        return ko.observable(this.isAllowedCountryForInstallments && hasInstallments && cardIsCredit)
-    }
-
-    get isAllowedCountryForInstallments() {
-        return this.installmentsAllowedCountries.includes(this.locale.toLowerCase())
+    get installments() {
+        return ko.observable(this.installmentsOptions || [])
     }
 
     startEventListeners = () => {
@@ -79,18 +73,17 @@ class Store {
         })
     }
 
-    get = key => (this.has(key) ? this[key] : undefined)
+    get = (key) => (this.has(key) ? this[key] : undefined)
 
-    has = key => key in this
+    has = (key) => key in this
 
-    init = viewModel => {
+    init = (viewModel) => {
         this.id = viewModel.id
         this.order = viewModel.order
         this.cart = viewModel.cart
         this.user = viewModel.user
         this.ajax = ajax(viewModel.isPreview())
         this.translate = viewModel.translate
-        this.locale = viewModel.locale()
         this.noInstallmentsMsg = viewModel.translate(noInstallmentsMsg)
     }
 }

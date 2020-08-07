@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Checkout should create checkout 1`] = `
+Array [
+  Array [
+    Object {
+      "amount": Object {
+        "currency": "USD",
+        "value": 1000,
+      },
+      "countryCode": "US",
+      "environment": "test",
+      "originKey": "",
+      "paymentMethodsResponse": undefined,
+      "showPayButton": true,
+    },
+  ],
+]
+`;
+
+exports[`Checkout should create stored payments checkout 1`] = `
+Array [
+  Array [
+    Object {
+      "amount": Object {
+        "currency": "USD",
+        "value": 1000,
+      },
+      "countryCode": "US",
+      "environment": "test",
+      "originKey": "",
+      "paymentMethodsResponse": undefined,
+      "showPayButton": true,
+    },
+  ],
+]
+`;
+
+exports[`Checkout should return default config 1`] = `
+Object {
+  "amount": Object {
+    "currency": "USD",
+    "value": 1000,
+  },
+  "countryCode": "US",
+  "environment": "test",
+  "originKey": "",
+  "paymentMethodsResponse": undefined,
+  "showPayButton": true,
+}
+`;
