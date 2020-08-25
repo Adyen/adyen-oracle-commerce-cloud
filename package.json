@@ -21,7 +21,7 @@
     "husky": "4.2.5",
     "jest": "25.5.4",
     "lerna": "3.22.1",
-    "lint-staged": "10.2.11",
+    "lint-staged": "10.2.13",
     "minimist": "1.2.5",
     "nock": "13.0.4",
     "node-fetch": "2.6.0",
