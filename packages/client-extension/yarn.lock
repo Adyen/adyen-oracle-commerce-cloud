@@ -2,15 +2,15 @@
 # yarn lockfile v1
 
 
-"@adyen/adyen-web@3.12.1":
-  version "3.12.1"
-  resolved "https://registry.yarnpkg.com/@adyen/adyen-web/-/adyen-web-3.12.1.tgz#a5a78612fdeea9b1cb96ca3bb5bd7d2f4449c501"
-  integrity sha512-hc1KzF3ozO3oghBs1KvZXk7g4gSCAKvRrUyi8Sn4LL0Ii/HYAUcFElF1XHLqRW2FLv2VZ86vsd2LNODZmGtf8A==
+"@adyen/adyen-web@3.13.0":
+  version "3.13.0"
+  resolved "https://registry.yarnpkg.com/@adyen/adyen-web/-/adyen-web-3.13.0.tgz#7ae3ec1beb8b3b341c7a4ec18d97b373aa97ade4"
+  integrity sha512-dUQPFhEOwWA5XjVpXUPjoDcXb9+oDWrt4QeikUalJ4ZVJlgQpciJcokUaxcXrFmiLDiE29KZod/XYG/xZlb0UA==
   dependencies:
     "@types/applepayjs" "^3.0.0"
-    "@types/googlepay" "^0.4.1"
+    "@types/googlepay" "^0.4.2"
     classnames "^2.2.6"
-    preact "^10.4.7"
+    preact "^10.4.8"
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.10.4":
   version "7.10.4"
@@ -734,7 +734,7 @@
   resolved "https://registry.yarnpkg.com/@types/estree/-/estree-0.0.45.tgz#e9387572998e5ecdac221950dab3e8c3b16af884"
   integrity sha512-jnqIUKDUqJbDIUxm0Uj7bnlMnRm1T/eZ9N+AVMqhPgzrba2GhGG5o/jCTwmdPK709nEZsGoMzXEDUjcXHa3W0g==
 
-"@types/googlepay@^0.4.1":
+"@types/googlepay@^0.4.2":
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/@types/googlepay/-/googlepay-0.4.2.tgz#eb0219d07f91551e3b48a0ce6d8d5e96c2d85c14"
   integrity sha512-A5on6EMChuAmMpQcZPp1xZ1DQN4Re84/v4tyd2aL/hfqXhAQDJ6VpM4jppvCEwpOSsMMpWztF8dgWeQfJFND5Q==
@@ -2966,7 +2966,7 @@ posix-character-classes@^0.1.0:
   resolved "https://registry.yarnpkg.com/posix-character-classes/-/posix-character-classes-0.1.1.tgz#01eac0fe3b5af71a2a6c02feabb8c1fef7e00eab"
   integrity sha1-AerA/jta9xoqbAL+q7jB/vfgDqs=
 
-preact@^10.4.7:
+preact@^10.4.8:
   version "10.4.8"
   resolved "https://registry.yarnpkg.com/preact/-/preact-10.4.8.tgz#8517b106cc5591eb675237c93da99ac052cf4756"
   integrity sha512-uVLeEAyRsCkUEFhVHlOu17OxcrwC7+hTGZ08kBoLBiGHiZooUZuibQnphgMKftw/rqYntNMyhVCPqQhcyAGHag==
