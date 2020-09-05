@@ -25,7 +25,7 @@
         "lint-staged": "10.3.0",
         "minimist": "1.2.5",
         "nock": "13.0.4",
-        "node-fetch": "2.6.0",
+        "node-fetch": "2.6.1",
         "prettier": "2.1.1",
         "rollup": "2.26.9",
         "rollup-plugin-babel": "4.4.0",
