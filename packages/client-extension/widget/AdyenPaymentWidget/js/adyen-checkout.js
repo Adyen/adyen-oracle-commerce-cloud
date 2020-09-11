@@ -10,26 +10,19 @@ import { presentToShopper, setBoletoConfig } from './components'
 class ViewModel {
     store = store
 
-    setGatewaySettings = ({
-        installmentsEnabled,
-        installmentsOptionsId,
-        countryCode,
-        environment,
-        storedPayment,
-        boletoDeliveryDate,
-        boletoShopperStatement,
-        clientKey,
-        holderNameEnabled,
-    }) => {
-        eventEmitter.store.emit(constants.environment, environment)
+    setGatewaySettings = (options) => {
+        eventEmitter.store.emit(constants.environment, options.environment)
 
-        installmentsEnabled && this.setInstallments(installmentsOptionsId)
-        eventEmitter.store.emit(constants.storedPaymentType, storedPayment)
-        eventEmitter.store.emit(constants.clientKey, clientKey)
-        eventEmitter.store.emit(constants.holderNameEnabled, holderNameEnabled)
-        eventEmitter.store.emit(constants.countryCode, countryCode)
+        options.installmentsEnabled && this.setInstallments(options.installmentsOptionsId)
+        eventEmitter.store.emit(constants.storedPaymentType, options.storedPayment)
+        eventEmitter.store.emit(constants.clientKey, options.clientKey)
+        eventEmitter.store.emit(constants.holderNameEnabled, options.holderNameEnabled)
+        eventEmitter.store.emit(constants.countryCode, options.countryCode)
 
-        setBoletoConfig({ boletoDeliveryDate: Number(boletoDeliveryDate), boletoShopperStatement })
+        setBoletoConfig({
+            boletoDeliveryDate: Number(options.boletoDeliveryDate),
+            boletoShopperStatement: options.boletoShopperStatement,
+        })
     }
 
     setSiteSettings = () => {
@@ -94,33 +87,24 @@ class ViewModel {
     orderSubmitted = () => store.has(constants.orderPayload) && this.presentToShopper()
 
     subscribeToTopics = () => {
-        const {
-            ORDER_CREATED_INITIAL,
-            ORDER_CREATE,
-            ORDER_SUBMISSION_FAIL,
-            ORDER_COMPLETED,
-            ORDER_CREATED,
-            PAGE_CHANGED,
-            ORDER_SUBMISSION_SUCCESS,
-            NOTIFICATION_ADD,
-        } = pubsub.topicNames
+        const tn = pubsub.topicNames
 
         const emitInitialOrder = (ev) => {
             eventEmitter.order.emit(constants.initialOrderCreated, ev)
         }
-        $.Topic(ORDER_CREATED_INITIAL).subscribe(emitInitialOrder)
-        $.Topic(ORDER_CREATE).subscribe(createSpinner)
+        $.Topic(tn.ORDER_CREATED_INITIAL).subscribe(emitInitialOrder)
+        $.Topic(tn.ORDER_CREATE).subscribe(createSpinner)
 
         const redirectLink = this.order().checkoutLink
         const errorCallback = createError({ redirectLink })
 
-        $.Topic(ORDER_SUBMISSION_FAIL).subscribe(errorCallback)
-        $.Topic(ORDER_COMPLETED).subscribe(destroySpinner)
-        $.Topic(ORDER_CREATED).subscribe(this.reset)
-        $.Topic(PAGE_CHANGED).subscribe(this.handlePageChanged)
-        $.Topic(ORDER_SUBMISSION_SUCCESS).subscribe(this.orderSubmitted)
+        $.Topic(tn.ORDER_SUBMISSION_FAIL).subscribe(errorCallback)
+        $.Topic(tn.ORDER_COMPLETED).subscribe(destroySpinner)
+        $.Topic(tn.ORDER_CREATED).subscribe(this.reset)
+        $.Topic(tn.PAGE_CHANGED).subscribe(this.handlePageChanged)
+        $.Topic(tn.ORDER_SUBMISSION_SUCCESS).subscribe(this.orderSubmitted)
 
-        $.Topic(NOTIFICATION_ADD).subscribe(hideLoaders)
+        $.Topic(tn.NOTIFICATION_ADD).subscribe(hideLoaders)
     }
 }
 

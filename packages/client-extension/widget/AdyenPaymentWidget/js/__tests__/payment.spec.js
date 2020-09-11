@@ -24,7 +24,7 @@ describe('Payment', () => {
         widget = new Widget()
     })
 
-    it('should create a payment', function() {
+    it('should create a payment', function () {
         viewModel.onLoad(widget)
 
         const payment = new Payment()
@@ -38,10 +38,10 @@ describe('Payment', () => {
         payment.setPayment(constants.paymentMethodTypes.scheme)
 
         const order = store.get(constants.order)
-        expect(order().payments()).toEqual(paymentResponse)
+        expect(order().payments()).toMatchSnapshot();
     })
 
-    it('should have different payment method type on combo card', function() {
+    it('should have different payment method type on combo card', function () {
         viewModel.onLoad(widget)
 
         const payment = new Payment()
@@ -57,13 +57,6 @@ describe('Payment', () => {
         payment.setPayment(constants.paymentMethodTypes.scheme)
 
         const order = store.get(constants.order)
-        const paymentDetails = { paymentMethod: { type: bin } }
-        const additionalData = { overwriteBrand: true }
-        const { customProperties, ...rest } = paymentResponse[0]
-        const { numberOfInstallments, ...customPropertiesRest } = customProperties
-        const expectedCustomProperties = { ...customPropertiesRest, additionalData, paymentDetails, selectedBrand: bin }
-        const expected = [{ ...rest, customProperties: expectedCustomProperties }]
-
-        expect(order().payments()).toEqual(expected)
+        expect(order().payments()).toMatchSnapshot();
     })
 })

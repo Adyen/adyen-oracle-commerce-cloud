@@ -1,10 +1,10 @@
-import getCheckout from '../../utils/checkout'
-import nconf from 'nconf/lib/nconf'
+import getCheckout from '../../utils/checkout.mjs'
+import nconf from 'nconf/lib/nconf.js'
 import mcache from 'memory-cache'
-import { getExternalProperties } from '../../utils/checkout'
-import pkgJson from '../../../package.json'
+import { getExternalProperties } from '../../utils/checkout.mjs'
 
 export default async (req, res, next) => {
+    const pkgJson = require('../../../package.json')
     const { customProperties } = req.body
     const hasPaymentData = 'paymentData' in customProperties
 
@@ -20,6 +20,7 @@ export default async (req, res, next) => {
         transactionId,
         orderId,
         customProperties: {
+            accountInfo,
             browserInfo,
             paymentDetails,
             nameOnCard,
@@ -27,6 +28,7 @@ export default async (req, res, next) => {
             numberOfInstallments,
             selectedBrand,
             additionalData,
+            riskData,
         },
         currencyCode,
         profile,
@@ -82,7 +84,7 @@ export default async (req, res, next) => {
             const applicationInfo = { name: appName, version: pkgJson.occVersion }
 
             const getField = (arg0, fieldKey) => (Array.isArray(arg0) ? arg0[0][fieldKey] : arg0[fieldKey])
-            const getAddress = address => ({
+            const getAddress = (address) => ({
                 city: getField(address, 'city'),
                 country: getField(address, 'country'),
                 postalCode: getField(address, 'postalCode'),
@@ -90,38 +92,54 @@ export default async (req, res, next) => {
                 street: getField(address, 'address1'),
                 houseNumberOrName: getField(address, 'address2') || 'N/A',
             })
-            const paymentResponse = await checkout.payments(
-                {
-                    amount: { value: amount, currency: currencyCode },
-                    ...(additionalData && {
-                        additionalData: JSON.parse(additionalData),
-                    }),
-                    ...(countryCode && { countryCode }),
-                    merchantAccount,
-                    applicationInfo: {
-                        externalPlatform: {
-                            name: 'Oracle Commerce Cloud',
-                            version: pkgJson.version,
+
+            const getAdditionalData = () => {
+                const parsedRiskData = JSON.parse(riskData)
+                if (additionalData) {
+                    const data = JSON.parse(additionalData)
+                    return {
+                        ...data,
+                        riskData: {
+                            ...data.riskData,
+                            ...parsedRiskData,
                         },
-                        adyenPaymentSource: applicationInfo,
-                        merchantApplication: applicationInfo,
+                    }
+                }
+
+                return {
+                    riskData: parsedRiskData,
+                }
+            }
+            const payload = {
+                amount: { value: amount, currency: currencyCode },
+                additionalData: getAdditionalData(),
+                ...(countryCode && { countryCode }),
+                merchantAccount,
+                applicationInfo: {
+                    externalPlatform: {
+                        name: 'Oracle Commerce Cloud',
+                        version: pkgJson.version,
                     },
-                    browserInfo,
-                    reference: transactionId,
-                    selectedBrand,
-                    shopperEmail: profile.email,
-                    shopperReference: profile.id,
-                    deliveryAddress: getAddress(shippingAddress),
-                    billingAddress: getAddress(billingAddress),
-                    threeDS2RequestData: {
-                        deviceChannel: 'browser',
-                    },
-                    channel: 'Web',
-                    origin: siteURL,
-                    ...details,
+                    adyenPaymentSource: applicationInfo,
+                    merchantApplication: applicationInfo,
                 },
-                { idempotencyKey: `${orderId}-${transactionId}` }
-            )
+                browserInfo,
+                reference: transactionId,
+                selectedBrand,
+                shopperEmail: profile.email,
+                shopperReference: profile.id,
+                deliveryAddress: getAddress(shippingAddress),
+                billingAddress: getAddress(billingAddress),
+                threeDS2RequestData: {
+                    deviceChannel: 'browser',
+                },
+                channel: 'Web',
+                origin: siteURL,
+                accountInfo: JSON.parse(accountInfo),
+                ...details,
+            }
+
+            const paymentResponse = await checkout.payments(payload, { idempotencyKey: `${orderId}-${transactionId}` })
 
             if (paymentResponse.resultCode === 'Authorised') {
                 await mcache.put(key, paymentResponse, 3600 * 1000)

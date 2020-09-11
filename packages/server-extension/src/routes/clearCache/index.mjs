@@ -1,4 +1,4 @@
-import { cacheInstance } from '../../helpers/serverCache'
+import { cacheInstance } from '../../helpers/serverCache.mjs'
 import express from 'express'
 
 const router = express.Router()

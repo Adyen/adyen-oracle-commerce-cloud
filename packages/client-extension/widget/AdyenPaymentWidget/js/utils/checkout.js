@@ -4,8 +4,9 @@ import '@adyen/adyen-web/dist/adyen.css'
 import { store } from '../components'
 import * as constants from '../constants'
 import { eventEmitter } from './index'
+import { redirectAuth, getOrderPayload } from '../utils'
 
-export const getDefaultConfig = () => {
+export const getDefaultConfig = (type) => {
     const cart = store.get(constants.cart)
     const { amount, currencyCode } = cart()
     const environment = store.get(constants.environment)
@@ -23,6 +24,11 @@ export const getDefaultConfig = () => {
         environment: environment.toLowerCase(),
         clientKey,
         paymentMethodsResponse,
+        onAdditionalDetails: (state, component) => {
+            console.log('on additional details')
+            const payment = { type: 'generic', customProperties: state.data }
+            eventEmitter.order.emit('recreateOrder', payment)
+        },
     }
 }
 
@@ -42,7 +48,7 @@ class Checkout {
         }
 
         // eslint-disable-next-line no-undef
-        const newCheckout = new AdyenCheckout(getDefaultConfig())
+        const newCheckout = new AdyenCheckout(getDefaultConfig(this.type))
         eventEmitter.store.emit(constants.checkoutComponent, newCheckout)
         return newCheckout
     }

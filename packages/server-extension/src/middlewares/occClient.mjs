@@ -1,5 +1,5 @@
-import { cacheInstance } from '../helpers/serverCache'
-import occClient from '../helpers/occClient'
+import { cacheInstance } from '../helpers/serverCache.mjs'
+import occClient from '../helpers/occClient.mjs'
 
 export default async (req, res, next) => {
     const key = 'occ-gateway-settings'

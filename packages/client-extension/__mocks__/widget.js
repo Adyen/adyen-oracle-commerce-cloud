@@ -5,6 +5,16 @@ const defaultCart = ko.observable({
     combineLineItems: 'true',
     currencyCode: ko.observable('USD'),
     amount: ko.observable('10'),
+    items: ko.observable([{
+        commerceItemId: 'mocked_item_id',
+        quantity: ko.observable(1),
+        productData: ko.observable({
+            displayName: 'mocked_product_title',
+            parentCategory: { repositoryId: 'mocked_category' },
+            brand: 'mocked_brand',
+        }),
+        catRefId: 'mocked_sku'
+    }])
 })
 
 const { scheme } = constants.paymentMethodTypes
@@ -46,7 +56,7 @@ const defaultOrderOptions = {
     id: ko.observable(''),
     op: ko.observable(),
     handlePlaceOrder: jest.fn(),
-    updatePayments: function(payment) {
+    updatePayments: function (payment) {
         this.payments(payment)
     },
     shippingAddress: ko.observable(address),
@@ -59,7 +69,8 @@ const defaultOrderOptions = {
 }
 const defaultOrder = ko.observable({ ...defaultOrderOptions })
 const defaultUser = ko.observable({
-    id: ko.observable('1234')
+    id: ko.observable('1234'),
+    registrationDate: '01-01-1970'
 })
 
 class Widget {

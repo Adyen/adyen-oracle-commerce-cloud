@@ -1,10 +1,10 @@
 import express from 'express'
 import nconf from 'nconf'
-import getCheckoutUtility from '../../utils/checkoutUtility'
+import getCheckoutUtility from '../../utils/checkoutUtility.mjs'
 
 const router = express.Router()
 
-router.get('/', async function(req, res, next) {
+router.get('/', async function (req, res, next) {
     try {
         const checkoutUtility = getCheckoutUtility(req)
 

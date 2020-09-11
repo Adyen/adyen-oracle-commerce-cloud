@@ -46,16 +46,33 @@ class Payment {
     }
 
     updatePaymentMethodType = (type, paymentDetails) => {
-        const selectedComboCard = store.get(constants.selectedComboCard)()
-        const isDebitCard = selectedComboCard === constants.comboCards.debit
-        const brand = store.get(constants.selectedBrand)
-        const isGeneric = type === constants.paymentMethodTypes.scheme
-        const isComboCard = isGeneric && isDebitCard
-
-        const brandType = isComboCard && { type: brand }
+        const brandType = this.getBrandType(type)
         const paymentMethod = paymentDetails.paymentMethod && { ...paymentDetails.paymentMethod, ...brandType }
         const payload = { ...paymentDetails, paymentMethod }
         return payload
+    }
+
+    getBasketItems = () => {
+        const cart = store.get(constants.cart)
+        const getItem = (acc, item, idx) => ({
+            ...acc,
+            [`item${idx + 1}`]: {
+                itemID: item.commerceItemId,
+                quantity: item.quantity(),
+                productTitle: item.productData().displayName,
+                category: item.productData().parentCategory.repositoryId,
+                brand: item.productData().brand,
+                sku: item.catRefId,
+            },
+        })
+        return cart().items().reduce(getItem, {})
+    }
+
+    getAccountInfo = () => {
+        const user = store.get(constants.user)
+        return {
+            accountCreationDate: user().registrationDate,
+        }
     }
 
     createPayment = (type) => {
@@ -65,6 +82,7 @@ class Payment {
         const selectedInstallment = store.get(constants.selectedInstallment)
         const selectedComboCard = store.get(constants.selectedComboCard)
         const comboCardOptions = store.get(constants.comboCardOptions)
+        const additionalDetails = store.get(constants.additionalDetails)
 
         const hasInstallments = this.checkSelectedInstallment(selectedInstallment)
 
@@ -76,10 +94,17 @@ class Payment {
 
         const genericPayment = store.get(constants.genericPayment)
         const updatedPaymentDetails = this.updatePaymentMethodType(type, paymentDetails[type])
+        const basketItems = this.getBasketItems()
+        const accountInfo = this.getAccountInfo()
 
         const customProperties = {
+            accountInfo,
             paymentDetails: updatedPaymentDetails,
             storedPayment,
+            riskData: {
+                basket: basketItems,
+            },
+            ...additionalDetails,
             ...(numberOfInstallments && { numberOfInstallments }),
             ...comboCardOptions,
         }
@@ -93,6 +118,17 @@ class Payment {
     getInstallments = (isValid, selectedInstallment) => isValid && parseInt(selectedInstallment().numberOfInstallments)
     validateInstallment = (hasInstallments, isCreditCard) => hasInstallments && isCreditCard
     getStoredPayment = (isPaymentStored, storedPaymentType) => (isPaymentStored ? storedPaymentType() : '')
+
+    getBrandType = (type) => {
+        const selectedComboCard = store.get(constants.selectedComboCard)()
+        const isDebitCard = selectedComboCard === constants.comboCards.debit
+        const brand = store.get(constants.selectedBrand)
+        const isGeneric = type === constants.paymentMethodTypes.scheme
+        const isComboCard = isGeneric && isDebitCard
+
+        const brandType = isComboCard && { type: brand }
+        return brandType
+    }
 }
 
 export default Payment

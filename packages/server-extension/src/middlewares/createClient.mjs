@@ -1,10 +1,11 @@
-import { Client, Config, HttpURLConnectionClient } from '@adyen/api-library'
+import AdyenApiLibrary from '@adyen/api-library'
+const { Client, Config, HttpURLConnectionClient } = AdyenApiLibrary
 
 const createClient = async (req, res, next) => {
     const { gatewaySettings } = req.app.locals
     const { channel } = req.headers
 
-    const settings = gatewaySettings[req.body.channel || channel]
+    const settings = gatewaySettings[(req.body && req.body.channel) || channel || 'preview']
     const { merchantId, merchantPasscode, environment } = settings
 
     req.app.locals.merchantAccount = merchantId

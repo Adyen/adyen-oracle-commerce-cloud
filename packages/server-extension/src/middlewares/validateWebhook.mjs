@@ -1,4 +1,4 @@
-import validateWebHookPayloadSignature from '../helpers/webhookSignatureValidation'
+import validateWebHookPayloadSignature from '../helpers/webhookSignatureValidation.mjs'
 
 function validateWebhookHeaders(req, res, next) {
     const logger = req.app.locals.logger

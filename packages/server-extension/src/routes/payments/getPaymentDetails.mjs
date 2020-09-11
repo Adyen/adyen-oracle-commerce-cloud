@@ -1,6 +1,6 @@
-import getCheckout from '../../utils/checkout'
+import getCheckout from '../../utils/checkout.mjs'
 import mcache from 'memory-cache'
-import { getExternalProperties } from '../../utils/checkout'
+import { getExternalProperties } from '../../utils/checkout.mjs'
 
 export default async (req, res, next) => {
     const { customProperties } = req.body
@@ -15,7 +15,13 @@ export default async (req, res, next) => {
             if (cachedResponse) {
                 return cachedResponse
             }
-            const body = { paymentData, details }
+            const getBody = () => {
+                if (customProperties.details) {
+                    return { paymentData, details: JSON.parse(customProperties.details) }
+                }
+                return { paymentData, details }
+            }
+            const body = getBody()
             const paymentResponse = await checkout.paymentsDetails(body)
 
             const isSuccess = !('refusalReason' in paymentResponse)
@@ -30,14 +36,14 @@ export default async (req, res, next) => {
         const isSuccess = !('refusalReason' in paymentResponse)
 
         const response = {
-            amount: req.body.amount,
+            ...(req.body.amount && { amount: req.body.amount }),
             hostTimestamp: new Date().toISOString(),
-            paymentId: req.body.paymentId,
+            ...(req.body.paymentId && { paymentId: req.body.paymentId }),
             ...getExternalProperties(paymentResponse),
-            merchantTransactionId: paymentResponse.pspReference,
+            ...(paymentResponse.pspReference && { merchantTransactionId: paymentResponse.pspReference }),
             response: { success: isSuccess },
-            orderId: customProperties.orderId,
-            transactionType: req.body.transactionType,
+            ...(customProperties.orderId && { orderId: customProperties.orderId }),
+            ...(req.body.transactionType && { transactionType: req.body.transactionType }),
         }
 
         res.json(response)

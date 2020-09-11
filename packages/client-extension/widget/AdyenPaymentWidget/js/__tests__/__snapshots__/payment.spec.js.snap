@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Payment should create a payment 1`] = `
+Array [
+  Object {
+    "customProperties": Object {
+      "accountInfo": Object {
+        "accountCreationDate": "01-01-1970",
+      },
+      "numberOfInstallments": 3,
+      "paymentDetails": Object {
+        "paymentMethod": Object {
+          "type": "scheme",
+        },
+      },
+      "riskData": Object {
+        "basket": Object {
+          "item1": Object {
+            "brand": "mocked_brand",
+            "category": "mocked_category",
+            "itemID": "mocked_item_id",
+            "productTitle": "mocked_product_title",
+            "quantity": 1,
+            "sku": "mocked_sku",
+          },
+        },
+      },
+      "storedPayment": undefined,
+    },
+    "id": "random_mocked_id",
+    "type": "generic",
+  },
+]
+`;
+
+exports[`Payment should have different payment method type on combo card 1`] = `
+Array [
+  Object {
+    "customProperties": Object {
+      "accountInfo": Object {
+        "accountCreationDate": "01-01-1970",
+      },
+      "additionalData": Object {
+        "overwriteBrand": true,
+      },
+      "paymentDetails": Object {
+        "paymentMethod": Object {
+          "type": "electron",
+        },
+      },
+      "riskData": Object {
+        "basket": Object {
+          "item1": Object {
+            "brand": "mocked_brand",
+            "category": "mocked_category",
+            "itemID": "mocked_item_id",
+            "productTitle": "mocked_product_title",
+            "quantity": 1,
+            "sku": "mocked_sku",
+          },
+        },
+      },
+      "selectedBrand": "electron",
+      "storedPayment": undefined,
+    },
+    "id": "random_mocked_id",
+    "type": "generic",
+  },
+]
+`;

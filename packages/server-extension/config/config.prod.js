@@ -2,6 +2,6 @@
 import config from './config'
 
 export default config({
-    input: './src/index.js',
+    input: './src/index.mjs',
     format: 'cjs',
 })

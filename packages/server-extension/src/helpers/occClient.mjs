@@ -1,5 +1,5 @@
-import nconf from 'nconf/lib/nconf'
-import CommerceSDK from '../utils/occSdk'
+import nconf from 'nconf/lib/nconf.js'
+import CommerceSDK from '../utils/occSdk.mjs'
 
 export default function occClient(logger) {
     return new CommerceSDK({
