@@ -13,8 +13,8 @@ class Store {
         const cardIsCredit = this.selectedComboCard() === comboCards.credit
         return ko.observable(
             this.isAllowedCountryForInstallments &&
-                hasInstallments &&
-                cardIsCredit
+            hasInstallments &&
+            cardIsCredit
         )
     }
 
@@ -42,7 +42,7 @@ class Store {
         this.id = viewModel.id
         this.order = viewModel.order
         this.cart = viewModel.cart
-        this.ajax = ajax(viewModel.isPreview())
+        this.ajax = ajax(viewModel.site().siteInfo.id, viewModel.isPreview())
         this.translate = viewModel.translate
         this.locale = viewModel.locale()
         this.brazilEnabled = false

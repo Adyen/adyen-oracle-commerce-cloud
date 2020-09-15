@@ -2,8 +2,11 @@ import { cacheInstance } from '../helpers/serverCache'
 import occClient from '../helpers/occClient'
 
 export default async (req, res, next) => {
-    const key = 'occ-gateway-settings'
+    const siteId = req.headers['x-ccsite'] || (req.body && req.body.siteId)
+    const key = 'occ-gateway-settings-' + siteId
     const cachedBody = cacheInstance.get(key)
+
+    req.app.locals.siteId = siteId
 
     if (cachedBody) {
         req.app.locals.logger.info('!-- OCC_CACHED --!')
@@ -30,6 +33,9 @@ export default async (req, res, next) => {
         await sdk.get({
             url: '/ccadmin/v1/sitesettings/AdyenGenericGateway',
             callback: getGatewaySettings,
+            headers: {
+                'x-ccsite': siteId
+            }
         })
     } catch (e) {
         return next(e)

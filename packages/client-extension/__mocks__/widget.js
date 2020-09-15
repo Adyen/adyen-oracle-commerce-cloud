@@ -16,6 +16,9 @@ const defaultSiteSettings = {
             environment: 'TEST',
         },
     },
+    siteInfo: {
+        id: 'mocked_site_info'
+    }
 }
 const defaultSite = ko.observable({ ...defaultSiteSettings })
 
@@ -45,7 +48,7 @@ const defaultOrderOptions = {
     id: ko.observable(''),
     op: ko.observable(),
     handlePlaceOrder: jest.fn(),
-    updatePayments: function(payment) {
+    updatePayments: function (payment) {
         this.payments(payment)
     },
     shippingAddress: ko.observable(address),
