@@ -2,15 +2,15 @@
 # yarn lockfile v1
 
 
-"@adyen/adyen-web@3.14.1":
-  version "3.14.1"
-  resolved "https://registry.yarnpkg.com/@adyen/adyen-web/-/adyen-web-3.14.1.tgz#09a136c3c02905e7f9d0a76313cb160404fb1898"
-  integrity sha512-83YdR4yQMZWUVUjpgDNZOO4BSTw/PEpfgKdAYy93c4mtoxnidRDrC2z1bCOssGarUqMbGaehSwKPfJjxoron8A==
+"@adyen/adyen-web@3.15.0":
+  version "3.15.0"
+  resolved "https://registry.yarnpkg.com/@adyen/adyen-web/-/adyen-web-3.15.0.tgz#0111a39c5fe4e5a1d7135ca21c79bbb5960bdd0a"
+  integrity sha512-8YKPH3JhcSNPTLK/yfkcF89JYiG1bKsBJH2ANi0wgIZ4zqRlsFNVMSDfbLa0WcQ36i4DPCUYt405+KsFRpMVsw==
   dependencies:
     "@types/applepayjs" "^3.0.0"
     "@types/googlepay" "^0.5.0"
     classnames "^2.2.6"
-    preact "^10.4.8"
+    preact "^10.5.2"
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.10.4":
   version "7.10.4"
@@ -2966,10 +2966,10 @@ posix-character-classes@^0.1.0:
   resolved "https://registry.yarnpkg.com/posix-character-classes/-/posix-character-classes-0.1.1.tgz#01eac0fe3b5af71a2a6c02feabb8c1fef7e00eab"
   integrity sha1-AerA/jta9xoqbAL+q7jB/vfgDqs=
 
-preact@^10.4.8:
-  version "10.4.8"
-  resolved "https://registry.yarnpkg.com/preact/-/preact-10.4.8.tgz#8517b106cc5591eb675237c93da99ac052cf4756"
-  integrity sha512-uVLeEAyRsCkUEFhVHlOu17OxcrwC7+hTGZ08kBoLBiGHiZooUZuibQnphgMKftw/rqYntNMyhVCPqQhcyAGHag==
+preact@^10.5.2:
+  version "10.5.2"
+  resolved "https://registry.yarnpkg.com/preact/-/preact-10.5.2.tgz#4c07c27f4239666840e0d637ec7c110cfcae181d"
+  integrity sha512-4y2Q6kMiJtMONMJR7z+o8P5tGkMzVItyy77AXGrUdusv+dk4jwoS3KrpCBkFloY2xsScRJYwZQZrx89tTjDkOw==
 
 prelude-ls@~1.1.2:
   version "1.1.2"
