@@ -6,6 +6,7 @@ import pubsub from 'pubsub'
 import { redirectAuth, createSpinner, getOrderPayload, eventEmitter } from '../utils'
 import * as constants from '../constants'
 import { store } from './index'
+import { hideModal } from '../utils/modal'
 
 class Order {
     constructor() {
@@ -17,7 +18,6 @@ class Order {
     startEventListeners = () => {
         eventEmitter.order.on(constants.pageChanged, this.getUrlParametersAndCreateOrder)
         eventEmitter.order.on(constants.initialOrderCreated, this.initialOrderCreated)
-        eventEmitter.order.on('recreateOrder', this.recreateOrder)
     }
 
     initialOrderCreated = (orderEvent) => {
@@ -25,12 +25,10 @@ class Order {
         const { customPaymentProperties } = orderEvent.order.payments[0]
         const { resultCode, ...data } = customPaymentProperties
 
+        const createCustomProperty = (acc, [key, value]) => ({ ...acc, [key]: JSON.parse(value) })
         const payload = {
             order: getOrderPayload(order),
-            customPaymentProperties: Object.entries(data).reduce(
-                (acc, [key, value]) => ({ [key]: JSON.parse(value) }),
-                {}
-            ),
+            customPaymentProperties: Object.entries(data).reduce(createCustomProperty, {}),
             resultCode,
         }
 
@@ -48,6 +46,7 @@ class Order {
     }
 
     createOrder = (orderPayload) => {
+        hideModal()
         const orderFail = ({ message = 'Failed to create order' } = {}) => {
             $.Topic(pubsub.topicNames.ORDER_SUBMISSION_FAIL).publish({ message: 'fail', errorMessage: message })
         }
@@ -77,10 +76,8 @@ class Order {
     }
 
     recreateOrder = (paymentData) => {
-        console.log('recreating order!')
         const storedOrder = JSON.parse(this.instance.getItem(constants.storage.order))
         storedOrder.payments = [paymentData]
-
         this.createOrder(storedOrder)
     }
 

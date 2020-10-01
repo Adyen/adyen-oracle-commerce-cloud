@@ -2,14 +2,15 @@ import getCheckout from '../../utils/checkout.mjs'
 import nconf from 'nconf/lib/nconf.js'
 import mcache from 'memory-cache'
 import { getExternalProperties } from '../../utils/checkout.mjs'
+import pkgJson from '../../../package.json'
 
 export default async (req, res, next) => {
-    const pkgJson = require('../../../package.json')
+    const { logger } = req.app.locals
     const { customProperties } = req.body
     const hasPaymentData = 'paymentData' in customProperties
 
     if (hasPaymentData) {
-        return next()
+        return next(customProperties.paymentData)
     }
 
     const { gatewaySettings } = req.app.locals
@@ -56,6 +57,7 @@ export default async (req, res, next) => {
             }
 
             const paymentDetailsJson = JSON.parse(paymentDetails)
+
             const { type, countryCode, ...paymentMethodRest } = paymentDetailsJson.paymentMethod
             const installments = numberOfInstallments && {
                 installments: { value: numberOfInstallments },
@@ -108,6 +110,7 @@ export default async (req, res, next) => {
 
                 return {
                     riskData: parsedRiskData,
+                    allow3DS2: true,
                 }
             }
             const payload = {
@@ -134,7 +137,7 @@ export default async (req, res, next) => {
                     deviceChannel: 'browser',
                 },
                 channel: 'Web',
-                origin: siteURL,
+                origin: host[channel],
                 accountInfo: JSON.parse(accountInfo),
                 ...details,
             }

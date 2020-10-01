@@ -80,9 +80,9 @@ describe('Order', () => {
         viewModel.onLoad(widget)
 
         eventEmitter.store.emit(constants.checkout.card, checkoutComponent)
-        const data = '{ "paymentData": "mocked_payment_data" }'
+        const data = { additionalData: '{ "paymentData": "mocked_payment_data" }' }
         const resultCode = 'ChallengeShopper'
-        const customPaymentProperties = { data, resultCode }
+        const customPaymentProperties = { resultCode, ...data }
         const customPayments = [{ customPaymentProperties }]
         const mockedOrderEvent = { order: { payments: customPayments } }
         order.initialOrderCreated(mockedOrderEvent)
@@ -91,7 +91,7 @@ describe('Order', () => {
         const payload = {
             action,
             checkoutComponent,
-            selector: '#adyen-card-payment',
+            selector: '#present-shopper',
         }
         expect(createFromAction).toHaveBeenNthCalledWith(1, payload)
         expect(order.createOrder).toHaveBeenCalledTimes(0)

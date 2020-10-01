@@ -7,15 +7,15 @@ const { boleto } = paymentMethodTypes
 const { deliveryDate, shopperStatement } = boletoOptions
 
 const setField = (data, field) => data && eventEmitter.store.emit(field, data)
-const setDeliveryDate = boletoDeliveryDate => setField(boletoDeliveryDate, deliveryDate)
-const setShopperStatement = boletoShopperStatement => setField(boletoShopperStatement, shopperStatement)
+const setDeliveryDate = (boletoDeliveryDate) => setField(boletoDeliveryDate, deliveryDate)
+const setShopperStatement = (boletoShopperStatement) => setField(boletoShopperStatement, shopperStatement)
 
 export const setBoletoConfig = ({ boletoDeliveryDate, boletoShopperStatement }) => {
     setDeliveryDate(boletoDeliveryDate)
     setShopperStatement(boletoShopperStatement)
 }
 
-export const presentToShopper = customPaymentProperties => {
+export const presentToShopper = (customPaymentProperties) => {
     const checkoutBoleto = store.get(constants.checkout.boleto)
     const options = { action: customPaymentProperties, selector: '#present-shopper', checkoutComponent: checkoutBoleto }
 
@@ -23,7 +23,7 @@ export const presentToShopper = customPaymentProperties => {
     createPresentToShopperModal(runAction)
 }
 
-const setComponent = checkout => eventEmitter.store.emit(constants.checkout.boleto, checkout)
+const setComponent = (checkout) => eventEmitter.store.emit(constants.checkout.boleto, checkout)
 
 const createBoletoCheckout = ({ paymentMethods }) => {
     const hasBoleto = paymentMethods.some(({ type }) => type.includes(boleto))

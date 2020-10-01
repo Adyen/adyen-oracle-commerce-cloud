@@ -3,10 +3,10 @@ import $ from 'jquery'
 class Emitter {
     store = {
         emit: (key, value) => $.Topic('store').publish(key, value),
-        listen: cb => $.Topic('store').subscribe(cb),
+        listen: (cb) => $.Topic('store').subscribe(cb),
     }
 
-    _ev = suffix => ({
+    _ev = (suffix) => ({
         emit: (event, ...args) => $.Topic(`${suffix}-${event}`).publish(...args),
         on: (event, cb) => $.Topic(`${suffix}-${event}`).subscribe(cb),
     })

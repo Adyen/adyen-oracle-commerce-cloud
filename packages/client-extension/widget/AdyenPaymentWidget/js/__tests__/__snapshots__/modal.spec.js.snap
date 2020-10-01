@@ -4,10 +4,6 @@ exports[`Modal should send node in the callback 1`] = `
 <div
   style="display: flex;justify-content: center;align-content: center;top: 0;position: fixed;z-index: 999;align-items: center;"
 >
-  <link
-    href="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/3.2.0/adyen.css"
-    rel="stylesheet"
-  />
   <div
     id="present-shopper"
     style="z-index: 9999;position: absolute;"

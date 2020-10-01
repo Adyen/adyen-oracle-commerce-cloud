@@ -11,6 +11,7 @@ Array [
       "clientKey": undefined,
       "countryCode": "US",
       "environment": "test",
+      "onAdditionalDetails": [Function],
       "paymentMethodsResponse": undefined,
       "showPayButton": true,
     },

@@ -6,7 +6,8 @@ const $ = jest.fn(() => ({
     removeClass: jest.fn(arg => null),
     show: jest.fn(),
     hide: jest.fn(),
-    append: jest.fn()
+    append: jest.fn(),
+    modal: jest.fn()
 }))
 
 const methods = {
@@ -40,7 +41,7 @@ const methods = {
             console.log(e)
             throw new Error(e)
         }
-    },
+    }
 }
 
 methods.Topic.removeAll = emitter.removeAllListeners
