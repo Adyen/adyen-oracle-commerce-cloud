@@ -8,23 +8,7 @@ export default async (paymentData, req, res, next) => {
         const checkout = getCheckout(req)
 
         const paymentDetails = JSON.parse(customProperties.paymentDetails)
-        const getPaymentResponse = async () => {
-            const key = `__express__d${orderId}`
-            const cachedResponse = await mcache.get(key)
-            if (cachedResponse) {
-                return cachedResponse
-            }
-            const paymentResponse = await checkout.paymentsDetails(paymentDetails)
-
-            const isSuccess = !('refusalReason' in paymentResponse)
-            if (isSuccess) {
-                await mcache.put(key, paymentResponse, 3600 * 1000)
-            }
-
-            return paymentResponse
-        }
-
-        const paymentResponse = await getPaymentResponse()
+        const paymentResponse = await getPaymentResponse(orderId, checkout, paymentDetails)
         const isSuccess = !('refusalReason' in paymentResponse)
 
         const response = {
@@ -42,4 +26,20 @@ export default async (paymentData, req, res, next) => {
     } catch (e) {
         next(e)
     }
+}
+
+async function getPaymentResponse(orderId, checkout, paymentDetails) {
+    const key = `__express__d${orderId}`
+    const cachedResponse = await mcache.get(key)
+    if (cachedResponse) {
+        return cachedResponse
+    }
+    const paymentResponse = await checkout.paymentsDetails(paymentDetails)
+
+    const isSuccess = !('refusalReason' in paymentResponse)
+    if (isSuccess) {
+        await mcache.put(key, paymentResponse, 3600 * 1000)
+    }
+
+    return paymentResponse
 }

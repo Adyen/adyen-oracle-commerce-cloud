@@ -45,7 +45,7 @@ function getHttp(url) {
  * @returns {CommerceSDK} The SDK instance
  */
 function CommerceSDK(configuration) {
-    ;('use strict')
+    'use strict'
     if (!configuration) {
         throw new Error('The configuration object is null')
     }
@@ -85,17 +85,17 @@ CommerceSDK.stringifyPrimitive = function (primitive) {
         //console.log ('The primitive type is ::' + primitiveType);
         var primitiveStringValue = null
         switch (primitiveType) {
-            case 'boolean':
-                primitiveStringValue = primitive ? true : false
-                break
-            case 'number':
-                primitiveStringValue = isFinite(primitive) ? primitive : ''
-                break
-            case 'string':
-                primitiveStringValue = primitive
-                break
-            default:
-                primitiveStringValue = ''
+        case 'boolean':
+            primitiveStringValue = primitive ? true : false
+            break
+        case 'number':
+            primitiveStringValue = isFinite(primitive) ? primitive : ''
+            break
+        case 'string':
+            primitiveStringValue = primitive
+            break
+        default:
+            primitiveStringValue = ''
         }
         //console.log ('The primitive stringified value is ::' + primitiveStringValue);
         return primitiveStringValue

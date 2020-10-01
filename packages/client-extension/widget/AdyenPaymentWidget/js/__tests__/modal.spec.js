@@ -1,5 +1,4 @@
 import { createPresentToShopperModal } from '../utils/modal'
-import * as constants from '../constants'
 
 describe('Modal', () => {
     it('should send node in the callback', function() {
