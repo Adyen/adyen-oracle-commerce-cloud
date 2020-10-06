@@ -44,10 +44,8 @@ class Checkout {
             return checkout
         }
 
-        // eslint-disable-next-line no-undef
-        const newCheckout = new AdyenCheckout(
-            getDefaultConfig(this.type, { onAdditionalDetails: this.onAdditionalDetails })
-        )
+        const defaultConfig = getDefaultConfig(this.type, { onAdditionalDetails: this.onAdditionalDetails })
+        const newCheckout = new AdyenCheckout(defaultConfig)
         eventEmitter.store.emit(constants.checkoutComponent, newCheckout)
         return newCheckout
     }
@@ -62,8 +60,8 @@ class Checkout {
         }
     }
 
-    onAdditionalDetails = (state, component) => {
-        this.setPaymentDetails(component, state)
+    onAdditionalDetails = (state /*, component */) => {
+        eventEmitter.store.emit(constants.additionalDetails, state.data)
         this.initiateOrder()
     }
 

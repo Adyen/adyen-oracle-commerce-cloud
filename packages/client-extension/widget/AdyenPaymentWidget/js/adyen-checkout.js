@@ -84,6 +84,7 @@ class ViewModel {
         const isPresentToShopper = resultCode === constants.presentToShopper
         isPresentToShopper && presentToShopper(customPaymentProperties)
     }
+
     orderSubmitted = () => store.has(constants.orderPayload) && this.presentToShopper()
 
     subscribeToTopics = () => {

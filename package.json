@@ -62,5 +62,7 @@
             "\\.(css|less|scss|sass)$": "identity-obj-proxy"
         }
     },
-    "dependencies": {}
+    "dependencies": {
+        "winston": "^3.3.3"
+    }
 }

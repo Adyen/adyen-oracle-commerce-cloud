@@ -97,6 +97,10 @@ class Payment {
         const basketItems = this.getBasketItems()
         const accountInfo = this.getAccountInfo()
 
+        if (additionalDetails && 'paymentData' in additionalDetails) {
+            return { ...genericPayment, customProperties: additionalDetails }
+        }
+
         const customProperties = {
             accountInfo,
             paymentDetails: updatedPaymentDetails,
@@ -108,9 +112,8 @@ class Payment {
             ...(numberOfInstallments && { numberOfInstallments }),
             ...comboCardOptions,
         }
-        const updatedGenericPayment = { ...genericPayment, customProperties }
 
-        return updatedGenericPayment
+        return { ...genericPayment, customProperties }
     }
 
     checkSelectedInstallment = (selectedInstallment) =>

@@ -6,17 +6,11 @@ import { createModal } from './modal'
 
 export default ({ order, customPaymentProperties }, cb) => {
     const checkoutCard = store.get(constants.checkout.card)
-    const action = getAction(customPaymentProperties)
 
     createModal()
     const redirect = createRedirect(customPaymentProperties, checkoutCard, order)
 
-    action ? redirect(action) : cb(order)
-}
-
-function getAction({ additionalData, action }) {
-    const hasPaymentData = additionalData && 'paymentData' in additionalData
-    return hasPaymentData ? additionalData : action
+    customPaymentProperties.action ? redirect(customPaymentProperties.action) : cb(order)
 }
 
 function createRedirect(customPaymentProperties, checkoutComponent, order) {
@@ -28,11 +22,8 @@ function createRedirect(customPaymentProperties, checkoutComponent, order) {
         }
 
         const instance = storageApi.getInstance()
-
-        if (customPaymentProperties.additionalData) {
-            instance.setItem(constants.storage.paymentData, customPaymentProperties.additionalData.paymentData)
-            instance.setItem(constants.storage.order, JSON.stringify(order))
-        }
+        instance.setItem(constants.storage.paymentData, customPaymentProperties.action.paymentData)
+        instance.setItem(constants.storage.order, JSON.stringify(order))
 
         createFromAction(options)
     }

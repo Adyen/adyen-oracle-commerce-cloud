@@ -20,16 +20,18 @@ class Order {
         eventEmitter.order.on(constants.initialOrderCreated, this.initialOrderCreated)
     }
 
+    parseProperties = (properties) => {
+        const parseProperty = (acc, [key, value]) => ({ ...acc, [key]: JSON.parse(value) })
+        return Object.entries(properties).reduce(parseProperty, {})
+    }
     initialOrderCreated = (orderEvent) => {
         const order = store.get(constants.order)
-        const { customPaymentProperties } = orderEvent.order.payments[0]
-        const { resultCode, ...data } = customPaymentProperties
+        const { customPaymentProperties } = this.getCustomProperties(orderEvent.order)
 
-        const createCustomProperty = (acc, [key, value]) => ({ ...acc, [key]: JSON.parse(value) })
         const payload = {
             order: getOrderPayload(order),
-            customPaymentProperties: Object.entries(data).reduce(createCustomProperty, {}),
-            resultCode,
+            customPaymentProperties: this.parseProperties(customPaymentProperties),
+            resultCode: customPaymentProperties.resultCode,
         }
 
         eventEmitter.store.emit(constants.orderPayload, payload)
@@ -37,10 +39,13 @@ class Order {
         !isDone() && redirectAuth(payload, this.createOrder)
     }
 
-    getAndCreateOrder = (result) => {
-        result.paymentData = this.instance.getItem(constants.storage.paymentData)
+    getAndCreateOrder = (details) => {
+        const paymentData = this.instance.getItem(constants.storage.paymentData)
 
-        const payment = { type: 'generic', customProperties: result }
+        const payment = {
+            type: 'generic',
+            customProperties: { details, paymentData },
+        }
 
         this.recreateOrder(payment)
     }
@@ -109,6 +114,10 @@ class Order {
         if (order().paymentGateway()) {
             order().paymentGateway().type = ''
         }
+    }
+
+    getCustomProperties(data) {
+        return data.payments[0]
     }
 
     setAction(parametersObj) {

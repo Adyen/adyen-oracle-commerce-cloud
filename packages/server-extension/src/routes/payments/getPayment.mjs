@@ -4,7 +4,6 @@ import mcache from 'memory-cache'
 import { getExternalProperties } from '../../utils/checkout.mjs'
 import pkgJson from '../../../package.json'
 
-const getAdditionalProperties = (paymentResponse) => paymentResponse.action || paymentResponse.additionalData
 const getMerchantTransactionId = (paymentResponse, { merchantAccount, transactionId }) =>
     paymentResponse.pspReference || `${merchantAccount}:${transactionId}`
 
@@ -22,10 +21,10 @@ export default async (req, res, next) => {
         paymentId,
     } = req.body
 
-    const hasPaymentData = 'paymentData' in customProperties
-
-    if (hasPaymentData) {
-        return next(customProperties.paymentData)
+    req.app.locals.logger.info({ customProperties })
+    if ('paymentData' in customProperties) {
+        req.app.locals.logger.info('!-- TWO --!')
+        return next()
     }
 
     const { gatewaySettings } = req.app.locals
@@ -47,10 +46,7 @@ export default async (req, res, next) => {
             hostTimestamp: new Date().toISOString(),
             response: { success: isSuccess },
             merchantTransactionId: getMerchantTransactionId(paymentResponse, { merchantAccount, transactionId }),
-            ...getExternalProperties({
-                additionalData: getAdditionalProperties(paymentResponse),
-                resultCode: paymentResponse.resultCode,
-            }),
+            ...getExternalProperties(paymentResponse),
         }
 
         res.json(response)
@@ -59,7 +55,7 @@ export default async (req, res, next) => {
     }
 }
 
-const getAdditionalData = ({ riskData, additionalData }) => {
+const getAdditionalDataWithRisk = ({ riskData, additionalData }) => {
     const parsedRiskData = JSON.parse(riskData)
     if (additionalData) {
         const data = JSON.parse(additionalData)
@@ -79,7 +75,7 @@ const getAdditionalData = ({ riskData, additionalData }) => {
 }
 
 const getPaymentResponse = async (req, merchantAccount) => {
-    const { transactionId, orderId } = req.body
+    const { orderId } = req.body
     const key = `__express__${orderId}`
     const cachedResponse = mcache.get(key)
 
@@ -90,7 +86,7 @@ const getPaymentResponse = async (req, merchantAccount) => {
     const payload = getPayload(req, merchantAccount)
     const checkout = getCheckout(req)
 
-    const paymentResponse = await checkout.payments(payload, { idempotencyKey: `${orderId}-${transactionId}` })
+    const paymentResponse = await checkout.payments(payload)
 
     if (paymentResponse.resultCode === 'Authorised') {
         await mcache.put(key, paymentResponse, 3600 * 1000)
@@ -114,7 +110,6 @@ function getPayload(req, merchantAccount) {
     const {
         amount,
         transactionId,
-        orderId,
         customProperties: {
             accountInfo,
             browserInfo,
@@ -143,7 +138,7 @@ function getPayload(req, merchantAccount) {
         storefront: nconf.get('atg.server.url'),
     }
 
-    const returnUrl = `${host[channel]}/checkout?orderId=${orderId}`
+    const returnUrl = `${host[channel]}/checkout`
 
     const paymentMethod = { type, ...paymentMethodRest }
     const defaultDetails = {
@@ -167,7 +162,10 @@ function getPayload(req, merchantAccount) {
 
     return {
         amount: { value: amount, currency: currencyCode },
-        additionalData: getAdditionalData({ additionalData, riskData }),
+        additionalData: getAdditionalDataWithRisk({
+            additionalData,
+            riskData,
+        }),
         ...(countryCode && { countryCode }),
         merchantAccount,
         applicationInfo: {
