@@ -2,10 +2,10 @@ import pubsub from 'pubsub'
 import notifier from 'notifier'
 import $ from 'jquery'
 import { store } from './components'
-import { createSpinner, destroySpinner, eventEmitter, hideLoaders } from './utils'
+import { createSpinner, destroySpinner, eventEmitter, hideLoaders, hideModal } from './utils'
 import createError from './utils/createError'
 import * as constants from './constants'
-import { presentToShopper, setBoletoConfig } from './components'
+import { setBoletoConfig } from './components'
 
 class ViewModel {
     store = store
@@ -79,13 +79,13 @@ class ViewModel {
         eventEmitter.store.emit(constants.installments, [])
     }
 
-    presentToShopper = () => {
-        const { resultCode, customPaymentProperties } = store.get(constants.orderPayload)
-        const isPresentToShopper = resultCode === constants.presentToShopper
-        isPresentToShopper && presentToShopper(customPaymentProperties)
-    }
+    orderSubmitted = () => {
+        const { customPaymentProperties } = store.get(constants.orderPayload)
 
-    orderSubmitted = () => store.has(constants.orderPayload) && this.presentToShopper()
+        if (customPaymentProperties.resultCode === 'Authorised') {
+            hideModal()
+        }
+    }
 
     subscribeToTopics = () => {
         const tn = pubsub.topicNames

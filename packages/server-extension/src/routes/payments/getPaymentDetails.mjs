@@ -16,7 +16,7 @@ function getResponse(paymentResponse, { req }) {
     }
 }
 
-async function getPaymentResponse(orderId, checkout, paymentDetails, cb) {
+async function getPaymentResponse(orderId, checkout, paymentDetails) {
     const key = `__express__d${orderId}`
     const cachedResponse = await mcache.get(key)
     if (cachedResponse) {
@@ -24,7 +24,6 @@ async function getPaymentResponse(orderId, checkout, paymentDetails, cb) {
     }
 
     const paymentResponse = await checkout.paymentsDetails(paymentDetails)
-    cb(paymentResponse)
 
     if (paymentResponse.resultCode === 'Authorised') {
         await mcache.put(key, paymentResponse, 3600 * 1000)
@@ -46,9 +45,7 @@ export default async (req, res, next) => {
             paymentData: customProperties.paymentData,
             details,
         }
-        const paymentResponse = await getPaymentResponse(orderId, checkout, payload, function (pr) {
-            req.app.locals.logger.info({ paymentResponse: pr })
-        })
+        const paymentResponse = await getPaymentResponse(orderId, checkout, payload)
 
         return res.json(getResponse(paymentResponse, { req }))
     } catch (e) {

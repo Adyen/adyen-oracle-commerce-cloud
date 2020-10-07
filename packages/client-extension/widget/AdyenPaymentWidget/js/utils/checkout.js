@@ -29,7 +29,8 @@ export const getDefaultConfig = (type, additionalOptions) => {
 }
 
 export const createFromAction = ({ action, selector, checkoutComponent }) => {
-    action.type === 'threeDS2Challenge' ? showModal() : hideModal()
+    const needsModal = ['threeDS2Challenge', 'voucher']
+    needsModal.includes(action.type) ? showModal() : hideModal()
     checkoutComponent.createFromAction(action).mount(selector)
 }
 

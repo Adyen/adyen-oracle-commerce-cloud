@@ -1,5 +1,5 @@
 import * as constants from '../../constants'
-import { addDays, Checkout, createPresentToShopperModal, eventEmitter, createFromAction } from '../../utils'
+import { addDays, Checkout, eventEmitter } from '../../utils'
 import { store } from '../index'
 
 const { boletoOptions, paymentMethodTypes } = constants
@@ -13,14 +13,6 @@ const setShopperStatement = (boletoShopperStatement) => setField(boletoShopperSt
 export const setBoletoConfig = ({ boletoDeliveryDate, boletoShopperStatement }) => {
     setDeliveryDate(boletoDeliveryDate)
     setShopperStatement(boletoShopperStatement)
-}
-
-export const presentToShopper = (customPaymentProperties) => {
-    const checkoutBoleto = store.get(constants.checkout.boleto)
-    const options = { action: customPaymentProperties, selector: '#present-shopper', checkoutComponent: checkoutBoleto }
-
-    const runAction = () => createFromAction(options)
-    createPresentToShopperModal(runAction)
 }
 
 const setComponent = (checkout) => eventEmitter.store.emit(constants.checkout.boleto, checkout)

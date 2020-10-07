@@ -70,7 +70,7 @@ const defaultOrderOptions = {
 const defaultOrder = ko.observable({ ...defaultOrderOptions })
 const defaultUser = ko.observable({
     id: ko.observable('1234'),
-    registrationDate: '01-01-1970'
+    registrationDate: ko.observable('01-01-1970')
 })
 
 class Widget {

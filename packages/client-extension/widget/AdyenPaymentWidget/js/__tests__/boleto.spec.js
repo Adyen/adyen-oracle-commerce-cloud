@@ -5,8 +5,7 @@ import paymentMethodsResponseMock from '../../../../__mocks__/paymentMethods'
 import viewModel from '../adyen-checkout'
 
 jest.mock('../utils/checkout')
-import { presentToShopper } from '../components/boleto'
-import { Checkout, createFromAction } from '../utils'
+import { Checkout } from '../utils'
 import { createBoletoCheckout } from '../components'
 import * as constants from '../constants'
 import generateTemplate from '../utils/tests/koTemplate'
@@ -17,17 +16,9 @@ describe('Boleto', () => {
         widget = new Widget()
     })
 
-    it('should present to shopper', function() {
-        const action = { data: 'mocked_custom_property' }
-        const options = { action, selector: '#present-shopper' }
-
+    it('should create boleto checkout', function () {
         viewModel.onLoad(widget)
-        presentToShopper(action)
 
-        expect(createFromAction).toHaveBeenCalledWith(options)
-    })
-
-    it('should create boleto checkout', function() {
         Checkout.prototype.createCheckout = jest.fn()
         Checkout.prototype.onChange = jest.fn()
         Checkout.prototype.onSubmit = jest.fn()

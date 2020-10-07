@@ -6,7 +6,6 @@ import pubsub from 'pubsub'
 import { redirectAuth, createSpinner, getOrderPayload, eventEmitter } from '../utils'
 import * as constants from '../constants'
 import { store } from './index'
-import { hideModal } from '../utils/modal'
 
 class Order {
     constructor() {
@@ -51,7 +50,6 @@ class Order {
     }
 
     createOrder = (orderPayload) => {
-        hideModal()
         const orderFail = ({ message = 'Failed to create order' } = {}) => {
             $.Topic(pubsub.topicNames.ORDER_SUBMISSION_FAIL).publish({ message: 'fail', errorMessage: message })
         }
@@ -87,10 +85,13 @@ class Order {
     }
 
     getResult = (urlParameters) => {
+        const details = JSON.parse(this.instance.getItem(constants.storage.details) || '[]')
+
         const params = urlParameters.split('&')
         const formatResult = (acc, param) => {
             const [key, value] = param.split('=')
-            return { ...acc, [key]: decodeURIComponent(value) }
+            const useParam = Array.isArray(details) ? details.some(({ key: detailKey }) => detailKey === key) : true
+            return useParam ? { ...acc, [key]: decodeURIComponent(value) } : acc
         }
 
         return params.reduce(formatResult, {})

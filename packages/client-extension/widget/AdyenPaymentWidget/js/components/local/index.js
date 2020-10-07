@@ -4,33 +4,34 @@ import { store } from '../index'
 
 const unsupportedTypes = ['wechatpayWeb', 'scheme', 'boleto', 'boletobancario']
 const checkDetails = (isValidType, paymentMethod) => isValidType && 'details' in paymentMethod
-const checkIfIsValid = (hasType, paymentMethod) => hasType && !unsupportedTypes.includes(paymentMethod.type)
-const checkType = paymentMethod => 'type' in paymentMethod
+const checkType = (paymentMethod) => 'type' in paymentMethod
+const checkIfIsValid = (paymentMethod) => checkType(paymentMethod) && !unsupportedTypes.includes(paymentMethod.type)
 
-const createValidator = paymentMethod => {
-    return {
-        // eslint-disable-next-line complexity
-        validate: (key, value) => {
-            const hasType = checkType(paymentMethod)
-            const isValidType = checkIfIsValid(hasType, paymentMethod)
-            const hasDetails = checkDetails(isValidType, paymentMethod)
-            const hasOneItem = hasDetails && paymentMethod.details.length === 1
-            const detail = hasOneItem && paymentMethod.details[0]
-            const keyIsIssuerAndTypeIsSelect = detail && detail[key] === value
-            const isValid = !hasDetails || keyIsIssuerAndTypeIsSelect
-            return isValidType && isValid
-        },
-    }
+const checkDetailsSize = (hasDetails, paymentMethod) => hasDetails && paymentMethod.details.length === 1
+const getDetail = (hasDetails, paymentMethod) => checkDetailsSize(hasDetails, paymentMethod) && paymentMethod.details[0]
+const checkIssuerAndType = (hasDetails, paymentMethod, { key, value }) => {
+    const detail = getDetail(hasDetails, paymentMethod)
+    return detail && detail[key] === value
 }
 
-export const isLocalPaymentMethod = paymentMethod => {
-    const { validate } = createValidator(paymentMethod)
-    const keyIsIssuer = validate('key', 'issuer')
-    const typeIsSelect = validate('type', 'select')
+const createValidator = (paymentMethod) => ({
+    assert: (key, value) => {
+        const isValidType = checkIfIsValid(paymentMethod)
+        const hasDetails = checkDetails(isValidType, paymentMethod)
+        const keyIsIssuerAndTypeIsSelect = checkIssuerAndType(hasDetails, paymentMethod, { key, value })
+        const isValid = !hasDetails || keyIsIssuerAndTypeIsSelect
+        return isValidType && isValid
+    },
+})
+
+export const isLocalPaymentMethod = (paymentMethod) => {
+    const { assert } = createValidator(paymentMethod)
+    const keyIsIssuer = assert('key', 'issuer')
+    const typeIsSelect = assert('type', 'select')
     return keyIsIssuer && typeIsSelect
 }
 
-export const submitPayByLink = paymentMethod => {
+export const submitPayByLink = (paymentMethod) => {
     const hasDetails = checkDetails(true, paymentMethod)
 
     const createDetails = () => {
@@ -59,8 +60,8 @@ const createLocalCheckout = (acc, localPaymentMethod) => {
 
     const configuration = { onSubmit, onChange, showPayButton: true }
 
-    const checkoutOptions = type => ({ configuration, selector: `#adyen-${type}-payment`, type })
-    checkout.createCheckout(checkoutOptions(type), checkout => ({ ...acc, [type]: checkout }))
+    const checkoutOptions = { configuration, selector: `#adyen-${type}-payment`, type }
+    checkout.createCheckout(checkoutOptions, (c) => ({ ...acc, [type]: c }))
 }
 
 const createLocalPaymentCheckout = ({ paymentMethods }) => {

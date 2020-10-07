@@ -8,13 +8,13 @@ export default ({ order, customPaymentProperties }, cb) => {
     const checkoutCard = store.get(constants.checkout.card)
 
     createModal()
-    const redirect = createRedirect(customPaymentProperties, checkoutCard, order)
+    const executeAction = createAction(customPaymentProperties, checkoutCard, order)
 
-    customPaymentProperties.action ? redirect(customPaymentProperties.action) : cb(order)
+    customPaymentProperties.action ? executeAction(customPaymentProperties.action, cb) : cb(order)
 }
 
-function createRedirect(customPaymentProperties, checkoutComponent, order) {
-    return (action) => {
+function createAction(customPaymentProperties, checkoutComponent, order) {
+    return (action, cb) => {
         const options = {
             action,
             selector: '#present-shopper',
@@ -22,9 +22,16 @@ function createRedirect(customPaymentProperties, checkoutComponent, order) {
         }
 
         const instance = storageApi.getInstance()
+        if (Array.isArray(customPaymentProperties.details)) {
+            instance.setItem(constants.storage.details, JSON.stringify(customPaymentProperties.details))
+        }
         instance.setItem(constants.storage.paymentData, customPaymentProperties.action.paymentData)
         instance.setItem(constants.storage.order, JSON.stringify(order))
 
         createFromAction(options)
+
+        if (customPaymentProperties.resultCode === 'PresentToShopper') {
+            cb(order)
+        }
     }
 }

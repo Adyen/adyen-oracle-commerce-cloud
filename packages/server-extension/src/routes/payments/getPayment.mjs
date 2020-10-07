@@ -21,9 +21,7 @@ export default async (req, res, next) => {
         paymentId,
     } = req.body
 
-    req.app.locals.logger.info({ customProperties })
     if ('paymentData' in customProperties) {
-        req.app.locals.logger.info('!-- TWO --!')
         return next()
     }
 
@@ -55,13 +53,14 @@ export default async (req, res, next) => {
     }
 }
 
-const getAdditionalDataWithRisk = ({ riskData, additionalData }) => {
+const getAdditionalDataWithRisk = ({ riskData, additionalData, additionalRiskData }) => {
     const parsedRiskData = JSON.parse(riskData)
     if (additionalData) {
         const data = JSON.parse(additionalData)
         return {
             ...data,
             riskData: {
+                ...additionalRiskData,
                 ...data.riskData,
                 ...parsedRiskData,
             },
@@ -165,6 +164,7 @@ function getPayload(req, merchantAccount) {
         additionalData: getAdditionalDataWithRisk({
             additionalData,
             riskData,
+            ...paymentDetailsJson.riskData,
         }),
         ...(countryCode && { countryCode }),
         merchantAccount,

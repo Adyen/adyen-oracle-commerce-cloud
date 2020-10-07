@@ -71,9 +71,11 @@ class Payment {
     getAccountInfo = () => {
         const user = store.get(constants.user)
         return {
-            accountCreationDate: user().registrationDate,
+            accountCreationDate: user().registrationDate(),
         }
     }
+
+    isPaymentData = (additionalDetails) => additionalDetails && 'paymentData' in additionalDetails
 
     createPayment = (type) => {
         const storedPaymentType = store.get(constants.storedPaymentType)
@@ -97,7 +99,7 @@ class Payment {
         const basketItems = this.getBasketItems()
         const accountInfo = this.getAccountInfo()
 
-        if (additionalDetails && 'paymentData' in additionalDetails) {
+        if (this.isPaymentData(additionalDetails)) {
             return { ...genericPayment, customProperties: additionalDetails }
         }
 
