@@ -81,7 +81,7 @@ class Store {
         this.order = viewModel.order
         this.cart = viewModel.cart
         this.user = viewModel.user
-        this.ajax = ajax(viewModel.isPreview())
+        this.ajax = ajax(viewModel.site().siteInfo.id, viewModel.isPreview())
         this.translate = viewModel.translate
         this.noInstallmentsMsg = viewModel.translate(noInstallmentsMsg)
     }

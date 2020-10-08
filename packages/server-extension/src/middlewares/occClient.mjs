@@ -1,8 +1,13 @@
 import { cacheInstance } from '../helpers/serverCache.mjs'
 import occClient from '../helpers/occClient.mjs'
 
+const getKey = (req) => {
+    const siteId = req.headers['x-ccsite'] || (req.body && req.body.siteId)
+    req.app.locals.siteId = siteId
+    return { key: `occ-gateway-settings-${siteId}`, siteId }
+}
 export default async (req, res, next) => {
-    const key = 'occ-gateway-settings'
+    const { key, siteId } = getKey(req)
     const cachedBody = cacheInstance.get(key)
 
     if (cachedBody) {
@@ -30,6 +35,9 @@ export default async (req, res, next) => {
         await sdk.get({
             url: '/ccadmin/v1/sitesettings/AdyenGenericGateway',
             callback: getGatewaySettings,
+            headers: {
+                'x-ccsite': siteId,
+            },
         })
     } catch (e) {
         return next(e)

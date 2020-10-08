@@ -4,7 +4,8 @@ export { mcache as cacheInstance }
 
 const cache = (duration) => (req, res, next) => {
     const url = req.originalUrl || req.url
-    const key = `__express__${url}`
+    const { siteId } = req.app.loals
+    const key = `${siteId}__express__${url}`
     const cachedBody = mcache.get(key)
     if (cachedBody) {
         req.app.locals.logger.info('!-- CACHED --!')

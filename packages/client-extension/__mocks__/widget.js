@@ -27,6 +27,9 @@ const defaultSiteSettings = {
             countryCode: 'US'
         },
     },
+    siteInfo: {
+        id: 'mocked_site_info'
+    }
 }
 const defaultSite = ko.observable({ ...defaultSiteSettings })
 
