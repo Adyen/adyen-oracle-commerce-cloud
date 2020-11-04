@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@adyen/adyen-web@3.17.1":
-  version "3.17.1"
-  resolved "https://registry.yarnpkg.com/@adyen/adyen-web/-/adyen-web-3.17.1.tgz#09390c3f1f3e49e70de8c75e8c2fff0876ca1149"
-  integrity sha512-wWGYSEZeWRRhlrz2utPfm8HFbggMyg3N6q1WUw+D60D8RpZpg+Wy1OKMAIStmWDiKoCTAuYwhg7inspma7rY8Q==
+"@adyen/adyen-web@3.17.2":
+  version "3.17.2"
+  resolved "https://registry.yarnpkg.com/@adyen/adyen-web/-/adyen-web-3.17.2.tgz#cead5e2fdc11b4a7652c7ba6e4e31199f79a5077"
+  integrity sha512-tyQvnRTlFvw+W7LeGhI7j9kWEqX1hcuxh5G8lRm53PF83kfw+2wEb9TIyPHgvf6SmIP3RquLFRTdJ4ITQMVZTQ==
   dependencies:
     "@types/applepayjs" "^3.0.0"
     "@types/googlepay" "^0.5.0"
