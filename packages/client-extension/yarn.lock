@@ -2,13 +2,13 @@
 # yarn lockfile v1
 
 
-"@adyen/adyen-web@3.17.2":
-  version "3.17.2"
-  resolved "https://registry.yarnpkg.com/@adyen/adyen-web/-/adyen-web-3.17.2.tgz#cead5e2fdc11b4a7652c7ba6e4e31199f79a5077"
-  integrity sha512-tyQvnRTlFvw+W7LeGhI7j9kWEqX1hcuxh5G8lRm53PF83kfw+2wEb9TIyPHgvf6SmIP3RquLFRTdJ4ITQMVZTQ==
+"@adyen/adyen-web@3.18.0":
+  version "3.18.0"
+  resolved "https://registry.yarnpkg.com/@adyen/adyen-web/-/adyen-web-3.18.0.tgz#cb84b216b3b690dc29d7a32e747b58456a8dc010"
+  integrity sha512-Tlw1OLjRWY8Fw52OibcV8ntevrZjQDurwod0JLBhKWC/0UmOPj8XiqHfcGAknEc502ie71I6LtBSDqqCnK5MNg==
   dependencies:
-    "@types/applepayjs" "^3.0.0"
-    "@types/googlepay" "^0.5.0"
+    "@types/applepayjs" "^3.0.1"
+    "@types/googlepay" "^0.5.1"
     classnames "^2.2.6"
     preact "^10.5.5"
 
@@ -682,10 +682,10 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@types/applepayjs@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@types/applepayjs/-/applepayjs-3.0.0.tgz#6222f04699242e645fff76f43ba4a57dc1ff6279"
-  integrity sha512-Sh0UvKsrNK1sdNi+niFTL/QZHFcTQzecX+38ZiZfdognOU31txfHn9bTUb8OW20hgbWm1hRCzi1yiCPMBgApbg==
+"@types/applepayjs@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@types/applepayjs/-/applepayjs-3.0.1.tgz#e6aa0e7a23dda22c99a634998946cde228eb5c71"
+  integrity sha512-zcwMSbo75E7VYi0jAo6rNpl+l4AXL98PCQRJEbUtChcSEiqfX+KFLz5eqaACI8fFx9lF4EjUv0W9XxAZXuMCNg==
 
 "@types/babel__core@^7.0.0":
   version "7.1.9"
@@ -748,10 +748,10 @@
   resolved "https://registry.yarnpkg.com/@types/estree/-/estree-0.0.45.tgz#e9387572998e5ecdac221950dab3e8c3b16af884"
   integrity sha512-jnqIUKDUqJbDIUxm0Uj7bnlMnRm1T/eZ9N+AVMqhPgzrba2GhGG5o/jCTwmdPK709nEZsGoMzXEDUjcXHa3W0g==
 
-"@types/googlepay@^0.5.0":
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/@types/googlepay/-/googlepay-0.5.0.tgz#de1a71636abc6c264d5f06a2fcba2917388c77ff"
-  integrity sha512-sEYrCj6bKS2KodqVantaV8a84d4VU6ujFPBsdEoC61SYo7nEyHdU+eTGmv7u/L7hMjdiDQ81PNVloE4iWheCcg==
+"@types/googlepay@^0.5.1":
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/@types/googlepay/-/googlepay-0.5.1.tgz#a02c65181b09c6a7438626f4dd36527993b39fc5"
+  integrity sha512-6ONa1lKylL4WQr1t+rdV+QI825ugj/VPWDswq7HkPGsgaORbib++NKOPPdTZcP3AYrI8L/3XwUUCe89yKZ1Wow==
 
 "@types/graceful-fs@^4.1.2":
   version "4.1.3"
