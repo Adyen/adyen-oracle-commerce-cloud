@@ -3,9 +3,9 @@
 
 
 "@adyen/api-library@^6.0.1":
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/@adyen/api-library/-/api-library-6.0.1.tgz#4da8891f8b25ac8f5ecb433edbc2a92abfa74914"
-  integrity sha512-uBOoYDoRTVKF1xzpqw2NEFgz1nxHmlvQKmTSOtha7Lj+hBLT2MiIDXrzITBPb0JDQRrbiffYWqLGoPcpENXhUg==
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/@adyen/api-library/-/api-library-6.0.2.tgz#ba4e5f161f811680032e31a955535c34efab4d29"
+  integrity sha512-ZFnEWKXNr3IED+Ma6yiGRbzo1ceTeZiauyAZ/zaAPnxzfJ6ZJJ9Oc5jdt4EK9WWBeL7XyTCFxuJ8Q9MdhPfTFg==
   dependencies:
     https-proxy-agent "5.0.0"
   optionalDependencies:
