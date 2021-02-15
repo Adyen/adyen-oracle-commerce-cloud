@@ -16,7 +16,7 @@
         "chokidar": "3.4.3",
         "concurrently": "5.3.0",
         "coveralls": "3.1.0",
-        "eslint": "7.17.0",
+        "eslint": "7.20.0",
         "eslint-config-prettier": "7.1.0",
         "eslint-plugin-prettier": "3.3.1",
         "husky": "4.3.6",
