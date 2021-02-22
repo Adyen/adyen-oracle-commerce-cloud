@@ -17,7 +17,7 @@
         "concurrently": "5.3.0",
         "coveralls": "3.1.0",
         "eslint": "7.17.0",
-        "eslint-config-prettier": "7.1.0",
+        "eslint-config-prettier": "8.0.0",
         "eslint-plugin-prettier": "3.3.1",
         "husky": "4.3.6",
         "identity-obj-proxy": "3.0.0",
