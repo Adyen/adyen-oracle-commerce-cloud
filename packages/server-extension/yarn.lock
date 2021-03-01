@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@adyen/api-library@^6.0.1":
-  version "6.0.3"
-  resolved "https://registry.yarnpkg.com/@adyen/api-library/-/api-library-6.0.3.tgz#0c449e7fe2796da739c0d61173e03e98dec6882a"
-  integrity sha512-XeTXwMojvB0coqPQS3xKagrcklpgZLKWwmfZshr1OEPt2EFU/R3kpwHKBZqyCr3I5xo0Z6nTfepiyOIHUxFQjw==
+"@adyen/api-library@^7.0.0":
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@adyen/api-library/-/api-library-7.0.0.tgz#8bfcdeaf2513497e91e1d726234d51e90bf6b415"
+  integrity sha512-d/3hrnaErsb5r/vcATJXQMvGx6fR+1ch5SrSmbwjRGCz58m6KU/N4elUmlN16CRRiuoMeDiCXHBSOvbBG6jpgw==
   dependencies:
     https-proxy-agent "5.0.0"
   optionalDependencies:
