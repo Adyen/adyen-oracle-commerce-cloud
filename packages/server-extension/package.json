@@ -32,7 +32,7 @@
     },
     "homepage": "https://github.com/Adyen/adyen-oracle-commerce-cloud#readme",
     "dependencies": {
-        "@adyen/api-library": "^6.0.1",
+        "@adyen/api-library": "^7.0.0",
         "form-data": "^3.0.0",
         "memory-cache": "^0.2.0",
         "ua-parser-js": "^0.7.20"
@@ -40,7 +40,7 @@
     "devDependencies": {
         "body-parser": "latest",
         "express": "latest",
-        "husky": "4.3.6",
+        "husky": "5.1.2",
         "jest": "26.6.3",
         "nconf": "0.11.0",
         "nodemon": "2.0.6",
