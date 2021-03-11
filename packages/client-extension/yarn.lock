@@ -2,15 +2,16 @@
 # yarn lockfile v1
 
 
-"@adyen/adyen-web@4.0.0":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@adyen/adyen-web/-/adyen-web-4.0.0.tgz#8e8754f60432f0bb476b613cf9277913be75b503"
-  integrity sha512-81dOlCDbAIpcHMzz/U954O0mVWbAV3DndxzXlL72F+B0svi8qRHmAWzyezfP9VZ49G65YZSGZNffq1W1BLLylw==
+"@adyen/adyen-web@4.1.0":
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/@adyen/adyen-web/-/adyen-web-4.1.0.tgz#c6c5aa98ef1b57dc640bafd277d07c0f1e296adc"
+  integrity sha512-xXHmt7YDWm8lvc0oL0mE296YBgcYshTBIKtA4L/yEnaRBVzxlnojCJACdT84DtZyiBoK11FjdzRtJ4H0+VY7Rg==
   dependencies:
     "@types/applepayjs" "^3.0.1"
     "@types/googlepay" "^0.5.2"
     classnames "^2.2.6"
     preact "^10.5.12"
+    promise "^8.1.0"
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.10.4":
   version "7.10.4"
@@ -925,6 +926,11 @@ array-unique@^0.3.2:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/array-unique/-/array-unique-0.3.2.tgz#a894b75d4bc4f6cd679ef3244a9fd8f46ae2d428"
   integrity sha1-qJS3XUvE9s1nnvMkSp/Y9Gri1Cg=
+
+asap@~2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/asap/-/asap-2.0.6.tgz#e50347611d7e690943208bbdafebcbc2fb866d46"
+  integrity sha1-5QNHYR1+aQlDIIu9r+vLwvuGbUY=
 
 asn1@~0.2.3:
   version "0.2.4"
@@ -3034,6 +3040,13 @@ pretty-format@^26.6.2:
     ansi-regex "^5.0.0"
     ansi-styles "^4.0.0"
     react-is "^17.0.1"
+
+promise@^8.1.0:
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/promise/-/promise-8.1.0.tgz#697c25c3dfe7435dd79fcd58c38a135888eaf05e"
+  integrity sha512-W04AqnILOL/sPRXziNicCjSNRruLAuIHEOVBazepu0545DDNGYHz7ar9ZgZ1fMU8/MA4mVxp5rkBWRi6OXIy3Q==
+  dependencies:
+    asap "~2.0.6"
 
 prompts@^2.0.1:
   version "2.3.2"
