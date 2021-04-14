@@ -2,16 +2,16 @@
 # yarn lockfile v1
 
 
-"@adyen/adyen-web@4.2.2":
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/@adyen/adyen-web/-/adyen-web-4.2.2.tgz#38fb226864691211d561583f5e8536804f6f128d"
-  integrity sha512-1Zrz9oeCpTtyWNm36Ra7zRvm3E8zwwHENk9DoT7omZzEmlGB1UYE47b7JLJDSEJ3kbIgSY31pP4ZWA5O7NX65A==
+"@adyen/adyen-web@4.2.3":
+  version "4.2.3"
+  resolved "https://registry.yarnpkg.com/@adyen/adyen-web/-/adyen-web-4.2.3.tgz#7aeab0d20c65c32ad4f27c70b910015d22582a81"
+  integrity sha512-Doy2qt2WqdByeNRNKnZ3neIQwiCaR5deA6XgDUbis9bq7IE/nme8A13bEHlV7GsLakJAMhV8/DWopYtaSUJxfQ==
   dependencies:
     "@types/applepayjs" "^3.0.1"
     "@types/googlepay" "^0.5.2"
     classnames "^2.2.6"
+    core-js "^3.10.0"
     preact "^10.5.13"
-    promise "^8.1.0"
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.10.4":
   version "7.10.4"
@@ -927,11 +927,6 @@ array-unique@^0.3.2:
   resolved "https://registry.yarnpkg.com/array-unique/-/array-unique-0.3.2.tgz#a894b75d4bc4f6cd679ef3244a9fd8f46ae2d428"
   integrity sha1-qJS3XUvE9s1nnvMkSp/Y9Gri1Cg=
 
-asap@~2.0.6:
-  version "2.0.6"
-  resolved "https://registry.yarnpkg.com/asap/-/asap-2.0.6.tgz#e50347611d7e690943208bbdafebcbc2fb866d46"
-  integrity sha1-5QNHYR1+aQlDIIu9r+vLwvuGbUY=
-
 asn1@~0.2.3:
   version "0.2.4"
   resolved "https://registry.yarnpkg.com/asn1/-/asn1-0.2.4.tgz#8d2475dfab553bb33e77b54e59e880bb8ce23136"
@@ -1276,6 +1271,11 @@ copy-descriptor@^0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/copy-descriptor/-/copy-descriptor-0.1.1.tgz#676f6eb3c39997c2ee1ac3a924fd6124748f578d"
   integrity sha1-Z29us8OZl8LuGsOpJP1hJHSPV40=
+
+core-js@^3.10.0:
+  version "3.10.1"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.10.1.tgz#e683963978b6806dcc6c0a4a8bd4ab0bdaf3f21a"
+  integrity sha512-pwCxEXnj27XG47mu7SXAwhLP3L5CrlvCB91ANUkIz40P27kUcvNfSdvyZJ9CLHiVoKSp+TTChMQMSKQEH/IQxA==
 
 core-util-is@1.0.2:
   version "1.0.2"
@@ -3040,13 +3040,6 @@ pretty-format@^26.6.2:
     ansi-regex "^5.0.0"
     ansi-styles "^4.0.0"
     react-is "^17.0.1"
-
-promise@^8.1.0:
-  version "8.1.0"
-  resolved "https://registry.yarnpkg.com/promise/-/promise-8.1.0.tgz#697c25c3dfe7435dd79fcd58c38a135888eaf05e"
-  integrity sha512-W04AqnILOL/sPRXziNicCjSNRruLAuIHEOVBazepu0545DDNGYHz7ar9ZgZ1fMU8/MA4mVxp5rkBWRi6OXIy3Q==
-  dependencies:
-    asap "~2.0.6"
 
 prompts@^2.0.1:
   version "2.3.2"
