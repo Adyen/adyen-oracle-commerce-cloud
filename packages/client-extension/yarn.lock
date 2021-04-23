@@ -2,14 +2,14 @@
 # yarn lockfile v1
 
 
-"@adyen/adyen-web@4.2.3":
-  version "4.2.3"
-  resolved "https://registry.yarnpkg.com/@adyen/adyen-web/-/adyen-web-4.2.3.tgz#7aeab0d20c65c32ad4f27c70b910015d22582a81"
-  integrity sha512-Doy2qt2WqdByeNRNKnZ3neIQwiCaR5deA6XgDUbis9bq7IE/nme8A13bEHlV7GsLakJAMhV8/DWopYtaSUJxfQ==
+"@adyen/adyen-web@4.3.1":
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/@adyen/adyen-web/-/adyen-web-4.3.1.tgz#16f9eb99ec3fd2c618020e1de0a75d92f0a668ba"
+  integrity sha512-LCfG+T3zHmr5epahUTu9ZL13xtI2m9tVQ0D9s8S7ZdTZaPBqjeAhbmdUn/f8MctpZGeaJr1sRki2nZp0ZaZ5/A==
   dependencies:
     "@types/applepayjs" "^3.0.1"
     "@types/googlepay" "^0.5.2"
-    classnames "^2.2.6"
+    classnames "^2.3.1"
     core-js "^3.10.0"
     preact "^10.5.13"
 
@@ -1187,10 +1187,10 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
-classnames@^2.2.6:
-  version "2.2.6"
-  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.6.tgz#43935bffdd291f326dad0a205309b38d00f650ce"
-  integrity sha512-JR/iSQOSt+LQIWwrwEzJ9uk0xfN3mTVYMwt1Ir5mUcSN6pU+V4zQFFaJsclJbPuAUQH+yfWef6tm7l1quW3C8Q==
+classnames@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.3.1.tgz#dfcfa3891e306ec1dad105d0e88f4417b8535e8e"
+  integrity sha512-OlQdbZ7gLfGarSqxesMesDa5uz7KFbID8Kpq/SxIoNGDqY8lSYs0D+hhtBXhcdB3rcbXArFr7vlHheLk1voeNA==
 
 cliui@^6.0.0:
   version "6.0.0"
