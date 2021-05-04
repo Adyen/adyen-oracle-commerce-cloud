@@ -2,15 +2,15 @@
 # yarn lockfile v1
 
 
-"@adyen/adyen-web@4.3.1":
-  version "4.3.1"
-  resolved "https://registry.yarnpkg.com/@adyen/adyen-web/-/adyen-web-4.3.1.tgz#16f9eb99ec3fd2c618020e1de0a75d92f0a668ba"
-  integrity sha512-LCfG+T3zHmr5epahUTu9ZL13xtI2m9tVQ0D9s8S7ZdTZaPBqjeAhbmdUn/f8MctpZGeaJr1sRki2nZp0ZaZ5/A==
+"@adyen/adyen-web@4.4.0":
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/@adyen/adyen-web/-/adyen-web-4.4.0.tgz#9abc6352fcb7da7361fe117c2548b9800b981b94"
+  integrity sha512-KuMCIwxM7wNGcmcck/2iHcYwnfAbrVr2GADHyQkDkt81s8cPx4P8pn986yujNo2CDEidmmUCyjH+BaoeQlidug==
   dependencies:
     "@types/applepayjs" "^3.0.1"
     "@types/googlepay" "^0.5.2"
     classnames "^2.3.1"
-    core-js "^3.10.0"
+    core-js "^3.11.1"
     preact "^10.5.13"
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.10.4":
@@ -1272,10 +1272,10 @@ copy-descriptor@^0.1.0:
   resolved "https://registry.yarnpkg.com/copy-descriptor/-/copy-descriptor-0.1.1.tgz#676f6eb3c39997c2ee1ac3a924fd6124748f578d"
   integrity sha1-Z29us8OZl8LuGsOpJP1hJHSPV40=
 
-core-js@^3.10.0:
-  version "3.10.1"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.10.1.tgz#e683963978b6806dcc6c0a4a8bd4ab0bdaf3f21a"
-  integrity sha512-pwCxEXnj27XG47mu7SXAwhLP3L5CrlvCB91ANUkIz40P27kUcvNfSdvyZJ9CLHiVoKSp+TTChMQMSKQEH/IQxA==
+core-js@^3.11.1:
+  version "3.11.2"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.11.2.tgz#af087a43373fc6e72942917c4a4c3de43ed574d6"
+  integrity sha512-3tfrrO1JpJSYGKnd9LKTBPqgUES/UYiCzMKeqwR1+jF16q4kD1BY2NvqkfuzXwQ6+CIWm55V9cjD7PQd+hijdw==
 
 core-util-is@1.0.2:
   version "1.0.2"
