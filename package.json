@@ -27,7 +27,7 @@
         "minimist": "1.2.5",
         "nock": "13.0.11",
         "node-fetch": "2.6.1",
-        "prettier": "2.2.1",
+        "prettier": "2.3.0",
         "rollup": "2.47.0",
         "rollup-plugin-babel": "4.4.0",
         "rollup-plugin-cleanup": "3.2.1",
