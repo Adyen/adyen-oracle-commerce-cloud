@@ -42,7 +42,7 @@
         "express": "latest",
         "husky": "6.0.0",
         "jest": "27.2.0",
-        "nconf": "0.11.2",
+        "nconf": "0.11.3",
         "nodemon": "2.0.7",
         "winston": "^3.3.3"
     },
