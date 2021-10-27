@@ -2,15 +2,15 @@
 # yarn lockfile v1
 
 
-"@adyen/adyen-web@4.5.0":
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/@adyen/adyen-web/-/adyen-web-4.5.0.tgz#abac3d44f4d1ab4f5497286f18cc7c29b95ab0f6"
-  integrity sha512-2CDuZ5vhxxdfwl4zMI6T8SQB0/S0m6Ot3UxeFGEy4/fTPrUys06lMiIY6SfFUXErr7VQ09haaQbnlXyp2hRfBQ==
+"@adyen/adyen-web@5.1.0":
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/@adyen/adyen-web/-/adyen-web-5.1.0.tgz#1dff3fa04a9903e9d59c8022c3a2c379a09083e5"
+  integrity sha512-E0PzncshQIHcx9xfsEC9AVLlgzL5c6ZPjk1+dIvDOszTaZr23w6UAAVBoRPEcYGToNJrcLKPnbLXhFpWgJpkBg==
   dependencies:
-    "@types/applepayjs" "^3.0.1"
-    "@types/googlepay" "^0.5.2"
+    "@types/applepayjs" "^3.0.2"
+    "@types/googlepay" "^0.6.2"
     classnames "^2.3.1"
-    core-js "^3.12.1"
+    core-js "^3.18.1"
     preact "^10.5.13"
 
 "@babel/code-frame@^7.10.4":
@@ -889,10 +889,10 @@
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-1.1.2.tgz#ccb91445360179a04e7fe6aff78c00ffc1eeaf82"
   integrity sha512-RbzJvlNzmRq5c3O09UipeuXno4tA1FE6ikOjxZK0tuxVv3412l64l5t1W5pj4+rJq9vpkm/kwiR07aZXnsKPxw==
 
-"@types/applepayjs@^3.0.1":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@types/applepayjs/-/applepayjs-3.0.1.tgz#e6aa0e7a23dda22c99a634998946cde228eb5c71"
-  integrity sha512-zcwMSbo75E7VYi0jAo6rNpl+l4AXL98PCQRJEbUtChcSEiqfX+KFLz5eqaACI8fFx9lF4EjUv0W9XxAZXuMCNg==
+"@types/applepayjs@^3.0.2":
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/@types/applepayjs/-/applepayjs-3.0.2.tgz#9de0543627f445d7a767003ec7f9264e17e9bc5b"
+  integrity sha512-rxw8jS/eDZ3ceBGThboHrB+TFbwrqGhOMRXSQjNBfxtQorK/mc9Xmu2JSKT5yqrJkQaZT/podzhm8OOdVI+Dow==
 
 "@types/babel__core@^7.0.0":
   version "7.1.9"
@@ -955,10 +955,10 @@
   resolved "https://registry.yarnpkg.com/@types/estree/-/estree-0.0.45.tgz#e9387572998e5ecdac221950dab3e8c3b16af884"
   integrity sha512-jnqIUKDUqJbDIUxm0Uj7bnlMnRm1T/eZ9N+AVMqhPgzrba2GhGG5o/jCTwmdPK709nEZsGoMzXEDUjcXHa3W0g==
 
-"@types/googlepay@^0.5.2":
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/@types/googlepay/-/googlepay-0.5.2.tgz#4b37d2420a2717eb4735c01bcc128b6cb782f4e5"
-  integrity sha512-pVVacSkEomv63fwdR2euC15bt75pMbNEpfzWyChOwzzDRhWjQH6IZkFM0zGUU5IqSt3phFLsE9v5Epqx8OT+fA==
+"@types/googlepay@^0.6.2":
+  version "0.6.3"
+  resolved "https://registry.yarnpkg.com/@types/googlepay/-/googlepay-0.6.3.tgz#4e716556b904c9af5263255bf872b81ee4073d4d"
+  integrity sha512-mA9d9UoSAKbfcP3xYvTtpyBTxFytu1bwjquy8oZdZPG8z0xnfQwtmTI4F44ptyz8OBWiCmvBj8QR0Rb2D/hQXg==
 
 "@types/graceful-fs@^4.1.2":
   version "4.1.3"
@@ -1355,10 +1355,10 @@ convert-source-map@^1.4.0, convert-source-map@^1.6.0, convert-source-map@^1.7.0:
   dependencies:
     safe-buffer "~5.1.1"
 
-core-js@^3.12.1:
-  version "3.12.1"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.12.1.tgz#6b5af4ff55616c08a44d386f1f510917ff204112"
-  integrity sha512-Ne9DKPHTObRuB09Dru5AjwKjY4cJHVGu+y5f7coGn1E9Grkc3p2iBwE9AI/nJzsE29mQF7oq+mhYYRqOMFN1Bw==
+core-js@^3.18.1:
+  version "3.19.0"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.19.0.tgz#9e40098a9bc326c7e81b486abbd5e12b9d275176"
+  integrity sha512-L1TpFRWXZ76vH1yLM+z6KssLZrP8Z6GxxW4auoCj+XiViOzNPJCAuTIkn03BGdFe6Z5clX5t64wRIRypsZQrUg==
 
 cross-spawn@^7.0.3:
   version "7.0.3"
