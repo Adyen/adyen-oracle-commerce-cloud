@@ -1,6 +1,6 @@
 # Adyen Oracle Commerce Cloud
-[![Build Status](https://travis-ci.org/Adyen/adyen-oracle-commerce-cloud.svg?branch=master)](https://travis-ci.org/Adyen/adyen-oracle-commerce-cloud)
-[![Coverage Status](https://coveralls.io/repos/github/Adyen/adyen-oracle-commerce-cloud/badge.svg?branch=master)](https://coveralls.io/github/Adyen/adyen-oracle-commerce-cloud?branch=master)
+[![Build Status](https://travis-ci.org/Adyen/adyen-oracle-commerce-cloud.svg?branch=main)](https://travis-ci.org/Adyen/adyen-oracle-commerce-cloud)
+[![Coverage Status](https://coveralls.io/repos/github/Adyen/adyen-oracle-commerce-cloud/badge.svg?branch=main)](https://coveralls.io/github/Adyen/adyen-oracle-commerce-cloud?branch=main)
 ![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/Adyen/adyen-oracle-commerce-cloud).   
   
 Plugin for Oracle Commerce Cloud to allow merchants to use Adyen as payment platform.
